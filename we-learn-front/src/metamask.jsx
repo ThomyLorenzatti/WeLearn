@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styles from "./metamask.css";
+import axios from 'axios'
 
 async function connect(onConnected) {
   if (!window.ethereum) {
     alert("Get MetaMask!");
+    console.log("WOOOOOOOOOOOOW");
     return;
   }
 
@@ -40,9 +42,7 @@ export default function MetaMaskAuth({ onAddressChanged }) {
   }, [userAddress]);
 
   return userAddress ? (
-    <div>
-      Connected with <Address userAddress={userAddress} />
-    </div>
+    <Address userAddress={userAddress} />
   ) : (
      <Connect setUserAddress={setUserAddress}/>
   );
@@ -57,8 +57,28 @@ function Connect({ setUserAddress }) {
   );
 }
 
-function Address({ userAddress }) {
+async function Address(userAddress) {
+  console.log(userAddress.userAddress);
+  try {
+    var nb_lrn = await axios.post("http://10.101.49.122:8080/wallet_info", { params: { wallet: userAddress.userAddress } })
+  } catch (err) {
+    console.log(err);
+  }
+  var nb_bnb = 2;
+  var nb_lrn = 2;
+
   return (
-    <span className={styles.address}>{userAddress.substring(0, 5)}…{userAddress.substring(userAddress.length - 4)}</span>
+    <>
+      <span className="nav-tokens">
+        {nb_lrn} LRN
+      </span>
+      <span className="nav-tokens">
+        {nb_bnb}
+        <img className="nav-tokens-img"
+          src="./src/images/bnb.png"
+          alt="BNB"      
+          />
+      </span>
+    </>
   );
 }
