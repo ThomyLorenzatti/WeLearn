@@ -2,7 +2,7 @@
   "name": "ReplitReactjsProject",
   "version": "0.0.1",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host=0.0.0.0",
     "build": "vite build",
     "serve": "vite preview"
   },
@@ -10,12 +10,12 @@
     "@types/react": "^17.0.13",
     "@types/react-dom": "^17.0.8",
     "@vitejs/plugin-react-refresh": "^1.3.0",
+    "axios": "^0.27.2",
     "classnames": "^2.3.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.3.1",
     "react-router-dom": "^6.3.0",
-    "sass": "^1.51.0",
     "vite": "^2.3.8"
   }
 }

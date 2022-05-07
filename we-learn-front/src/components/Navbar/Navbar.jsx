@@ -9,11 +9,9 @@ import { IconContext } from 'react-icons/lib';
 import { GiChessKing } from 'react-icons/gi';
 
 function Navbar() {
-  // init click to false and button to true
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
 
-  // depending on window size, sets button value
   const showButton = () => {
     setButton(true)
   }
@@ -22,7 +20,6 @@ function Navbar() {
     showButton();
   }, {});
 
-  // when window resizing, checks if it has to show button or not
   window.addEventListener('resize', showButton);
 
   // change state of click when clicked
@@ -43,18 +40,13 @@ function Navbar() {
             </div>
             <ul className={click ? 'nav-menu active' : 'nav-menu'}>
               <li className="nav-item">
-                <Link to='/' className='nav-links' onClick={closeMobileMenu}>
-                  Home
-                </Link>
-              </li>
-              <li className="nav-item">
                 <Link to='/profile' className='nav-links' onClick={closeMobileMenu}>
-                  Profile
+                  Create formation
                 </Link>
               </li>
               <li className="nav-item">
                 <Link to='/projects' className='nav-links' onClick={closeMobileMenu}>
-                  Projects
+                  competences checker
                 </Link>
               </li>
               <li className="nav-links">
