@@ -24,7 +24,9 @@ function Navbar() {
 
   // change state of click when clicked
   const handleClick = () => setClick(!click);
-  const closeMobileMenu = () => setClick(false)
+  const closeMobileMenu = () => setClick(false);
+  var nb_lrn = 200;
+  var nb_bnb = 2;
 
   return (
     <>
@@ -48,6 +50,16 @@ function Navbar() {
                 <Link to='/projects' className='nav-links' onClick={closeMobileMenu}>
                   competences checker
                 </Link>
+              </li>
+              <li className="nav-tokens">
+                {nb_lrn} LRN
+              </li>
+              <li className="nav-tokens">
+                {nb_bnb}
+                <img className="nav-tokens-img"
+                  src="./src/images/bnb.png"
+                  alt="BNB"      
+                />
               </li>
               <li className="nav-links">
                 <MetaMaskAuth onAddressChanged={address => {}} />
