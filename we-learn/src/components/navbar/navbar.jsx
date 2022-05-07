@@ -15,11 +15,7 @@ function Navbar() {
 
   // depending on window size, sets button value
   const showButton = () => {
-    if (window.innerWidth <= 960) {
-      setButton(false)
-    } else {
-      setButton(true)
-    }
+    setButton(true)
   }
 
   useEffect(() => {
@@ -60,7 +56,7 @@ function Navbar() {
                   Projects
                 </Link>
               </li>
-              <li className=",av-btn">
+              <li className="nav-links">
                 <MetaMaskAuth onAddressChanged={address => {}} />
               </li>
             </ul>
