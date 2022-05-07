@@ -4,7 +4,7 @@ import { MdAddShoppingCart, MdShoppingCart } from 'react-icons/md';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { Button } from '../button/button.jsx';
 import MetaMaskAuth from '../../metamask.jsx';
-import './navbar.css';
+import './Navbar.css';
 import { IconContext } from 'react-icons/lib';
 import { GiChessKing } from 'react-icons/gi';
 
@@ -35,7 +35,8 @@ function Navbar() {
         <div className="navbar">
           <div className="navbar-container container">
             <Link to='/' className="navbar-logo" onClick={closeMobileMenu}>
-                WeLearn
+                <span className="navbar-logotext1">We</span>
+                <span className="navbar-logotext2">Learn</span>
             </Link>
             <div className="menu-icon" onClick={handleClick}>
               {click ? <FaTimes /> : <FaBars />}

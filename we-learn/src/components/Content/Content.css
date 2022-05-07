@@ -1,0 +1,11 @@
+.content {
+  background-color: aliceblue;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.content-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

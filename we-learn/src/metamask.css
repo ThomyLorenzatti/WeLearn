@@ -5,6 +5,7 @@
   outline: none;
   color: rgb(255, 255, 255);
   background: #111;
+  font-weight: 700;
   cursor: pointer;
   position: relative;
   z-index: 0;

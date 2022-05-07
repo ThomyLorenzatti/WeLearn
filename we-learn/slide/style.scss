@@ -1,0 +1,339 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
+  background: #000;
+}
+
+$numOfParts: 4;
+$animTime: 1s;
+$stagger: 0.08s;
+$sliderReadyTrans: all $animTime/2 $animTime;
+$maxLettersStagger: 6;
+$letterStagger: 0.1s;
+
+.slider {
+  overflow: hidden;
+  position: relative;
+  height: 100vh;
+  color: #fff;
+  
+  @mixin sliderReady {
+    .slider.s--ready & {
+      @content;
+    }
+  }
+
+  &__top-heading {
+    z-index: $numOfParts*3;
+    position: absolute;
+    left: 0;
+    top: 100px;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    transition: $sliderReadyTrans;
+    transform: translateY(-30px);
+    opacity: 0;
+    
+    @include sliderReady {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  &__slides {
+    position: relative;
+    height: 100%;
+  }
+
+  &__slide {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+
+    &.s--active {
+      pointer-events: auto;
+    }
+    
+    @mixin slidePrev {
+      .slider__slide.s--prev & {
+        @content;
+      }
+    }
+
+    @mixin slideActive {
+      .slider__slide.s--active & {
+        @content;
+      }
+    }
+
+    &-content {
+      z-index: $numOfParts + 2;;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100%;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+    
+    @mixin subTextsActiveSlide {
+      opacity: 0;
+      transition: $animTime/2;
+      
+      @include slideActive {
+        transition-delay: $animTime*0.65;
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    &-subheading {
+      margin-bottom: 20px;
+      font-size: 24px;
+      letter-spacing: 2px;
+      transform: translateY(20px);
+      
+      @include subTextsActiveSlide;
+    }
+
+    &-heading {
+      $fontSize: 60px;
+      
+      display: flex;
+      margin-bottom: 20px;
+      font-size: $fontSize;
+      letter-spacing: 12px;
+      
+      span {
+        display: block;
+        opacity: 0;
+        transform: translateY($fontSize*-1);
+        transition: all $animTime/3;
+        
+        @include slidePrev {
+          transform: translateY($fontSize)
+        }
+        
+        @include slideActive {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        
+        @for $i from 1 through $maxLettersStagger {
+          &:nth-child(#{$i}) {
+            $delay: $letterStagger * ($i - 1);
+            
+            transition-delay: $delay;
+            
+            @include slideActive {
+              transition-delay: $delay + $animTime/3;
+            }
+          }
+        }
+        
+        &:nth-child(n+#{$maxLettersStagger + 1}) {
+          $delay: $letterStagger * $maxLettersStagger;
+          
+          transition-delay: $delay;
+          
+          @include slideActive {
+            transition-delay: $delay + $animTime/3;
+          }
+        }
+      }
+    }
+
+    &-readmore {
+      position: relative;
+      font-size: 14px;
+      text-transform: lowercase;
+      backface-visibility: hidden;
+      transform: translateY(-20px);
+      cursor: pointer;
+      
+      @include subTextsActiveSlide;
+      
+      &:before {
+        content: '';
+        position: absolute;
+        left: -2px;
+        top: -3px;
+        width: calc(100% + 4px);
+        height: calc(100% + 6px);
+        background: rgba(255,255,255,0.4);
+        transform: scaleX(0.3);
+        transform-origin: 0 50%;
+        transition: transform 0.3s;
+      }
+      
+      &:hover:before {
+        transform: scaleX(1);
+      }
+    }
+
+    &-parts {
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: flex;
+      width: 100%;
+      height: 100%;
+      
+      &:after {
+        content: '';
+        z-index: $numOfParts + 1;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.1);
+      }
+    }
+
+    &-part {
+      $partW: (100vw / $numOfParts);
+      
+      position: relative;
+      width: percentage(1 / $numOfParts);
+      height: 100%;
+      
+      $partRef: &;
+      $imageFadeAT: $animTime/4;
+
+      &-inner {
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background-size: 0 0;
+        background-repeat: no-repeat;
+        transition: transform $animTime/2 ease-in-out;
+
+        &:before {
+          content: '';
+          position: absolute;
+          width: 100vw;
+          height: 100%;
+          background-image: inherit;
+          background-size: cover;
+          background-position: center center;
+          transition: opacity $imageFadeAT;
+          opacity: 0;
+        }
+
+        @for $i from 1 through $numOfParts {
+          #{$partRef}:nth-child(#{$i}) & {
+            $delayOut: ($numOfParts - $i) * $stagger;
+            $delayIn: $i * $stagger + $animTime/5;
+            
+            z-index: $numOfParts - $i;
+            transition-delay: $delayOut;
+            transform: translateX(percentage($i / $numOfParts * -1.3));
+            
+            @include slideActive {
+              transition-delay: $delayIn;
+            }
+
+            &:before {
+              left: $partW * ($i - 1) * -1;
+              transition-delay: $delayOut + $imageFadeAT/2;
+              
+              @include slideActive {
+                transition-delay: $delayIn;
+              }
+            }
+          }
+        }
+        
+        @include slideActive {
+          transform: translateX(0);
+          transition-timing-function: ease;
+          
+          &:before {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+  
+  &__control {
+    $size: 50px;
+    
+    z-index: 100;
+    position: absolute;
+    left: 50px;
+    top: 50%;
+    width: $size;
+    height: $size;
+    margin-top: $size/-2;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.4);
+    transform: translateX($size*-1);
+    opacity: 0;
+    transition: $sliderReadyTrans;
+    cursor: pointer;
+    
+    &:before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 20px;
+      height: 20px;
+      margin-left: -10px;
+      margin-top: -10px;
+      border: 2px solid #000;
+      border-bottom: none;
+      border-right: none;
+      transform: translateX(5px) rotate(-45deg);
+    }
+    
+    &--right {
+      left: auto;
+      right: 50px;
+      transform: translateX($size);
+      
+      &:before {
+        transform: translateX(-5px) rotate(135deg);
+      }
+    }
+    
+    @include sliderReady {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+}
+
+.icon-link {
+  z-index: 100;
+  position: absolute;
+  left: 5px;
+  bottom: 5px;
+  width: 32px;
+
+  img {
+    width: 100%;
+    vertical-align: top;
+  }
+
+  &--twitter {
+    left: auto;
+    right: 5px;
+  }
+}
