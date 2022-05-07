@@ -28,7 +28,6 @@ async function checkIfWalletIsConnected(onConnected) {
   }
 }
 
-
 export default function MetaMaskAuth({ onAddressChanged }) {
   const [userAddress, setUserAddress] = useState("");
 
