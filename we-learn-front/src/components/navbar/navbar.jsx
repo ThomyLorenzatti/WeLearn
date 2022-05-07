@@ -24,7 +24,9 @@ function Navbar() {
 
   // change state of click when clicked
   const handleClick = () => setClick(!click);
-  const closeMobileMenu = () => setClick(false)
+  const closeMobileMenu = () => setClick(false);
+  var nb_lrn = 200;
+  var nb_bnb = 2;
 
   return (
     <>
@@ -48,12 +50,16 @@ function Navbar() {
                   competences checker
                 </Link>
               </li>
-<<<<<<< HEAD:we-learn-front/src/components/navbar/navbar.jsx
-=======
-              <li className="nav-links">
-                <MetaMaskAuth onAddressChanged={address => {}} />
+              <li className="nav-tokens">
+                {nb_lrn} LRN
               </li>
->>>>>>> 223352945ee4a449b00117aec0e7f93e8434408e:we-learn/src/components/navbar/navbar.jsx
+              <li className="nav-tokens">
+                {nb_bnb}
+                <img className="nav-tokens-img"
+                  src="./src/images/bnb.png"
+                  alt="BNB"      
+                />
+              </li>
             </ul>
             <MetaMaskAuth onAddressChanged={address => {}} />
           </div>
