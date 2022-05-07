@@ -1,7 +1,7 @@
 .navbar {
     background: linear-gradient(90deg, #1c2237 0%, #1c2237 100%);
     height: 80px;
-    width: 100%;
+    width: 100vw;
     display: flex;
     align-items: center;
     font-size: 1.2rem;
