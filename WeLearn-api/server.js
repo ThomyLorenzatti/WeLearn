@@ -32,8 +32,6 @@ app.post("/create-formation", async (req, res) => {
 
     const http = axios.create({ baseURL: "https://api.starton.io/v2", headers: {"x-api-key": 'BCyavFNFISpxz6F2QYvFFkjOHAsg2w0X',},})
 
-    // create smart contract nft
-    nft_contract = "oui"
     let scRes = await http.post('/smart-contract/from-template', {
         network: "binance-testnet",
         signerWallet: "0x22D901E22203673903263E363062e6759E0632C8",
@@ -51,10 +49,10 @@ app.post("/create-formation", async (req, res) => {
         console.log(err)
     });
 
+    nft_collection_contract = "oui"
+    // create smart contract nft
+    nft_certif_contract = "oui"
     console.log(scRes.data)
-
-    ntt_contract = "oui"
-    // create smart contract ntt
 
     knex('formation').insert({
         name: formation_name,
