@@ -51,9 +51,8 @@ export default function MetaMaskAuth({ onAddressChanged }) {
 
 
 function Connect({ setUserAddress }) {
-
   return (
-    <button className={styles.button} onClick={() => connect(setUserAddress)}>
+    <button class="button-metamask" onClick={() => connect(setUserAddress)}>
       Connect to MetaMask
     </button>
   );

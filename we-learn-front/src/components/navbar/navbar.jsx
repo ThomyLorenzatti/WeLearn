@@ -13,11 +13,7 @@ function Navbar() {
   const [button, setButton] = useState(true);
 
   const showButton = () => {
-    if (window.innerWidth <= 960) {
-      setButton(false)
-    } else {
-      setButton(true)
-    }
+    setButton(true)
   }
 
   useEffect(() => {
@@ -52,6 +48,12 @@ function Navbar() {
                   competences checker
                 </Link>
               </li>
+<<<<<<< HEAD:we-learn-front/src/components/navbar/navbar.jsx
+=======
+              <li className="nav-links">
+                <MetaMaskAuth onAddressChanged={address => {}} />
+              </li>
+>>>>>>> 223352945ee4a449b00117aec0e7f93e8434408e:we-learn/src/components/navbar/navbar.jsx
             </ul>
             <MetaMaskAuth onAddressChanged={address => {}} />
           </div>
