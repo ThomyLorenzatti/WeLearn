@@ -71,14 +71,12 @@ function Connect({ setUserAddress }) {
     );
   }
 
-  
   return (
     <button className={styles.button} onClick={() => connect(setUserAddress)}>
       Connect to MetaMask
     </button>
   );
 }
-
 
 function Address({ userAddress }) {
   return (

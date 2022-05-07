@@ -1,16 +1,18 @@
-import React from 'react';
 import './App.css';
+import React from 'react';
 import MetaMaskAuth from "./metamask";
-import MetaMaskLogo from "./favicon.svg"
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from './components/navbar/navbar.jsx';
 
 function App() {
   return (
-    <main>
-      <div className="logoContainer">
-        <img src={MetaMaskLogo} height={90}/>
-      </div>
-      <MetaMaskAuth onAddressChanged={address => {}}/>
-    </main>
+    <Router>
+      <Navbar />
+      {/* <Routes>
+        <Route path='/' exact component={Home} />
+      </Routes> */}
+      <MetaMaskAuth onAddressChanged={address => {}} />
+    </Router>
   );
 }
 
