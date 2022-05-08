@@ -2,7 +2,7 @@ import React from 'react';
 import './LessonContent.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-
+import { ethers } from "ethers";
 const API = import.meta.env.VITE_REACT_URL
 
 async function connect() {
@@ -13,8 +13,9 @@ async function connect() {
   return accounts[0];
 }
 
-function makeTransaction(wallet_creator) {
-  console.log("WOOOOW");
+function makeTransaction(wallet_creator, price, form_id, buyer_wallet) {
+  if (wallet_creator === undefined)
+    return;
   var contractAddress = "0xb622d957Feb979b1E70D5e797C3A0eeE13BD5202";
   var targetAddress = wallet_creator;
   var contractAbiFragment = [
@@ -36,15 +37,27 @@ function makeTransaction(wallet_creator) {
         "payable" : false
     }
   ];
-  return;
 
   const provider = new ethers.providers.Web3Provider(web3.currentProvider);
   const signer = provider.getSigner();
   var contract = new ethers.Contract(contractAddress, contractAbiFragment, signer);
   var numberOfDecimals = 18;
-  var numberOfTokens = ethers.utils.parseUnits('1.0', numberOfDecimals);
+  price = price.toString() + ".0";
+  var numberOfTokens = ethers.utils.parseUnits('10.0', numberOfDecimals);
+  console.log(numberOfTokens)
   contract.transfer(targetAddress, numberOfTokens).then(function(tx) {
       console.log(tx);
+  });
+
+  console.log(buyer_wallet)
+  axios({
+    method: 'post',
+    url: API + '/buy_formation',
+    headers: {}, 
+    data: {
+      formation_id: form_id,
+      buyer_wallet: buyer_wallet,
+    }
   });
 }
 
@@ -84,7 +97,7 @@ export default class LessonContent extends React.Component {
             <p class="article-buy">{this.state.lessonInfos.formation_name}</p>
             <p class="article-buy2">{this.state.lessonInfos.price} LRN</p>
           </div>
-          <button class="button-metamask buy" onClick={() => makeTransaction("")}>
+          <button class="button-metamask buy" onClick={() => makeTransaction(this.state.lessonInfos.wallet_creator, this.state.lessonInfos.price, this.state.lessonInfos.id, this.state.lessonInfos.user)}>
             Buy Formation
           </button>
       </div>
