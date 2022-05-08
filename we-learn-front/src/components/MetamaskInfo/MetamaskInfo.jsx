@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios'
 
-const API = 'http://10.101.49.122:8080'
+const API = import.meta.env.VITE_REACT_URL
 
 class Address extends React.Component {
 

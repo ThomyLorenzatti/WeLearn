@@ -1,7 +1,8 @@
 import React from 'react';
 import './Secret.css';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+
+const API = import.meta.env.VITE_REACT_URL
 
 export default class Secret extends React.Component {
   constructor() {
@@ -22,7 +23,7 @@ export default class Secret extends React.Component {
   sendRequest = () => {
     axios({
       method: 'post',
-      url: 'http://10.101.49.122:8080' + '/secret',
+      url: API + '/secret',
       headers: {}, 
       data: {
         destination_wallet: this.state.address,
@@ -32,7 +33,7 @@ export default class Secret extends React.Component {
   }
 
   testfunction = () => {
-    
+
   }
 
   render() {
