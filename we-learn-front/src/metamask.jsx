@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./metamask.css";
 import axios from 'axios'
+import { GiSleepy } from "react-icons/gi";
 
 async function connect(onConnected) {
   if (!window.ethereum) {
@@ -59,11 +60,17 @@ function Connect({ setUserAddress }) {
 
 async function Address(userAddress) {
   console.log(userAddress.userAddress);
-  try {
-    var nb_lrn = await axios.post("http://10.101.49.122:8080/wallet_info", { params: { wallet: userAddress.userAddress } })
-  } catch (err) {
-    console.log(err);
-  }
+
+  axios.get(
+    `http://localhost:8080/wallet_info?wallet=${userAddress.userAddress}`
+  )
+  .then(function(response) {
+    console.log(response);
+  })
+  .catch(function(error) {
+    console.log(error);
+  });
+
   var nb_bnb = 2;
   var nb_lrn = 2;
 

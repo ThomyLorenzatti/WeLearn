@@ -69,25 +69,21 @@ app.post("/create-formation", async (req, res) => {
 });
 
 app.get('/wallet_info', async (req, res) => {
-    wallet = req.body.wallet
-    console.log(req.body)
+    wallet = req.query.wallet
     if (!wallet) {
         res.send("Missing parameters")
         return
     }
-    console.log(wallet)
-    res.send("oui")
-    // const http = axios.create({ baseURL: "https://api.starton.io/v2", headers: {"x-api-key": 'BCyavFNFISpxz6F2QYvFFkjOHAsg2w0X',},})
-    // let scRes = await http.post('/smart-contract/binance-testnet/0xb622d957Feb979b1E70D5e797C3A0eeE13BD5202/read',
-    // {
-    //     "functionName": 'balanceOf',
-    //     "params": [wallet],
-    // })
-    // let bnbRes = await http.get(`/wallet/${wallet}/binance-testnet/balance`)
-    // lrn = parseFloat(scRes.data.response.raw / (10**18)).toFixed(3)
-    // bnb = parseFloat(bnbRes.data.balance.raw / (10**18)).toFixed(3)
-    // res.send({bnb: bnb.toString(), lrn: lrn.toString()})
-    console.log("oui")
+    const http = axios.create({ baseURL: "https://api.starton.io/v2", headers: {"x-api-key": 'BCyavFNFISpxz6F2QYvFFkjOHAsg2w0X',},})
+    let scRes = await http.post('/smart-contract/binance-testnet/0xb622d957Feb979b1E70D5e797C3A0eeE13BD5202/read',
+    {
+        "functionName": 'balanceOf',
+        "params": [wallet],
+    })
+    let bnbRes = await http.get(`/wallet/${wallet}/binance-testnet/balance`)
+    lrn = parseFloat(scRes.data.response.raw / (10**18)).toFixed(3)
+    bnb = parseFloat(bnbRes.data.balance.raw / (10**18)).toFixed(3)
+    res.send({bnb: bnb.toString(), lrn: lrn.toString()})
 });
 
 app.listen(PORT, () => {
