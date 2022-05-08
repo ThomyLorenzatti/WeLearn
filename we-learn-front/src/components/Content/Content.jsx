@@ -45,7 +45,7 @@ function CitiesSlider(props) {
 
   return (
     React.createElement("div", { className: classNames('slider', { 's--ready': sliderReady }) }, 
-    React.createElement("p", { className: "slider__top-heading" }, "Travelers"), 
+    React.createElement("p", { className: "slider__top-heading" }, "Decentralized Formation Platform"), 
     React.createElement("div", { className: "slider__slides" },
     props.slides.map((slide, index) => 
     React.createElement("div", {
@@ -66,9 +66,9 @@ function CitiesSlider(props) {
 
 const slides = [
 {
-  city: 'Paris',
-  country: 'France',
-  img: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/paris.jpg' },
+  city: ':man_shrugging:',
+  country: 'What is WeLearn?',
+  img: 'https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/wp-content/uploads/2021/04/defi.jpeg' },
 
 {
   city: 'Singapore',
