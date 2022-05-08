@@ -1,19 +1,31 @@
-# pull official base image
-FROM node:13.12.0-alpine
+FROM node:alpine
 
-# set working directory
-WORKDIR /we-learn-front
+WORKDIR /we-learn-front/
 
-# add `/we-learn-front/node_modules/.bin` to $PATH
-ENV PATH /we-learn-front/node_modules/.bin:$PATH
+COPY we-learn-front/package.json ./
+COPY we-learn-front/ ./
 
-# install app dependencies
-COPY /we-learn-front/package.json ./
-COPY /we-learn-front/package-lock.json ./
-RUN npm install --silent
+RUN npm i
 
-# add app
-COPY . ./
+WORKDIR /WeLearn-api/
 
-# start app
-CMD ["npm", "run", "dev"]
+COPY WeLearn-api/package.json ./
+COPY WeLearn-api/ ./
+
+RUN npm i
+
+WORKDIR /
+COPY start.sh ./start.sh
+
+run chmod +x start.sh
+run ./start.sh
+
+WORKDIR /we-learn-front/
+
+run ls 
+# WORKDIR /WeLearn-api/
+# CMD ["npm", "start"]
+
+# COPY start.sh ./start.sh
+
+# CMD ["./start.sh"]
