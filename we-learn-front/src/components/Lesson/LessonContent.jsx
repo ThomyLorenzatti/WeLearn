@@ -3,7 +3,7 @@ import './LessonContent.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-const API = 'http://10.101.49.122:8080'
+const API = import.meta.env.VITE_REACT_URL
 
 async function connect() {
   const accounts = await window.ethereum.request({
