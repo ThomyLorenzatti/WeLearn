@@ -13,6 +13,41 @@ async function connect() {
   return accounts[0];
 }
 
+function makeTransaction(wallet_creator) {
+  console.log("WOOOOW");
+  var contractAddress = "0xb622d957Feb979b1E70D5e797C3A0eeE13BD5202";
+  var targetAddress = wallet_creator;
+  var contractAbiFragment = [
+    {
+        "name" : "transfer",
+        "type" : "function",
+        "inputs" : [
+          {
+              "name" : "_to",
+              "type" : "address"
+          },
+          {
+              "type" : "uint256",
+              "name" : "_tokens"
+          }
+        ],
+        "constant" : false,
+        "outputs" : [],
+        "payable" : false
+    }
+  ];
+  return;
+
+  const provider = new ethers.providers.Web3Provider(web3.currentProvider);
+  const signer = provider.getSigner();
+  var contract = new ethers.Contract(contractAddress, contractAbiFragment, signer);
+  var numberOfDecimals = 18;
+  var numberOfTokens = ethers.utils.parseUnits('1.0', numberOfDecimals);
+  contract.transfer(targetAddress, numberOfTokens).then(function(tx) {
+      console.log(tx);
+  });
+}
+
 export default class LessonContent extends React.Component {
   constructor(props) {
     super();
@@ -39,39 +74,6 @@ export default class LessonContent extends React.Component {
       console.log(this.state.lessonInfos);
   }
 
-  testfunction = (wallet_creator) => {
-    var contractAddress = "0xb622d957Feb979b1E70D5e797C3A0eeE13BD5202";
-    var targetAddress = wallet_creator;
-    var contractAbiFragment = [
-      {
-          "name" : "transfer",
-          "type" : "function",
-          "inputs" : [
-            {
-                "name" : "_to",
-                "type" : "address"
-            },
-            {
-                "type" : "uint256",
-                "name" : "_tokens"
-            }
-          ],
-          "constant" : false,
-          "outputs" : [],
-          "payable" : false
-      }
-    ];
-    return;
-
-    const provider = new ethers.providers.Web3Provider(web3.currentProvider);
-    const signer = provider.getSigner();
-    var contract = new ethers.Contract(contractAddress, contractAbiFragment, signer);
-    var numberOfDecimals = 18;
-    var numberOfTokens = ethers.utils.parseUnits('1.0', numberOfDecimals);
-    contract.transfer(targetAddress, numberOfTokens).then(function(tx) {
-        console.log(tx);
-    });
-  }
 
   render() {
     if (this.state.lessonInfos.bought == false) {
@@ -82,7 +84,7 @@ export default class LessonContent extends React.Component {
             <p class="article-buy">{this.state.lessonInfos.formation_name}</p>
             <p class="article-buy2">{this.state.lessonInfos.price} LRN</p>
           </div>
-          <button class="button-metamask buy" onClick={this.testfunction("")}>
+          <button class="button-metamask buy" onClick={() => makeTransaction("")}>
             Buy Formation
           </button>
       </div>
