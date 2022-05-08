@@ -1,3 +1,6 @@
 .env
 node_modules
 package-lock.json
+*.vsls
+welearn.sql
+metadata.json
