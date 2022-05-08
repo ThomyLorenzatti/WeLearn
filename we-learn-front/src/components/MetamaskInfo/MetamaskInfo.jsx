@@ -24,7 +24,10 @@ class Address extends React.Component {
       return (
         <>
         <span className="nav-tokens">
-          {this.state.nb_lrn} LRN
+          {this.state.nb_lrn}
+        </span>
+        <span className="nav-tokens-unit">
+          LRN
         </span>
         <span className="nav-tokens">
           {this.state.nb_bnb}
