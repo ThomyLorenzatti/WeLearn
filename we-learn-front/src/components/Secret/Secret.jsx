@@ -31,6 +31,10 @@ export default class Secret extends React.Component {
     });
   }
 
+  testfunction = () => {
+    
+  }
+
   render() {
     return (
       <div class="login-box">
@@ -51,6 +55,13 @@ export default class Secret extends React.Component {
             <span></span>
               Send
           </Link>
+          <div class="btn" onClick={this.sendRequest}>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+              Test
+          </div>
       </form>
       </div>
     );
