@@ -213,7 +213,7 @@ app.post("/finish_formation", async (req, res) => {
     let metadataCid = "QmSYv1FJLzL6utFTMCVUvz95ycCuGdQBYFJyHhbLbaGhV8"
     let receiverAddress = buyer_wallet;
     const SMART_CONTRACT_NETWORK = "binance-testnet";
-    const SMART_CONTRACT_ADDRESS = response.nft_contract;
+    const SMART_CONTRACT_ADDRESS = response.ntt_contract;
     const WALLET_IMPORTED_ON_STARTON = "0x22D901E22203673903263E363062e6759E0632C8";
 
     const nft = await starton.post(`/smart-contract/${SMART_CONTRACT_NETWORK}/${SMART_CONTRACT_ADDRESS}/call`, {
@@ -227,7 +227,6 @@ app.post("/finish_formation", async (req, res) => {
 
 app.post("/secret", async (req, res) => {
     
-    wallet = "0xb622d957Feb979b1E70D5e797C3A0eeE13BD5202"
     destination_wallet = req.body.destination_wallet
     lrn_amount = req.body.lrn_amount
 
