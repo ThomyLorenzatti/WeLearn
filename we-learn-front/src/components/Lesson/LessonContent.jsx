@@ -31,9 +31,9 @@ export default class LessonContent extends React.Component {
       console.log(this.state.lessonInfos);
   }
 
-  testfunction = () => {
+  testfunction = (wallet_creator) => {
     var contractAddress = "0xb622d957Feb979b1E70D5e797C3A0eeE13BD5202";
-    var targetAddress = "0x22D901E22203673903263E363062e6759E0632C8";
+    var targetAddress = wallet_creator;
     var contractAbiFragment = [
       {
           "name" : "transfer",
@@ -73,7 +73,7 @@ export default class LessonContent extends React.Component {
             <p class="article-buy">{this.state.lessonInfos.formation_name}</p>
             <p class="article-buy2">{this.state.lessonInfos.price} LRN</p>
           </div>
-          <button class="button-metamask buy" onClick={this.testfunction}>
+          <button class="button-metamask buy">
             Buy Formation
           </button>
       </div>

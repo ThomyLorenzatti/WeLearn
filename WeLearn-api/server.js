@@ -18,7 +18,7 @@ require('dotenv').config()
 const knex = require('knex')({
     client: 'mysql',
     connection: {
-        host     : process.env.host,
+        host     : process.env.db_host,
         user     : process.env.db_user,
         password : process.env.db_password,
         database : process.env.db_name
@@ -148,7 +148,7 @@ app.post("/get_formation", async (req, res) => {
     wallet = req.body.wallet
     bought = false
 
-    let data = await knex('formation').select('nft_contract', 'name', 'price', 'content', 'question1', 'question2', 'answer1', 'answer2').where('id', formation_id).first().catch(err => {
+    let data = await knex('formation').select('wallet_creator', 'nft_contract', 'name', 'price', 'content', 'question1', 'question2', 'answer1', 'answer2').where('id', formation_id).first().catch(err => {
         res.send(err)
         return
     });
@@ -157,6 +157,7 @@ app.post("/get_formation", async (req, res) => {
     }
     
     data = {
+        wallet_creator: data.wallet_creator,
         bought: bought,
         formation_name: data.name,
         price: data.price,
