@@ -24,7 +24,7 @@ function Navbar() {
 
   // change state of click when clicked
   const handleClick = () => setClick(!click);
-  const closeMobileMenu = () => setClick(false)
+  const closeMobileMenu = () => setClick(false);
 
   return (
     <>
@@ -46,7 +46,7 @@ function Navbar() {
               </li>
               <li className="nav-item">
                 <Link to='/projects' className='nav-links' onClick={closeMobileMenu}>
-                  competences checker
+                  My Certificates
                 </Link>
               </li>
               <li className="nav-links">
