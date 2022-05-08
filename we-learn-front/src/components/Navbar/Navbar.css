@@ -177,3 +177,27 @@
     margin-left: -10%;
   }
 }
+
+.navbar-logotext1 {
+  font-family: "Public Sans Bold", Gadget, sans-serif;
+  font-size: 40px;
+  letter-spacing: -1.2px;
+  word-spacing: 2px;
+  color: #A6E1FA;
+  font-weight: 900;
+  text-decoration: none;
+  font-style: normal;
+  font-variant: normal;
+}
+
+.navbar-logotext2 {
+  font-family: "Public Sans Bold", Gadget, sans-serif;
+  font-size: 40px;
+  letter-spacing: -1.2px;
+  word-spacing: 2px;
+  font-weight: 900;
+  text-decoration: none;
+  font-style: normal;
+  font-variant: normal;
+  color: #CB6CE6;
+}

@@ -92,8 +92,6 @@ const slides = [
   
 function Content() {
     const Slider = React.createElement(CitiesSlider, { slides: slides });
-    const test = React.createElement('h1', {}, 'test');
-    console.log(test)
   return (Slider);
 }
 
