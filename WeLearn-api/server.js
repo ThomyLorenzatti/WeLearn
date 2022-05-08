@@ -152,9 +152,9 @@ app.post("/submit_quizz", async (req, res) => {
 app.post("/get_formation", async (req, res) => {
     formation_id = req.body.formation_id
     wallet = req.body.wallet
-    bought = true
+    bought = false
 
-    let data = await knex('formation').select('wallet_creator', 'nft_contract', 'name', 'price', 'content', 'question1', 'question2', 'answer1', 'answer2').where('id', formation_id).first().catch(err => {
+    let data = await knex('formation').select('id', 'wallet_creator', 'nft_contract', 'name', 'price', 'content', 'question1', 'question2', 'answer1', 'answer2').where('id', formation_id).first().catch(err => {
         res.send(err)
         return
     });
@@ -163,6 +163,7 @@ app.post("/get_formation", async (req, res) => {
     }
     
     data = {
+        id: data.id,
         wallet_creator: data.wallet_creator,
         bought: bought,
         formation_name: data.name,
@@ -171,8 +172,10 @@ app.post("/get_formation", async (req, res) => {
         question1: data.question1,
         question2: data.question2,
         answer1: data.answer1,
-        answer2: data.answer2
+        answer2: data.answer2,
+        user: wallet
     }
+    console.log(data)
     res.send(data)
 });
 

@@ -1,5 +1,5 @@
 .navbar {
-  background: linear-gradient(90deg, #001458 0%, #1c2237 100%);
+  background: linear-gradient(90deg, #001a74 0%, #1c2237 100%);
   height: 80px;
   width: 100vw;
   display: flex;
@@ -8,6 +8,7 @@
   position: sticky;
   top: 0;
   z-index: 999;
+  box-shadow: 0 10px 9px -4px #CB6CE6;
 }
 
 .navbar-container {
