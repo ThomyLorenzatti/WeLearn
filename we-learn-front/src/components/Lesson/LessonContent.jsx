@@ -48,9 +48,9 @@ export default class LessonContent extends React.Component {
             <p class="article-buy">{this.state.lessonInfos.formation_name}</p>
             <p class="article-buy2">{this.state.lessonInfos.price} LRN</p>
           </div>
-          <button class="button-metamask buy" onClick={() => connect(setUserAddress)}>
-              Buy Formation
-            </button>
+          <button class="button-metamask buy">
+            Buy Formation
+          </button>
       </div>
     )
     } else {
