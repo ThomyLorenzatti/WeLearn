@@ -34,7 +34,6 @@ export default class Secret extends React.Component {
   }
 
   testfunction = () => {
-    console.log("oui")
     var contractAddress = "0xb622d957Feb979b1E70D5e797C3A0eeE13BD5202";
     var targetAddress = "0x22D901E22203673903263E363062e6759E0632C8";
     var contractAbiFragment = [

@@ -4,6 +4,8 @@ const app = express();
 const PORT = 8080;
 const axios = require('axios').default;
 const FormData = require("form-data");
+const { response } = require("express");
+
 const starton = axios.create({
     baseURL: "https://api.starton.io/v2",
     headers: {
@@ -26,6 +28,11 @@ const knex = require('knex')({
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+function hasNFTFormation(wallet, contract_formation) {
+    
+    
+}
 
 app.post("/create-formation", async (req, res) => {
     wallet = req.body.wallet
@@ -128,20 +135,53 @@ app.post("/get_formation", async (req, res) => {
     formation_id = req.body.formation_id
     wallet = req.body.wallet
 
+    let data = await knex('formation').select('name', 'price', 'content', 'question1', 'question2', 'answer1', 'answer2').where('id', formation_id).first().catch(err => {
+        res.send(err)
+        return
+    });
+
     data = {
         buyed: false,
-        formation_name: "Ceci est le nom",
-        price: 0,
-        content: "Ceci est une super formation",
-        question1: "question1",
-        question2: "question2",
-        answer1: "answer1",
-        answer2: "answer2"
+        formation_name: data.name,
+        price: data.price,
+        content: data.content,
+        question1: data.question1,
+        question2: data.question2,
+        answer1: data.answer1,
+        answer2: data.answer2
     }
     res.send(data)
 });
 
 app.post("/buy_formation", async (req, res) => {
+
+    formation_id = req.body.formation_id
+    buyer_wallet = req.body.buyer_wallet
+
+    let response = await knex('formation').select('price', 'nft_contract', 'wallet_creator').where('id', formation_id).first().catch(err => {
+        res.send(err)
+    });
+    if (!response) {
+        res.send("No formation found with this id.")
+        return
+    }
+    
+    let metadataCid = "QmSYv1FJLzL6utFTMCVUvz95ycCuGdQBYFJyHhbLbaGhV8"
+    let receiverAddress = buyer_wallet;
+    const SMART_CONTRACT_NETWORK = "binance-testnet";
+    const SMART_CONTRACT_ADDRESS = response.nft_contract;
+    const WALLET_IMPORTED_ON_STARTON = "0x22D901E22203673903263E363062e6759E0632C8";
+
+    const nft = await starton.post(`/smart-contract/${SMART_CONTRACT_NETWORK}/${SMART_CONTRACT_ADDRESS}/call`, {
+        functionName: "safeMint",
+        signerWallet: WALLET_IMPORTED_ON_STARTON,
+        speed: "low",
+        params: [receiverAddress, metadataCid],
+    });
+    res.send("Formation bought !")
+});
+
+app.post("/finish_formation", async (req, res) => {
 
     formation_id = req.body.formation_id
     buyer_wallet = req.body.buyer_wallet
