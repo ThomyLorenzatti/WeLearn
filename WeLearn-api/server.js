@@ -29,10 +29,16 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-function hasNFTFormation(wallet, contract_formation) {
-    
-    
-}
+async function hasNFTFormation(wallet, contract_formation) {
+    const nft = await starton.post(`/smart-contract/binance-testnet/${contract_formation}/read`, {
+        functionName: "balanceOf",
+        params: [wallet]
+    });
+
+    if (nft.data.response.raw != 0)
+        return true;
+    return false;
+};
 
 app.post("/create-formation", async (req, res) => {
     wallet = req.body.wallet
@@ -112,6 +118,7 @@ app.get('/wallet_info', async (req, res) => {
         res.send("Missing parameters")
         return
     }
+
     const http = axios.create({ baseURL: "https://api.starton.io/v2", headers: {"x-api-key": 'BCyavFNFISpxz6F2QYvFFkjOHAsg2w0X',},})
     let scRes = await http.post('/smart-contract/binance-testnet/0xb622d957Feb979b1E70D5e797C3A0eeE13BD5202/read',
     {
@@ -119,6 +126,11 @@ app.get('/wallet_info', async (req, res) => {
         "params": [wallet],
     })
     let bnbRes = await http.get(`/wallet/${wallet}/binance-testnet/balance`)
+
+    if (!bnbRes) {
+        rescape.status(400).send("Wallet does not exists")
+    }
+
     lrn = parseFloat(scRes.data.response.raw / (10**18)).toFixed(3)
     bnb = parseFloat(bnbRes.data.balance.raw / (10**18)).toFixed(3)
     res.send({bnb: bnb.toString(), lrn: lrn.toString()})
@@ -134,14 +146,18 @@ app.post("/submit_quizz", async (req, res) => {
 app.post("/get_formation", async (req, res) => {
     formation_id = req.body.formation_id
     wallet = req.body.wallet
+    bought = false
 
-    let data = await knex('formation').select('name', 'price', 'content', 'question1', 'question2', 'answer1', 'answer2').where('id', formation_id).first().catch(err => {
+    let data = await knex('formation').select('nft_contract', 'name', 'price', 'content', 'question1', 'question2', 'answer1', 'answer2').where('id', formation_id).first().catch(err => {
         res.send(err)
         return
     });
-
+    if (await hasNFTFormation(wallet, data.nft_contract)) {
+        bought = true
+    }
+    
     data = {
-        buyed: false,
+        bought: bought,
         formation_name: data.name,
         price: data.price,
         content: data.content,
