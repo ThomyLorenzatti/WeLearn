@@ -2,6 +2,7 @@ import React from 'react'
 import './index.css'
 import App from './App'
 import FormPage from './FormPage'
+import Formation from './Formation'
 import { render } from "react-dom";
 import {
   BrowserRouter,
@@ -15,6 +16,7 @@ render(
     <Routes>
       <Route path="/" element={<App />} />
       <Route path="/create-formation" element={<FormPage />} />
+      <Route path="/formations" element={<Formation />} />
     </Routes>
   </BrowserRouter>,
   rootElement

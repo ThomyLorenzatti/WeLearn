@@ -1,5 +1,5 @@
 .navbar {
-  background: linear-gradient(90deg, #1c2237 0%, #1c2237 100%);
+  background: linear-gradient(90deg, #001458 0%, #1c2237 100%);
   height: 80px;
   width: 100vw;
   display: flex;
@@ -192,7 +192,7 @@
   font-size: 40px;
   letter-spacing: -1.2px;
   word-spacing: 2px;
-  color: #A6E1FA;
+  color: #797cff;
   font-weight: 900;
   text-decoration: none;
   font-style: normal;

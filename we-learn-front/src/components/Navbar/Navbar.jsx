@@ -66,7 +66,7 @@ function Navbar() {
       <IconContext.Provider value={{ color: '#fff'}}>
         <div className="navbar">
           <div className="navbar-container container">
-            <Link to='/' className="navbar-logo" onClick={closeMobileMenu}>
+            <Link to='/' className="navbar-logo">
                 <span className="navbar-logotext1">We</span>
                 <span className="navbar-logotext2">Learn</span>
             </Link>
@@ -75,13 +75,13 @@ function Navbar() {
             </div>
             <ul className={click ? 'nav-menu active' : 'nav-menu'}>
               <li className="nav-item">
-                <Link to='/create-formation' className='nav-links' onClick={closeMobileMenu}>
+                <Link to='/create-formation' className='nav-links'>
                   Create formation
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to='/projects' className='nav-links' onClick={closeMobileMenu}>
-                  My Certificates
+                <Link to='/formations' className='nav-links'>
+                  Formations
                 </Link>
               </li>
               <li className="nav-links">
