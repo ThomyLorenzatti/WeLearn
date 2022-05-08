@@ -41,6 +41,10 @@ html {
   pointer-events: none;
 }
 
+.img-a {
+  background-color: #222;
+}
+
 .blog-card .blog-table {
   padding: 15px 30px;
 }
@@ -59,8 +63,15 @@ html {
   color: rgb(255, 0, 242) !important;
 }
 
+.card-price {
+  font-family: sans-serif !important;
+  color: #000;
+  margin-left: 5vw;
+}
+
 .blog-card-blog .blog-card-caption {
   margin-top: 5px;
+  font-family: sans-serif;
 }
 
 .blog-card-caption {
@@ -107,6 +118,8 @@ p {
 
 .blog-card .ftr .author {
   color: #888;
+  display: flex;
+  align-items: center;
 }
 
 .blog-card .ftr div {
