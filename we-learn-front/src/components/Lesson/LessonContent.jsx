@@ -5,6 +5,14 @@ import { Link } from 'react-router-dom';
 
 const API = import.meta.env.VITE_REACT_URL
 
+async function connect() {
+  const accounts = await window.ethereum.request({
+    method: "eth_requestAccounts",
+  });
+
+  return accounts[0];
+}
+
 export default class LessonContent extends React.Component {
   constructor(props) {
     super();
@@ -29,39 +37,6 @@ export default class LessonContent extends React.Component {
         this.setState({ lessonInfos: res.data })
       });
       console.log(this.state.lessonInfos);
-  }
-
-  testfunction = (wallet_creator) => {
-    var contractAddress = "0xb622d957Feb979b1E70D5e797C3A0eeE13BD5202";
-    var targetAddress = wallet_creator;
-    var contractAbiFragment = [
-      {
-          "name" : "transfer",
-          "type" : "function",
-          "inputs" : [
-            {
-                "name" : "_to",
-                "type" : "address"
-            },
-            {
-                "type" : "uint256",
-                "name" : "_tokens"
-            }
-          ],
-          "constant" : false,
-          "outputs" : [],
-          "payable" : false
-      }
-    ];
-
-    const provider = new ethers.providers.Web3Provider(web3.currentProvider);
-    const signer = provider.getSigner();
-    var contract = new ethers.Contract(contractAddress, contractAbiFragment, signer);
-    var numberOfDecimals = 18;
-    var numberOfTokens = ethers.utils.parseUnits('1.0', numberOfDecimals);
-    contract.transfer(targetAddress, numberOfTokens).then(function(tx) {
-        console.log(tx);
-    });
   }
 
   render() {
