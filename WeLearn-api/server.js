@@ -33,11 +33,17 @@ async function hasNFTFormation(wallet, contract_formation) {
     const nft = await starton.post(`/smart-contract/binance-testnet/${contract_formation}/read`, {
         functionName: "balanceOf",
         params: [wallet]
+    }).catch(err => {
     });
 
-    if (nft.data.response.raw != 0)
-        return true;
+    try {
+        if (nft.data.response.raw != 0)
+            return true;
+    } catch {
+        return false;
+    }
     return false;
+
 };
 
 app.post("/create-formation", async (req, res) => {
@@ -146,7 +152,7 @@ app.post("/submit_quizz", async (req, res) => {
 app.post("/get_formation", async (req, res) => {
     formation_id = req.body.formation_id
     wallet = req.body.wallet
-    bought = false
+    bought = true
 
     let data = await knex('formation').select('wallet_creator', 'nft_contract', 'name', 'price', 'content', 'question1', 'question2', 'answer1', 'answer2').where('id', formation_id).first().catch(err => {
         res.send(err)
