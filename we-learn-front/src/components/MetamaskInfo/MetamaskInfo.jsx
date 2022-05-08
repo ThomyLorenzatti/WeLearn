@@ -32,7 +32,7 @@ class Address extends React.Component {
         <span className="nav-tokens">
           {this.state.nb_bnb}
           <img className="nav-tokens-img"
-            src="./src/images/bnb.png"
+            src="/src/images/bnb.png"
             alt="BNB"      
             />
         </span>
