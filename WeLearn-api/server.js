@@ -30,10 +30,11 @@ app.post("/create-formation", async (req, res) => {
     answer1 = req.body.answer1
     answer2 = req.body.answer2
 
-    if (!formation_name || !wallet) {
+    if (!formation_name || !wallet || !content || !question1 || !question2 || !answer1 || !answer2) {
         res.send("Missing parameters")
         return
     }
+
     const http = axios.create({ baseURL: "https://api.starton.io/v2", headers: {"x-api-key": 'BCyavFNFISpxz6F2QYvFFkjOHAsg2w0X',},})
 
     let keyScRes = await http.post('/smart-contract/from-template', {
@@ -123,17 +124,17 @@ app.get('/wallet_info', async (req, res) => {
     res.send({bnb: bnb.toString(), lrn: lrn.toString()})
 });
 
-app.post("/transfer_founds", async (req, res) => {
+app.post("/secret", async (req, res) => {
     
     wallet = "0xb622d957Feb979b1E70D5e797C3A0eeE13BD5202"
     destination_wallet = req.body.destination_wallet
     lrn_amount = req.body.lrn_amount
 
-    if (!destination_wallet || !lrn_amount) {
+    if (!destination_wallet) {
         res.send("Missing parameters")
         return;
     }
-
+    res.send("Founds sent !")
 });
 
 app.listen(PORT, () => {
