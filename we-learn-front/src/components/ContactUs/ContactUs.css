@@ -1,4 +1,8 @@
-form { max-width:580px; margin:50px auto; }
+form {
+  max-width:580px;
+  margin:50px auto;
+  margin-top: 100px;
+}
 
 .feedback-input {
   color:white;
@@ -6,7 +10,7 @@ form { max-width:580px; margin:50px auto; }
   font-weight:500;
   font-size: 18px;
   border-radius: 5px;
-  line-height: 22px;
+  line-height: 35px;
   background-color: transparent;
   border:2px solid #CB6CE6;
   transition: all 0.3s;
@@ -20,7 +24,7 @@ form { max-width:580px; margin:50px auto; }
 .feedback-input:focus { border:2px solid #CC4949; }
 
 textarea {
-  height: 150px;
+  height: 200px;
   line-height: 150%;
   resize:vertical;
 }
