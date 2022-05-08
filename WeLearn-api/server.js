@@ -137,6 +137,12 @@ app.post("/secret", async (req, res) => {
     res.send("Founds sent !")
 });
 
+app.get('/formations', async (req, res) => {
+    let response = knex.select("*").from("formation")
+
+    console.log(response.data)
+});
+
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
 });

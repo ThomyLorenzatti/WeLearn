@@ -1,1 +1,1 @@
-require('dotenv').config()
+setInterval(function () {document.getElementById("skipButton").click();}, 4000);
