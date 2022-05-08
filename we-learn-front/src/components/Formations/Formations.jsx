@@ -2,7 +2,7 @@ import React from 'react';
 import './Formations.css';
 import axios from 'axios';
 
-const API = 'http://localhost:8080'
+const API = import.meta.env.VITE_REACT_URL
 
 export default class Formations extends React.Component {
   constructor() {
