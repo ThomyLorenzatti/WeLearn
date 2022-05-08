@@ -73,6 +73,13 @@ function Navbar() {
             <div className="menu-icon" onClick={handleClick}>
               {click ? <FaTimes /> : <FaBars />}
             </div>
+            <button
+              type="button"
+              class="button-metamask"
+              onClick={(e) => {
+                e.preventDefault();
+                window.location.href='https://welearn-1.gitbook.io/welearn';
+                }}>Whitepaper</button>
             <ul className={click ? 'nav-menu active' : 'nav-menu'}>
               <li className="nav-item">
                 <Link to='/create-formation' className='nav-links'>

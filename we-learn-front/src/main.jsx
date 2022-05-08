@@ -5,6 +5,7 @@ import FormPage from './FormPage'
 import Lesson from './Lesson'
 import Formation from './Formation'
 import SecretPage from './Secret'
+import QuizEnd from './QuizEnd'
 import { render } from "react-dom";
 import {
   BrowserRouter,
@@ -21,6 +22,7 @@ render(
       <Route path="/formations" element={<Formation />} />
       <Route path="/lesson/:id" element={<Lesson />} />
       <Route path="/secret" element={<SecretPage />} />
+      <Route path="/final-quiz/:id" element={<QuizEnd />} />
     </Routes>
   </BrowserRouter>,
   rootElement

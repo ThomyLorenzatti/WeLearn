@@ -3,6 +3,8 @@ import './Form.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+const API = import.meta.env.VITE_REACT_URL
+
 async function connect() {
   const accounts = await window.ethereum.request({
     method: "eth_requestAccounts",
@@ -58,7 +60,7 @@ export default class Form extends React.Component {
       wallet = r;
       axios({
         method: 'post',
-        url: 'http://10.101.49.122:8080' + '/create-formation',
+        url: API + '/create-formation',
         headers: {}, 
         data: {
           wallet: wallet,
