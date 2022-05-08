@@ -87,6 +87,11 @@ function Navbar() {
                 }}>Whitepaper</button>
             <ul className={click ? 'nav-menu active' : 'nav-menu'}>
               <li className="nav-item">
+                <Link to='/contact' className='nav-links'>
+                  Contact Us
+                </Link>
+              </li>
+              <li className="nav-item">
                 <Link to='/create-formation' className='nav-links'>
                   Create formation
                 </Link>
@@ -124,6 +129,11 @@ function Navbar() {
                 window.location.href='https://welearn-1.gitbook.io/welearn';
                 }}>Whitepaper</button>
             <ul className={click ? 'nav-menu active' : 'nav-menu'}>
+              <li className="nav-item">
+                <Link to='/contact' className='nav-links'>
+                  Contact Us
+                </Link>
+              </li>
               {/* <li className="nav-item">
                 <Link to='/profile' className='nav-links' onClick={closeMobileMenu}>
                   Publish Formation

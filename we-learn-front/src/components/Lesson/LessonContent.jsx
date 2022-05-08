@@ -40,7 +40,7 @@ export default class LessonContent extends React.Component {
   }
 
   render() {
-    if (this.state.lessonInfos.buyed == false) {
+    if (this.state.lessonInfos.bought == false) {
       return (
         <div class="article">
           <h1 class="article-title">You need to buy this formation to see it !</h1>
