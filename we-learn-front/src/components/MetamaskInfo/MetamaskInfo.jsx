@@ -19,7 +19,7 @@ class Address extends React.Component {
            this.setState({ nb_lrn : res.data.lrn, nb_bnb : res.data.bnb })
         })
     }
-  
+
     render() {
       return (
         <>

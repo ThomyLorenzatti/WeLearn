@@ -91,19 +91,6 @@ app.post("/create-formation", async (req, res) => {
         res.send(err)
     });
 
-    // async function mintNft(receiverAddress, metadataCid) {
-    //     const nft = await starton.post(`/smart-contract/binance-testnet/${nft_contract}/call`,
-    // {
-    //     functionName: "mint",
-    //     signerWallet: wallet,
-    //     speed: "low",
-    //     params: [
-    //         receiverAddress, metadataCid
-    //     ],
-    // });
-    //     return nft.data;
-    // }
-
 });
 
 app.get('/wallet_info', async (req, res) => {
@@ -124,6 +111,65 @@ app.get('/wallet_info', async (req, res) => {
     res.send({bnb: bnb.toString(), lrn: lrn.toString()})
 });
 
+app.post("/submit_quizz", async (req, res) => {
+    formation_id = req.body.formation_id
+    buyer_wallet = req.body.buyer_wallet
+
+    res.send("quizz submitted")
+});
+
+app.post("/get_formation", async (req, res) => {
+    formation_id = req.body.formation_id
+    wallet = req.body.wallet
+
+    data = {
+        buyed: false,
+        formation_name: "name",
+        price: 0,
+        content: "content",
+        question1: "question1",
+        question2: "question2",
+        answer1: "answer1",
+        answer2: "answer2"
+    }
+    res.send(data)
+});
+
+app.post("/buy_formation", async (req, res) => {
+    formation_id = req.body.formation_id
+    buyer_wallet = req.body.buyer_wallet
+    creator_wallet = req.body.creator_wallet
+
+    wallet_info = axios.get(`wallet_info?wallet=${buyer_wallet}`)
+
+    // check funds of buyer
+
+    let response = knex('formation').select('price', 'nft_contract', 'wallet_creator').where('id', formation_id)
+
+    console.log("price: ", response.data.price)
+    console.log("nft addr: ", response.data.nft_contract)
+    console.log("wallet creator: ", response.data.wallet_creator)
+
+    console.log(wallet_info)
+    // async function mintNft(receiverAddress, metadataCid) {
+    //     const nft = await starton.post(`/smart-contract/binance-testnet/${nft_contract}/call`,
+    // {
+    //     functionName: "mint",
+    //     signerWallet: wallet,
+    //     speed: "low",
+    //     params: [
+    //         buyer_wallet,
+    //         formation_id,
+    //         metadataCid,
+
+    //     ],
+    // });
+    //     return nft.data;
+    // }
+
+    res.send("Formation bought !")
+});
+
 app.post("/secret", async (req, res) => {
     
     wallet = "0xb622d957Feb979b1E70D5e797C3A0eeE13BD5202"
@@ -134,13 +180,23 @@ app.post("/secret", async (req, res) => {
         res.send("Missing parameters")
         return;
     }
+    const http = axios.create({ baseURL: "https://api.starton.io/v2", headers: {"x-api-key": 'BCyavFNFISpxz6F2QYvFFkjOHAsg2w0X',},})
+    await http.post('/smart-contract/binance-testnet/0xb622d957Feb979b1E70D5e797C3A0eeE13BD5202/call', {
+        "functionName": 'transfer',
+        "signerWallet": '0x22D901E22203673903263E363062e6759E0632C8',
+        "speed": "low",
+        "params": [
+            destination_wallet,
+            lrn_amount + "000000000000000000"
+        ],
+    }).catch((err) => { console.log(err) });
     res.send("Founds sent !")
 });
 
 app.get('/formations', async (req, res) => {
-    let response = knex.select("*").from("formation")
-
-    console.log(response.data)
+    knex('formation').select('*').then(function(datas){
+        res.send(datas)
+    });
 });
 
 app.listen(PORT, () => {

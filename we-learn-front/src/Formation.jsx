@@ -6,10 +6,10 @@ import Formations from './components/Formations/Formations.jsx';
 
 function Formation() {
   return (
-    <div>
+    <>
       <Navbar />
       <Formations />
-    </div>
+    </>
   );
 }
 
