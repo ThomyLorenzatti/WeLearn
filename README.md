@@ -68,6 +68,10 @@ Une fois que les utilisateurs finissent leur formation, ils pourront alors faire
 
 Si nécessaire, lire le GitBook accessible depuis la page d'acceuil du site web.
 
+Vous pouvez vous donner des tokens LRN pour tester l'application en allant sur la route `/secret`. Ils vous suffit de rentrer l'adresse de votre Wallet et le nombre de tokens.
+
+Vidéo : https://www.youtube.com/watch?v=aNOYfKv-ieY
+
 (exemple: Loom , 4 minutes max)*.
 
 ## Présentation du Vendredi 13 Mai (4 minutes) 
