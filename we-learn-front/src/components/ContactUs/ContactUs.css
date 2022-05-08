@@ -29,7 +29,7 @@ textarea {
   resize:vertical;
 }
 
-[type="submit"] {
+[type="submit1"] {
   font-family: 'Montserrat', Arial, Helvetica, sans-serif;
   width: 100%;
   background:#CB6CE6;
@@ -43,5 +43,6 @@ textarea {
   transition: all 0.3s;
   margin-top:-4px;
   font-weight:700;
+  text-align: center;
 }
-[type="submit"]:hover { background:#CC4949; }
+[type="submit1"]:hover { background:#797cff; }
