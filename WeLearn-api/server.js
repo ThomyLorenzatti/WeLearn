@@ -32,16 +32,16 @@ app.post("/create-formation", async (req, res) => {
 
     const http = axios.create({ baseURL: "https://api.starton.io/v2", headers: {"x-api-key": 'BCyavFNFISpxz6F2QYvFFkjOHAsg2w0X',},})
 
-    let scRes = await http.post('/smart-contract/from-template', {
+    let keyScRes = await http.post('/smart-contract/from-template', {
         network: "binance-testnet",
         signerWallet: "0x22D901E22203673903263E363062e6759E0632C8",
         templateId: "sct_d4c1d5f2ed6f44d185bfb60eee2dbcaf",
-        name: formation_name,
+        name: formation_name + " - Key",
         description: "Nft mintor for " + formation_name,
         params: [
             "Test",
-            "TST",
-            "cid",
+            "ipfs://ipfs/",
+            "QmYLR4ATgcf7wyNsqKty5yoWXQKXNXL1oqfEvSemYAcAb2",
             "0x22D901E22203673903263E363062e6759E0632C8"
         ],
         speed: "fast"
@@ -49,10 +49,25 @@ app.post("/create-formation", async (req, res) => {
         console.log(err)
     });
 
-    nft_collection_contract = "oui"
-    // create smart contract nft
-    nft_certif_contract = "oui"
-    console.log(scRes.data)
+    let certifScRes = await http.post('/smart-contract/from-template', {
+        network: "binance-testnet",
+        signerWallet: "0x22D901E22203673903263E363062e6759E0632C8",
+        templateId: "sct_d4c1d5f2ed6f44d185bfb60eee2dbcaf",
+        name: formation_name + " - Certificate",
+        description: "Nft certificate for " + formation_name,
+        params: [
+            "Test",
+            "ipfs://ipfs/",
+            "QmYLR4ATgcf7wyNsqKty5yoWXQKXNXL1oqfEvSemYAcAb2",
+            "0x22D901E22203673903263E363062e6759E0632C8"
+        ],
+        speed: "fast"
+    }).catch(err => {
+        console.log(err)
+    });
+
+    nft_contract = keyScRes.data.smartContract.address
+    ntt_contract = certifScRes.data.smartContract.address
 
     knex('formation').insert({
         name: formation_name,
@@ -64,6 +79,19 @@ app.post("/create-formation", async (req, res) => {
     }).catch((err) => {
         res.send(err)
     });
+
+    async function mintNft(receiverAddress, metadataCid) {
+        const nft = await starton.post(`/smart-contract/binance-testnet/${nft_contract}/call`,
+    {
+        functionName: "mint",
+        signerWallet: wallet,
+        speed: "low",
+        params: [
+            receiverAddress, metadataCid
+        ],
+    });
+        return nft.data;
+    }
 
 });
 
