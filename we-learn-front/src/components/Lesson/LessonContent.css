@@ -1,0 +1,58 @@
+.article {
+  display: grid;
+}
+
+.article-img {
+  width: 80%;
+  /* max-height: 300px; */
+  object-fit: cover;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+}
+
+.article-title {
+  color: #FFF;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 40px;
+  font-weight: bold;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+}
+
+.article-content {
+  font-family: 'Helvetica Neue', sans-serif;
+  color:#FFF;
+  margin-top: 30px;
+  margin-left: 50px;
+}
+
+.article-buy {
+  font-family: 'Helvetica Neue', sans-serif;
+  margin-left: -30px;
+  font-size: 30px;
+  color:#FFF;
+}
+
+.article-buy2 {
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 30px;
+  margin-left: 30px;
+  color:#FFF;
+}
+
+.buy-div {
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+}
+
+.buy {
+  margin-left: auto;
+  margin-top: 50px;
+  margin-right: auto;
+  font-size: 50px;
+}
