@@ -128,7 +128,7 @@ app.get('/wallet_info', async (req, res) => {
     let bnbRes = await http.get(`/wallet/${wallet}/binance-testnet/balance`)
 
     if (!bnbRes) {
-        rescape.status(400).send("Wallet does not exists")
+        res.status(400).send("Wallet does not exists")
     }
 
     lrn = parseFloat(scRes.data.response.raw / (10**18)).toFixed(3)
