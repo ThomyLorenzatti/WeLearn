@@ -44,13 +44,13 @@ export default class Secret extends React.Component {
           <input type="number" name="" required="" value={this.state.number} onChange={this.handleChangeNumber}/>
           <label>Number of Learn</label>
         </div>
-          <div class="btn" onClick={this.sendRequest}>
+          <Link to='/' className="btn" onClick={this.sendRequest}>
             <span></span>
             <span></span>
             <span></span>
             <span></span>
               Send
-          </div>
+          </Link>
       </form>
       </div>
     );
