@@ -5,6 +5,10 @@ import './Navbar.css';
 import { IconContext } from 'react-icons/lib';
 import Address from '../MetamaskInfo/MetamaskInfo.jsx'
 
+const gitbookStyle = {
+  marginLeft: '2%'
+};
+
 async function connect(onConnected) {
   if (!window.ethereum) {
     alert("Get MetaMask!");
@@ -73,7 +77,20 @@ function Navbar() {
             <div className="menu-icon" onClick={handleClick}>
               {click ? <FaTimes /> : <FaBars />}
             </div>
+            <button
+              type="button"
+              style={gitbookStyle}
+              class="button-metamask"
+              onClick={(e) => {
+                e.preventDefault();
+                window.location.href='https://welearn-1.gitbook.io/welearn';
+                }}>Whitepaper</button>
             <ul className={click ? 'nav-menu active' : 'nav-menu'}>
+              <li className="nav-item">
+                <Link to='/contact' className='nav-links'>
+                  Contact Us
+                </Link>
+              </li>
               <li className="nav-item">
                 <Link to='/create-formation' className='nav-links'>
                   Create formation
@@ -103,7 +120,20 @@ function Navbar() {
             <div className="menu-icon" onClick={handleClick}>
               {click ? <FaTimes /> : <FaBars />}
             </div>
+            <button
+              type="button"
+              style={gitbookStyle}
+              class="button-metamask"
+              onClick={(e) => {
+                e.preventDefault();
+                window.location.href='https://welearn-1.gitbook.io/welearn';
+                }}>Whitepaper</button>
             <ul className={click ? 'nav-menu active' : 'nav-menu'}>
+              <li className="nav-item">
+                <Link to='/contact' className='nav-links'>
+                  Contact Us
+                </Link>
+              </li>
               {/* <li className="nav-item">
                 <Link to='/profile' className='nav-links' onClick={closeMobileMenu}>
                   Publish Formation

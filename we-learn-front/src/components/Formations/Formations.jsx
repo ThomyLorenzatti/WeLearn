@@ -1,6 +1,7 @@
 import React from 'react';
 import './Formations.css';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const API = import.meta.env.VITE_REACT_URL
 
@@ -17,7 +18,6 @@ export default class Formations extends React.Component {
        console.log(res);
        this.setState({ all: res.data })
     })
-    console.log(this.state.all);
 }
   render() {
     return (
@@ -33,7 +33,9 @@ export default class Formations extends React.Component {
                 <div class="blog-table">
                     {/* <h6 class="blog-category blog-text-success"><i class="fas fa-blog"></i>{item.price}</h6> */}
                     <h4 class="blog-card-caption">
-                        <a href="#">{item.name}</a>
+                    <Link to={'/lesson/' + item.id} className="navbar-logo">
+                        {item.name}
+                    </Link>
                     </h4>
                     <p class="blog-card-description"></p>
                     <div class="ftr">
