@@ -83,7 +83,7 @@ function Navbar() {
               class="button-metamask"
               onClick={(e) => {
                 e.preventDefault();
-                window.location.href='https://welearn-1.gitbook.io/welearn';
+                window.location.href='https://welearn-1.gitbook.io/welearnouhouh/';
                 }}>Whitepaper</button>
             <ul className={click ? 'nav-menu active' : 'nav-menu'}>
               <li className="nav-item">
@@ -126,7 +126,7 @@ function Navbar() {
               class="button-metamask"
               onClick={(e) => {
                 e.preventDefault();
-                window.location.href='https://welearn-1.gitbook.io/welearn';
+                window.location.href='https://welearn-1.gitbook.io/welearnouhouh/';
                 }}>Whitepaper</button>
             <ul className={click ? 'nav-menu active' : 'nav-menu'}>
               <li className="nav-item">

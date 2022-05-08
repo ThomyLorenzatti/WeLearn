@@ -49,7 +49,6 @@ function makeTransaction(wallet_creator, price, form_id, buyer_wallet) {
       console.log(tx);
   });
 
-  console.log(buyer_wallet)
   axios({
     method: 'post',
     url: API + '/buy_formation',

@@ -175,7 +175,6 @@ app.post("/get_formation", async (req, res) => {
         answer2: data.answer2,
         user: wallet
     }
-    console.log(data)
     res.send(data)
 });
 
@@ -212,14 +211,14 @@ app.post("/finish_formation", async (req, res) => {
     formation_id = req.body.formation_id
     buyer_wallet = req.body.buyer_wallet
 
-    let response = await knex('formation').select('price', 'nft_contract', 'wallet_creator').where('id', formation_id).first().catch(err => {
+    let response = await knex('formation').select('price', 'ntt_contract', 'wallet_creator').where('id', formation_id).first().catch(err => {
         res.send(err)
+        return
     });
     if (!response) {
         res.send("No formation found with this id.")
-        return
+        return;
     }
-    
     let metadataCid = "QmSYv1FJLzL6utFTMCVUvz95ycCuGdQBYFJyHhbLbaGhV8"
     let receiverAddress = buyer_wallet;
     const SMART_CONTRACT_NETWORK = "binance-testnet";
@@ -231,6 +230,10 @@ app.post("/finish_formation", async (req, res) => {
         signerWallet: WALLET_IMPORTED_ON_STARTON,
         speed: "low",
         params: [receiverAddress, metadataCid],
+    }).catch(err => {
+        console.log(err)
+        res.send(err)
+        return
     });
     res.send("Formation bought !")
 });

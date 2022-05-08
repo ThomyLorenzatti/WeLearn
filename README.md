@@ -23,7 +23,7 @@ Notre plus grand défi technique a été la découverte de la technologie Web3 e
 Dans un premier temps, il est nécessaire de créer un fichier `.env` dans le dossier `we-learn-front` et `WeLearn-api`  
 Dans le `.env` du dossier `we-learn-front`, il est nécessaire d'écrire la ligne suivante, en remplacement l'adresse par votre adresse locale:  
 `VITE_REACT_URL = 'http://10.101.49.122:8080'`  
-  
+
 Dans le `.env` du dossier `WeLearn-api`, il est nécessaire d'écrire les lignes suivantes, sans les modifier:   
 ```
 db_name=welearn
@@ -44,12 +44,14 @@ Une fois cette commande lancée, la partie front-end et back-end sont prêtes!
 Team : WeLearn</br></br>
 
 nathan.guiu@epitech.eu </br>
-J'ai pour la première fois appris à dévelloper des smart contract et créer des NFTs. Ça a été une super première pour moi. J'ai beaucoup appris en peu de temps et j'ai passé du super temps avec les autres membres de l'équipe.
+J'ai pour la première fois appris à développer des smarts contracts et créer des NFTs. Ça a été une super première pour moi. J'ai beaucoup appris en peu de temps et j'ai passé du super temps avec les autres membres de l'équipe. C'est le meilleur des hackathons que j'ai pu faire jusqu'à aujourd'hui et ça me donne envie de continuer dans ce domaine de la blockchain.
 
 mathis.lorenzo@epitech.eu </br>
 Ce Hackathon a été pour moi mon premier contact avec le fonctionnement des smart contract et des NFTs au niveau du code. j'ai du apprendre à m'adapter très rapidement à des langages que je ne connaissais pas. La communication entre les membres de l'équipe à été primordiale et nous avons su nous accorder rapidement. Je suis très fier de travail qu'on a pu accomplir tous ensemble en si peu de temps.
 
 hugo1.rodrigues@epitech.eu </br>
+Que dire ! De parts tout ces talks plus intéressants les un des autres j'ai pu confirmer le fait que mon avenir professionel va s'orienter sur la blockchain. Je suis très fiers de ce que nous avons accomplie ce week end avec l'équipe de WeLearn. J'ai pu apprendre énorméments de choses notamment sur les smarts contracts et j'ai eu l'occasion d'avoir des réponses à de nombreuses questions qui étaient présentes dans ma tete depuis de nombreux mois. Pour ma part ce fut de loin le hackathon le plus interessant au quel j'ai pu participer.
+
 thomy.lorenzatti@epitech.eu </br>
 Durant ce hackathon je ne m'attendais vraiment pas à progresser autant et découvrir tant de choses. Surtout que nous ne nous sommes pas facilité la tâche en choisissant des techno, qui n'étaient pas nos domaines de prédilection.
 
@@ -62,7 +64,9 @@ Ce Hackathon a été pour moi une belle expérience. En effet, j'ai débuté ave
 Nous avons un site web où les users peuvent créer ou acheter des formations grâce à
 un token ERC20 que l'on a créé, le LRN. Notre plateforme permet aux formateurs et aux personnes qui cherchent à se former, de se retrouver sur une plateforme décentralisée.a
 Les utilisateurs qui achètent une formation se verront bénéficier d'un NFT qui leur permet d'accéder au contenu de cette formation et les formateur recevront les tokens demandés.
-Une fois que les utilisateurs finissent leur formation, ils pourront alors faire un examen fait par le formateur. Cet examen permet d'obtenir 
+Une fois que les utilisateurs finissent leur formation, ils pourront alors faire un examen fait par le formateur. Cet examen permet d'obtenir un nft de certification pour leur formation et l'autre nft est burn. Il est possible d'échanger des tokens avec d'autres personnes via Metamask ou d'autres wallets.
+
+Si nécessaire, lire le GitBook accessible depuis la page d'acceuil du site web.
 
 (exemple: Loom , 4 minutes max)*.
 
