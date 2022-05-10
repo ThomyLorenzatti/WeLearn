@@ -101,9 +101,12 @@ function Navbar() {
                   Formations
                 </Link>
               </li>
-              <li className="nav-links">
-                <Address userAddress={userAddress}/>
+              <li className="nav-item">
+                <Link to='/contact' className='nav-links'>
+                  Check Certificates
+                </Link>
               </li>
+                <Address userAddress={userAddress}/>
             </ul>
           </div>
         </div>
@@ -134,16 +137,11 @@ function Navbar() {
                   Contact Us
                 </Link>
               </li>
-              {/* <li className="nav-item">
-                <Link to='/profile' className='nav-links' onClick={closeMobileMenu}>
-                  Publish Formation
+              <li className="nav-item">
+                <Link to='/contact' className='nav-links'>
+                  Check Certificates
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link to='/projects' className='nav-links' onClick={closeMobileMenu}>
-                  My Certificates
-                </Link>
-              </li> */}
               <li className="nav-links">
                 <button class="button-metamask" onClick={() => connect(setUserAddress)}>
                   Connect to MetaMask
