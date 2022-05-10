@@ -35,7 +35,8 @@
 }
 
 .nav-menu {
-  display: grid;
+  display: flex;
+  align-items: center;
   grid-template-columns: repeat(4, auto);
   grid-gap: 10px;
   list-style: none;
