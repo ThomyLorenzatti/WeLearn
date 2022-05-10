@@ -7,7 +7,6 @@ import CheckCertificate from './components/CheckCertificate/CheckCertificate.jsx
 function FormPage() {
   return (
     <div>
-      <Navbar />
       <CheckCertificate />
     </div>
   );
