@@ -1,7 +1,11 @@
 const express = require('express')
-const { FormationController } = require('../controllers')
 const router = express.Router()
+const formations = require('../controllers/formations/FormationController')
+const wallets = require('../controllers/wallet/WalletController')
 
-router.post('/create-formation', FormationController.CreateFormation)
+router.get('/formations', formations.GetFormations)
+router.post('/create-formation', formations.CreateFormation)
+
+router.get('/wallet_info', wallets.GetWalletInfo)
 
 module.exports = router
