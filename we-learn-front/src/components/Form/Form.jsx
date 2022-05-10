@@ -24,7 +24,8 @@ export default class Form extends React.Component {
       question1: "",
       response1: "",
       question2: "",
-      response2: ""
+      response2: "",
+      selectedFile: null
     };
   }
 
@@ -38,6 +39,14 @@ export default class Form extends React.Component {
     this.setState({ content: e.target.value });
   };
   changePage = () => {
+    const formData = new FormData();
+    formData.append(
+      "myFile",
+      this.state.selectedFile,
+      this.state.selectedFile.name
+    );
+    console.log(this.state.selectedFile);
+    axios.post("api/uploadfile", formData);
     if (this.name != "" && this.content != "")
       this.setState({ quiz: 1 });
   }
@@ -52,6 +61,10 @@ export default class Form extends React.Component {
   };
   handleChangeResponse2 = (e) => {
     this.setState({ response2: e.target.value });
+  };
+
+  onFileChange = event => {
+    this.setState({ selectedFile: event.target.files[0] });
   };
 
   sendInfos = () => {
@@ -90,9 +103,13 @@ export default class Form extends React.Component {
             <input type="number" name="" required="" value={this.state.number} onChange={this.handleChangeNumber}/>
             <label>Price (in Learn)</label>
           </div>
-          <div class="user-box">
+          {/* <div class="user-box">
             <input type="text" name="" required="" value={this.state.content} onChange={this.handleChangeContent}/>
             <label>Content of your formation</label>
+          </div> */}
+          <div class="user-box">
+              <input type="file" onChange={this.onFileChange} />
+              <label>Upload your PDF formation</label>
           </div>
             <div class="btn" onClick={this.changePage}>
               <span></span>
