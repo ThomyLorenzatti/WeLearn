@@ -98,7 +98,9 @@ export default class Form extends React.Component {
         axios({
           method: 'post',
           url: API + '/upload_formation',
-          data: formData,
+          data: {
+            formData: formData,
+          },
           headers: {
             'Content-type': 'multipart/form-data',
           },
