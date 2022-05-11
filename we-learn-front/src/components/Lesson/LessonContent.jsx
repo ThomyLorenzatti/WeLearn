@@ -81,9 +81,8 @@ export default class LessonContent extends React.Component {
       url: API + "/formations/" + this.state.lesson_id + '/' + wallet,
       headers: {},
     }).then((res) => {
-      this.setState({ lessonInfos: res.data.data[0] })
+      this.setState({ lessonInfos: res.data.data })
     });
-    console.log(this.state.lessonInfos);
     this.setState({ loading: false })
   }
 
