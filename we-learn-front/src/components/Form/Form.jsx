@@ -65,14 +65,14 @@ export default class Form extends React.Component {
     this.setState({ selectedFile: event.target.files[0] });
   };
 
-  sendInfos = async () => {
+  sendInfos = () => {
     const formData = new FormData();
     formData.append("name", this.state.selectedFile.name);
     formData.append("file", this.state.selectedFile);
     console.log(this.state.selectedFile);
     this.setState({ loading: true });
     var wallet = "";
-    connect().then((r) => {
+    connect().then( async (r) => {
       wallet = r;
       console.log("connected")
       await axios({
