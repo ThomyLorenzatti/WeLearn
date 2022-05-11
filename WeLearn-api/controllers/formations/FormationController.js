@@ -21,9 +21,8 @@ const GetFormations = async (req, res) => {
 }
 
 const GetFormationById = async (req, res) => {
-    console.log("oui");
     try {
-        const formationId = req.params.formation_id;
+        const formationId = req.params.id;
         const wallet = req.params.wallet;
         const formation = await formationService.GetFormationById(formationId, wallet);
         return res.status(formation.success ? 200 : 400).send(formation);
