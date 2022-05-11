@@ -18,12 +18,15 @@ const CreateFormation = async (formationDTI) => {
         formationDTI.answer2
     ];
     let res = await query(sql, values);
-    console.log(res);
-    return ({});
+    return (res.insertId);
 }
 
-const UploadFormation = async (data) => {
-
+const UpdateFormationPdfLink = async (id, link) => {
+    const infos = await query("update formation set pdf_link = ? where id = ?", [formationId]);
+    if (!infos) {
+        return ({});
+    }
+    return (infos);
 }
 
 const GetFormations = async () => {
@@ -46,5 +49,5 @@ module.exports = {
     CreateFormation,
     GetFormations,
     GetFormationById,
-    UploadFormation
+    UpdateFormationPdfLink
 }

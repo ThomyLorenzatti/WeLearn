@@ -2,6 +2,9 @@ const formationModel = require('../../models/formations/FormationModel.js');
 const serviceTools = require('../../services/utils/ServiceTools');
 const DTService = require('../../services/utils/DTService');
 const axios = require('axios')
+var FormData = require('form-data');
+
+const http = axios.create({ baseURL: "https://api.starton.io/v2", headers: {"x-api-key": process.env.starton_key}});
 
 const CreateFormation = async (req) => {
     const wallet = req.body.wallet;
@@ -15,8 +18,6 @@ const CreateFormation = async (req) => {
     if (!formation_name || !wallet || !question1 || !question2 || !answer1 || !answer2 || !price) {
         return serviceTools.makeResponse(false, 'Missing parameters', {});
     }
-
-    const http = axios.create({ baseURL: "https://api.starton.io/v2", headers: {"x-api-key": process.env.starton_key}});
 
     let keyScRes = await http.post('/smart-contract/from-template', {
         "network": 'binance-testnet',
@@ -64,14 +65,25 @@ const CreateFormation = async (req) => {
     return serviceTools.makeResponse(true, '', data);
 }
 
+async function UploadPdf(buffer, name) {
+    let data = new FormData();
+    data.append("file", buffer, name);
+    data.append("isSync", "true");
+    const ipfsImg = await http.post("/pinning/content/file", data, {
+        maxBodyLength: "Infinity",
+        headers: { "Content-Type": `multipart/form-data; boundary=${data._boundary}` },
+    });
+    return "https://ipfs.io/ipfs/" + ipfsImg.data;
+  }
+
 const UploadFormation = async (data) => {
-    console.log(data);
-    if (!data) {
+    if (!data ||!data.buffer ||!data.id) {
         return serviceTools.makeResponse(false, 'Missing parameters', {});
     }
-    const res = await formationModel.UploadFormation(data);
+    const pdf_link = UploadPdf(data.buffer, data.id);
+    const res = await formationModel.UpdateFormationPdfLink(id, pdf_link);
     if (!res) {
-        return serviceTools.makeResponse(false, 'Error uploading formation', {});
+        return serviceTools.makeResponse(false, 'Error updating formation', {});
     }
     return serviceTools.makeResponse(true, '', {});
 }
@@ -95,9 +107,29 @@ const GetFormationById = async (formationId, wallet) => {
     return serviceTools.makeResponse(true, '', formation);
 }
 
+const BuyFormation = async (formationId, wallet) => {
+    if (!formationId || !wallet) {
+        return serviceTools.makeResponse(false, 'Missing parameters', {});
+    }
+    let formation = await formationModel.GetFormationById(formationId);
+    if (!formation) {
+        return serviceTools.makeResponse(false, 'Formation not found', {});
+    }
+    let balance = await serviceTools.getBalance(wallet);
+    if (balance < formation.price) {
+        return serviceTools.makeResponse(false, 'Not enought funds', {});
+    }
+    let res = await serviceTools.sendTransaction(wallet, formation.price, formation.nft_contract);
+    if (!res) {
+        return serviceTools.makeResponse(false, 'Error sending transaction', {});
+    }
+    return serviceTools.makeResponse(true, '', {});
+}
+
 module.exports = {
     CreateFormation,
     GetFormations,
     GetFormationById,
-    UploadFormation
+    UploadFormation,
+    BuyFormation
 }
