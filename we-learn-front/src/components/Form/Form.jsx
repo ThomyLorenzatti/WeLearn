@@ -131,7 +131,7 @@ export default class Form extends React.Component {
             <label>Content of your formation</label>
           </div> */}
             <div class="user-box">
-              <input type="file" onChange={this.onFileChange} />
+              <input type="file" accept="application/pdf" onChange={this.onFileChange} />
               <label>Upload your PDF formation</label>
             </div>
             <div className='centerBtn'>
