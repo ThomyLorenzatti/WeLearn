@@ -45,7 +45,7 @@ function makeTransaction(wallet_creator, price, form_id, buyer_wallet) {
   var contract = new ethers.Contract(contractAddress, contractAbiFragment, signer);
   var numberOfDecimals = 18;
   price = price.toString() + ".0";
-  var numberOfTokens = ethers.utils.parseUnits('10.0', numberOfDecimals);
+  var numberOfTokens = ethers.utils.parseUnits(price, numberOfDecimals);
   console.log(numberOfTokens)
   contract.transfer(targetAddress, numberOfTokens).then(function(tx) {
       console.log(tx);
