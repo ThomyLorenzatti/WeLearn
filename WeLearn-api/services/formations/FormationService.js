@@ -139,10 +139,6 @@ const BuyFormation = async (formationId, wallet) => {
     if (!formation)
         return serviceTools.makeResponse(false, 'Formation not found', {});
 
-    let balance = await serviceTools.getBalance(wallet);
-    if (balance < formation.price)
-        return serviceTools.makeResponse(false, 'Not enought funds', {});
-    console.log(formation)
     await starton.post(`/smart-contract/binance-testnet/${formation.nft_contract}/call`, {
         functionName: "safeMint",
         signerWallet: process.env.learn_adress,
