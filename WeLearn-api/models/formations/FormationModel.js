@@ -21,6 +21,10 @@ const CreateFormation = async (formationDTI) => {
     return ({});
 }
 
+const UploadFormation = async (data) => {
+
+}
+
 const GetFormations = async () => {
     const infos = await query('select * from formation');
     if (!infos) {
@@ -40,5 +44,6 @@ const GetFormationById = async (formationId) => {
 module.exports = {
     CreateFormation,
     GetFormations,
-    GetFormationById
+    GetFormationById,
+    UploadFormation
 }

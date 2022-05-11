@@ -10,6 +10,16 @@ const CreateFormation = async (req, res) => {
     }
 }
 
+const UploadFormation = async (req, res) => {
+    try {
+        const data = req.body.formData;
+        let infos = await formationService.UploadFormation(data);
+        return res.status(infos.success ? 200 : 400).send(infos);
+    } catch (error) {
+        return res.status(500).send(error);
+    }
+}
+
 const GetFormations = async (req, res) => {
     try {
         const infos = await formationService.GetFormations();
@@ -34,5 +44,6 @@ const GetFormationById = async (req, res) => {
 module.exports = {
     CreateFormation,
     GetFormations,
-    GetFormationById
+    GetFormationById,
+    UploadFormation
 }

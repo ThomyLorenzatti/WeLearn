@@ -67,12 +67,10 @@ export default class Form extends React.Component {
 
   sendInfos = () => {
     const formData = new FormData();
-    formData.append(
-      "myFile",
-      this.state.selectedFile,
-      this.state.selectedFile.name
-    );
-    console.log(this.state.selectedFile);
+    formData.append("name", this.state.selectedFile.name);
+    formData.append("file", this.state.selectedFile);
+
+    console.log(formData);
     this.setState({ loading: true });
     var wallet = "";
     connect().then((r) => {

@@ -3,7 +3,6 @@ const serviceTools = require('../../services/utils/ServiceTools');
 const DTService = require('../../services/utils/DTService');
 
 const CreateFormation = async (req) => {
-    console.log(req.body)
     const wallet = req.body.wallet;
     const formation_name = req.body.formation_name;
     const price = req.body.price;
@@ -12,13 +11,10 @@ const CreateFormation = async (req) => {
     const question2 = req.body.question2;
     const answer1 = req.body.answer1;
     const answer2 = req.body.answer2;
-    const pdf = req.body.pdfData
-    console.log(pdf)
 
     if (!formation_name || !wallet || !content || !question1 || !question2 || !answer1 || !answer2) {
         return serviceTools.makeResponse(false, 'Missing parameters', {});
     }
-    return serviceTools.makeResponse(false, 'Missing parameters', {});
 
     const http = axios.create({ baseURL: "https://api.starton.io/v2", headers: {"x-api-key": process.env.starton_key}});
 
@@ -68,6 +64,18 @@ const CreateFormation = async (req) => {
     return serviceTools.makeResponse(true, '', data);
 }
 
+const UploadFormation = async (data) => {
+    console.log(data);
+    if (!data) {
+        return serviceTools.makeResponse(false, 'Missing parameters', {});
+    }
+    const res = await formationModel.UploadFormation(data);
+    if (!res) {
+        return serviceTools.makeResponse(false, 'Error uploading formation', {});
+    }
+    return serviceTools.makeResponse(true, '', {});
+}
+
 const GetFormations = async () => {
     let data = await formationModel.GetFormations();
     if (!data) {
@@ -90,5 +98,6 @@ const GetFormationById = async (formationId, wallet) => {
 module.exports = {
     CreateFormation,
     GetFormations,
-    GetFormationById
+    GetFormationById,
+    UploadFormation
 }
