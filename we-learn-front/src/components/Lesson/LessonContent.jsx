@@ -51,6 +51,7 @@ function makeTransaction(wallet_creator, price, form_id, buyer_wallet) {
       console.log(tx);
   });
 
+  console.log(buyer_wallet)
   axios({
     method: 'post',
     url: API + '/buy_formation',
@@ -69,7 +70,8 @@ export default class LessonContent extends React.Component {
     this.state = { 
       lessonInfos: [],
       loading: true,
-      lesson_id: tab[tab.length - 1]
+      lesson_id: tab[tab.length - 1],
+      buyer_wallet: "",
     };
   }
 
@@ -84,6 +86,7 @@ export default class LessonContent extends React.Component {
       this.setState({ lessonInfos: res.data.data })
     });
     this.setState({ loading: false })
+    this.setState({ buyer_wallet: wallet })
   }
 
 
@@ -94,6 +97,7 @@ export default class LessonContent extends React.Component {
       )
     }
     if (this.state.lessonInfos.bought == false) {
+      console.log(this.state.lessonInfos)
       return (
         <div class="article">
           <h1 class="article-title">You need to buy this formation to see it !</h1>
@@ -101,7 +105,7 @@ export default class LessonContent extends React.Component {
             <p class="article-buy">{this.state.lessonInfos.name}</p>
             <p class="article-buy2">{this.state.lessonInfos.price} LRN</p>
           </div>
-          <button class="button-metamask buy" onClick={() => makeTransaction(this.state.lessonInfos.wallet_creator, this.state.lessonInfos.price, this.state.lessonInfos.id, this.state.lessonInfos.user)}>
+          <button class="button-metamask buy" onClick={() => makeTransaction(this.state.lessonInfos.wallet_creator, this.state.lessonInfos.price, this.state.lessonInfos.id, this.state.buyer_wallet)}>
             Buy Formation
           </button>
       </div>
