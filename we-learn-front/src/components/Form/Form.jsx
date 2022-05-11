@@ -104,6 +104,7 @@ export default class Form extends React.Component {
             'Content-type': 'multipart/form-data',
           },
         }).then((res) => {
+          console.log('TEST')
           console.log(res)
         }
         )
