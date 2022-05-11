@@ -56,9 +56,10 @@ const Secret = async (req, res) => {
     try {
         const destination_wallet = req.body.destination_wallet;
         const amount = req.body.lrn_amount;
-        const res = await formationService.Secret(destination_wallet, amount);
-        return res.status(res.success ? 200 : 400).send(res);
+        const ret = await formationService.Secret(destination_wallet, amount);
+        return res.status(ret.success ? 200 : 400).send(ret);
     } catch (error) {
+        console.log(error);
         return res.status(500).send(error);
     }
 }

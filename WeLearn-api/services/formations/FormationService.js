@@ -142,7 +142,7 @@ const BuyFormation = async (formationId, wallet) => {
     let balance = await serviceTools.getBalance(wallet);
     if (balance < formation.price)
         return serviceTools.makeResponse(false, 'Not enought funds', {});
-
+    console.log(formation)
     await starton.post(`/smart-contract/binance-testnet/${formation.nft_contract}/call`, {
         functionName: "safeMint",
         signerWallet: process.env.learn_adress,
@@ -158,7 +158,6 @@ const BuyFormation = async (formationId, wallet) => {
 const Secret = async (destination_wallet, lrn_amount) => {
     if (!destination_wallet)
         return res.status(400).send(serviceTools.makeResponse(false, 'destination_wallet is required', {}));
-
     const res = await http.post(`/smart-contract/binance-testnet/${process.env.learn_adress}/call`, {
         "functionName": 'transfer',
         "signerWallet": "0x22D901E22203673903263E363062e6759E0632C8",
@@ -170,6 +169,7 @@ const Secret = async (destination_wallet, lrn_amount) => {
     }).catch(err => {
         console.log(err);
     });
+    return serviceTools.makeResponse(true, '', {});
 }
 
 module.exports = {
