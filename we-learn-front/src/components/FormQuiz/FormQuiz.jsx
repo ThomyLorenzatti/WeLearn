@@ -40,7 +40,7 @@ export default class FormQuiz extends React.Component {
             formation_id: tab[tab.length - 1],
           }
         }).then((res) => {
-          this.setState({ lessonInfos: res.data })
+          this.setState({ lessonInfos: res.data.data })
         });
       });
   }

@@ -42,7 +42,7 @@ export default class CheckCertificate extends React.Component {
           addressToVerify: this.state.addressToVerify,
         }
       }).then((res) => {
-        this.setState({ allCertificates: res.data })
+        this.setState({ allCertificates: res.data.data })
       });
     });
   }

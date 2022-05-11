@@ -16,7 +16,7 @@ export default class Formations extends React.Component {
   async componentDidMount() {
     await axios.get(API + '/formations').then(res => {
        console.log(res);
-       this.setState({ all: res.data })
+       this.setState({ all: res.data.data })
     })
 }
   render() {

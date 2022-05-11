@@ -95,7 +95,7 @@ export default class Form extends React.Component {
         }
       }).then((res) => {
         if (res.status == 200) {
-          this.setState({ successTitle: res.data })
+          this.setState({ successTitle: res.data.data })
         }
         this.setState({ success: true })
         this.setState({ loading: false })

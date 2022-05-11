@@ -16,7 +16,7 @@ class Address extends React.Component {
     async componentDidMount() {
         await axios.get(API + '/wallet_info?wallet=' + this.props.userAddress).then(res => {
            console.log(res);
-           this.setState({ nb_lrn : res.data.lrn, nb_bnb : res.data.bnb })
+           this.setState({ nb_lrn : res.data.data.lrn, nb_bnb : res.data.data.bnb })
         })
     }
 
