@@ -28,6 +28,14 @@ const GetWalletInfo = async (wallet) => {
     return serviceTools.makeResponse(true, '', data)
 }
 
+const GetCertificate = async (wallet) => {
+    if (!wallet) {
+        return serviceTools.makeResponse(false, 'Missing parameters to getCertificate', {})
+    }
+    
+}
+
 module.exports = {
-    GetWalletInfo
+    GetWalletInfo,
+    GetCertificate
 }
