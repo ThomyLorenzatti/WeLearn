@@ -101,7 +101,7 @@ export default class Form extends React.Component {
           url: API + '/upload_formation',
           data: formData,
           headers: {
-            'Content-type': 'multipart/form-data;',
+            'Content-type': 'multipart/form-data',
           },
         }).then((res) => {
           console.log(res)
