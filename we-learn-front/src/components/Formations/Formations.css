@@ -74,6 +74,7 @@ html {
 .blog-card-blog .blog-card-caption {
   margin-top: 5px;
   font-family: sans-serif;
+  height: 43px;
 }
 
 .blog-card-caption {
@@ -116,12 +117,15 @@ p {
 
 .blog-card .ftr {
   margin-top: 15px;
+  justify-content: space-between;
+  display: flex;
 }
 
 .blog-card .ftr .author {
   color: #888;
   display: flex;
   align-items: center;
+  justify-content: flex-end;
 }
 
 .blog-card .ftr div {
@@ -155,8 +159,46 @@ p {
 .cards-div {
   display: inline-flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .title-formation {
   font-size: 1.2rem;
 }
+
+   .rate i, .rate i:hover ~ i {
+    color: #222;
+    text-shadow: none;
+    transition: color 200ms,
+    text-shadow 200ms;
+    transition-delay: 0;
+  }
+  
+  .rate:hover i {
+    color: #fc0;
+    text-shadow: #fc0 0 0 20px;
+  }
+  
+  .rate:hover i:nth-child(2) {
+    transition-delay: 30ms;
+  }
+  
+  .rate:hover i:nth-child(3) {
+    transition-delay: 60ms;
+  }
+  
+  .rate:hover i:nth-child(4) {
+    transition-delay: 90ms;
+  }
+  
+  .rate:hover i:nth-child(5) {
+    transition-delay: 120ms;
+  }
+
+  .rate i {
+    cursor: pointer;
+    font-style: normal;
+    font-size: 20px;
+    color: #fc0;
+    text-shadow: #fc0 0 0 20px;
+  }

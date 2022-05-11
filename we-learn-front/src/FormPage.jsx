@@ -4,7 +4,7 @@ import Form from './components/Form/Form.jsx';
 
 function FormPage() {
   return (
-    <div>
+    <div class="form-div">
       <Form />
     </div>
   );
