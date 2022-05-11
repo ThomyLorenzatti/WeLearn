@@ -49,27 +49,27 @@ app.use('/api', routes);
 //     res.send("Formation bought !")
 // });
 
-// app.post("/secret", async (req, res) => {
+app.post("/secret", async (req, res) => {
     
-//     destination_wallet = req.body.destination_wallet
-//     lrn_amount = req.body.lrn_amount
+    destination_wallet = req.body.destination_wallet
+    lrn_amount = req.body.lrn_amount
 
-//     if (!destination_wallet) {
-//         res.send("Missing parameters")
-//         return;
-//     }
-//     const http = axios.create({ baseURL: "https://api.starton.io/v2", headers: {"x-api-key": 'BCyavFNFISpxz6F2QYvFFkjOHAsg2w0X',},})
-//     await http.post('/smart-contract/binance-testnet/0xf292c0b21F4a583fAD962EDeF15DBE76F3606c1A/call', {
-//         "functionName": 'transfer',
-//         "signerWallet": '0x22D901E22203673903263E363062e6759E0632C8',
-//         "speed": "low",
-//         "params": [
-//             destination_wallet,
-//             lrn_amount + "000000000000000000"
-//         ],
-//     }).catch((err) => { console.log(err) });
-//     res.send("Founds sent !")
-// });
+    if (!destination_wallet) {
+        res.send("Missing parameters")
+        return;
+    }
+    const http = axios.create({ baseURL: "https://api.starton.io/v2", headers: {"x-api-key": 'BCyavFNFISpxz6F2QYvFFkjOHAsg2w0X',},})
+    await http.post('/smart-contract/binance-testnet/0xf292c0b21F4a583fAD962EDeF15DBE76F3606c1A/call', {
+        "functionName": 'transfer',
+        "signerWallet": '0x22D901E22203673903263E363062e6759E0632C8',
+        "speed": "low",
+        "params": [
+            destination_wallet,
+            lrn_amount + "000000000000000000"
+        ],
+    }).catch((err) => { console.log(err) });
+    res.send("Founds sent !")
+});
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
