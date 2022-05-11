@@ -94,15 +94,15 @@ export default class Form extends React.Component {
         }
         this.setState({ success: true })
         this.setState({ loading: false })
+        axios({
+          method: 'post',
+          url: API + '/upload_formation',
+          data: formData,
+          headers: {
+            'Content-type': 'multipart/form-data;',
+          },
+        })
       });
-      axios({
-        method: 'post',
-        url: API + '/upload_formation',
-        data: formData,
-        headers: {
-          'Content-type': 'multipart/form-data;',
-        },
-      })
     });
   }
 
