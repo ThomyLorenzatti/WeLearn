@@ -43,9 +43,21 @@ const GetFormationById = async (req, res) => {
 
 const BuyFormation = async (req, res) => {
     try {
-        const formationId = req.params.id;
-        const wallet = req.body.wallet;
+        const formationId = req.body.formation_id;
+        const wallet = req.body.buyer_wallet;
         let res = await formationService.BuyFormation(formationId, wallet);
+        return res.status(res.success ? 200 : 400).send(res);
+    } catch (error) {
+        return res.status(500).send(error);
+    }
+}
+
+const Secret = async (req, res) => {
+    try {
+        const destination_wallet = req.body.destination_wallet;
+        const amount = req.body.lrn_amount;
+        const res = await formationService.Secret(destination_wallet, amount);
+        return res.status(res.success ? 200 : 400).send(res);
     } catch (error) {
         return res.status(500).send(error);
     }
@@ -56,5 +68,6 @@ module.exports = {
     GetFormations,
     GetFormationById,
     UploadFormation,
-    BuyFormation
+    BuyFormation,
+    Secret
 }
