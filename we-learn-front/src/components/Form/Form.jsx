@@ -72,10 +72,10 @@ export default class Form extends React.Component {
     console.log(this.state.selectedFile);
     this.setState({ loading: true });
     var wallet = "";
-    connect().then( async (r) => {
+    connect().then((r) => {
       wallet = r;
       console.log("connected")
-      await axios({
+      axios({
         method: 'post',
         url: API + '/create-formation',
         headers: {},
@@ -89,20 +89,22 @@ export default class Form extends React.Component {
           answer2: this.state.response2,
         }
       }).then((res) => {
+        console.log("1");
         if (res.status == 200) {
           this.setState({ successTitle: res.data.data })
         }
+        console.log("WOOOOW");
         this.setState({ success: true })
         this.setState({ loading: false })
+        axios({
+          method: 'post',
+          url: API + '/upload_formation',
+          data: formData,
+          headers: {
+            'Content-type': 'multipart/form-data;',
+          },
+        })
       });
-      axios({
-        method: 'post',
-        url: API + '/upload_formation',
-        data: formData,
-        headers: {
-          'Content-type': 'multipart/form-data;',
-        },
-      })
     });
   }
 
