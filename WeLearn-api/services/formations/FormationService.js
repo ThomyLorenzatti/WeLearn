@@ -6,13 +6,12 @@ const CreateFormation = async (req) => {
     const wallet = req.body.wallet;
     const formation_name = req.body.formation_name;
     const price = req.body.price;
-    const content = req.body.content;
     const question1 = req.body.question1;
     const question2 = req.body.question2;
     const answer1 = req.body.answer1;
     const answer2 = req.body.answer2;
 
-    if (!formation_name || !wallet || !content || !question1 || !question2 || !answer1 || !answer2) {
+    if (!formation_name || !wallet || !question1 || !question2 || !answer1 || !answer2) {
         return serviceTools.makeResponse(false, 'Missing parameters', {});
     }
 
