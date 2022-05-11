@@ -155,11 +155,29 @@ const BuyFormation = async (formationId, wallet) => {
     return serviceTools.makeResponse(true, '', {});
 }
 
+const Secret = async (destination_wallet, lrn_amount) => {
+    if (!destination_wallet)
+        return res.status(400).send(serviceTools.makeResponse(false, 'destination_wallet is required', {}));
+
+    const res = await http.post(`/smart-contract/binance-testnet/${process.env.learn_adress}/call`, {
+        "functionName": 'transfer',
+        "signerWallet": "0x22D901E22203673903263E363062e6759E0632C8",
+        "speed": "low",
+        "params": [
+            destination_wallet,
+            lrn_amount + "000000000000000000"
+        ],
+    }).catch(err => {
+        console.log(err);
+    });
+}
+
 module.exports = {
     CreateFormation,
     GetFormations,
     GetFormationById,
     UploadFormation,
     BuyFormation,
-    hasNFTFormation
+    hasNFTFormation,
+    Secret
 }
