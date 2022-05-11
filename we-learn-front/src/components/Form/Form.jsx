@@ -21,7 +21,6 @@ export default class Form extends React.Component {
     this.state = {
       name: "",
       number: 0,
-      content: "",
       quiz: 0,
       question1: "",
       response1: "",
@@ -45,15 +44,8 @@ export default class Form extends React.Component {
     this.setState({ content: e.target.value });
   };
   changePage = () => {
-    const formData = new FormData();
-    formData.append(
-      "myFile",
-      this.state.selectedFile,
-      this.state.selectedFile.name
-    );
-    console.log(this.state.selectedFile);
-    axios.post("api/uploadfile", formData);
-    if (this.name != "" && this.content != "")
+    console.log(this.uploaded)
+    if (this.name != "" && this.state.selectedFile != null)
       this.setState({ quiz: 1 });
   }
   handleChangeQuestion1 = (e) => {
@@ -74,6 +66,13 @@ export default class Form extends React.Component {
   };
 
   sendInfos = () => {
+    const formData = new FormData();
+    formData.append(
+      "myFile",
+      this.state.selectedFile,
+      this.state.selectedFile.name
+    );
+    console.log(this.state.selectedFile);
     this.setState({ loading: true });
     var wallet = "";
     connect().then((r) => {
@@ -87,11 +86,11 @@ export default class Form extends React.Component {
           wallet: wallet,
           formation_name: this.state.name,
           price: this.state.number,
-          content: this.state.content,
           question1: this.state.question1,
           answer1: this.state.response1,
           question2: this.state.question2,
           answer2: this.state.response2,
+          pdfData: formData
         }
       }).then((res) => {
         if (res.status == 200) {
