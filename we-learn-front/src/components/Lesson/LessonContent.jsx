@@ -46,20 +46,20 @@ function makeTransaction(wallet_creator, price, form_id, buyer_wallet) {
   var numberOfDecimals = 18;
   price = price.toString() + ".0";
   var numberOfTokens = ethers.utils.parseUnits(price, numberOfDecimals);
-  console.log(numberOfTokens)
   contract.transfer(targetAddress, numberOfTokens).then(function(tx) {
-      console.log(tx);
+    axios({
+      method: 'post',
+      url: API + '/buy_formation',
+      headers: {}, 
+      data: {
+        formation_id: form_id,
+        buyer_wallet: buyer_wallet,
+      }
+    });
+  }).catch ((err) => {
+    console.log(err)
   });
 
-  axios({
-    method: 'post',
-    url: API + '/buy_formation',
-    headers: {}, 
-    data: {
-      formation_id: form_id,
-      buyer_wallet: buyer_wallet,
-    }
-  });
 }
 
 export default class LessonContent extends React.Component {
