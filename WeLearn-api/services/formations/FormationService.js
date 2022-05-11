@@ -15,10 +15,8 @@ const CreateFormation = async (req) => {
     const question2 = req.body.question2;
     const answer1 = req.body.answer1;
     const answer2 = req.body.answer2;
-    const cid_nft = req.body.cid_nft;
-    const cid_ntt = req.body.cid_ntt;
 
-    if (!formation_name || !wallet || !question1 || !question2 || !answer1 || !answer2 || !price || !cid_nft || !cid_ntt) {
+    if (!formation_name || !wallet || !question1 || !question2 || !answer1 || !answer2 || !price) {
         return serviceTools.makeResponse(false, 'Missing parameters', {});
     }
 
@@ -60,6 +58,8 @@ const CreateFormation = async (req) => {
     formationDTI.nft_contract = keyScRes.data.smartContract.address;
     formationDTI.ntt_contract = certifScRes.data.smartContract.address;
 
+    console.log(keyScRes.data.smartContract)
+
     let data = await formationModel.CreateFormation(formationDTI);
 
     if (!data) {
@@ -99,17 +99,32 @@ const GetFormations = async () => {
     return serviceTools.makeResponse(true, '', data);
 }
 
+const hasNFTFormation = async (wallet, contract_formation) => {
+    try {
+        const nft = await starton.post(`/smart-contract/binance-testnet/${contract_formation}/read`, {
+            functionName: "balanceOf",
+            params: [wallet]
+        });
+        if (nft.data.response.raw != 0)
+            return true;
+    } catch {
+        return false;
+    }
+    return false;
+}
+
 const GetFormationById = async (formationId, wallet) => {
-    if (!formationId || !wallet) {
-        return serviceTools.makeResponse(false, 'Missing parameters', {});
-    }
-    if (!hasNFTFFormation(wallet, formationId)) {
-        return serviceTools.makeResponse(false, 'You don\'t have this formation', {});
-    }
+    if (!formationId || !wallet)
+        return serviceTools.makeResponse(false, 'Missing parameters', {bought: false});
+
+    if (!hasNFTFormation(wallet, formationId))
+        return serviceTools.makeResponse(true, 'You don\'t have this formation', {bought: false});
+        
     let formation = await formationModel.GetFormationById(formationId);
-    if (!formation) {
-        return serviceTools.makeResponse(false, 'Formation not found', {});
-    }
+    if (!formation)
+        return serviceTools.makeResponse(false, 'Formation not found', {bought: false});
+
+    formation.append({bought: true});
     return serviceTools.makeResponse(true, '', formation);
 }
 
@@ -137,25 +152,11 @@ const BuyFormation = async (formationId, wallet) => {
     return serviceTools.makeResponse(true, '', {});
 }
 
-const hasNFTFFormation = async (wallet, contract_formation) => {
-    try {
-        const nft = await starton.post(`/smart-contract/binance-testnet/${contract_formation}/read`, {
-            functionName: "balanceOf",
-            params: [wallet]
-        });
-        if (nft.data.response.raw != 0)
-            return true;
-    } catch {
-        return false;
-    }
-    return false;
-}
-
 module.exports = {
     CreateFormation,
     GetFormations,
     GetFormationById,
     UploadFormation,
     BuyFormation,
-    hasNFTFFormation
+    hasNFTFormation
 }
