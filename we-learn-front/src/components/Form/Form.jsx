@@ -68,14 +68,11 @@ export default class Form extends React.Component {
 
   sendInfos = () => {
     const formData = new FormData();
-    formData.append("name", this.state.selectedFile.name);
     formData.append("file", this.state.selectedFile);
-    console.log(this.state.selectedFile);
     this.setState({ loading: true });
     var wallet = "";
     connect().then((r) => {
       wallet = r;
-      console.log("connected")
       if (this.state.name == "")
         this.setState({ name: this.state.placeholderName });
       axios({
@@ -91,22 +88,18 @@ export default class Form extends React.Component {
           question2: this.state.question2,
           answer2: this.state.response2,
         }
-      }).then((res) => {
-        console.log("1");
+      }).then(async (res) => {
         if (res.status == 200) {
           this.setState({ successTitle: res.data.data })
         }
-        console.log("WOOOOW");
+        axios({
+          method: "post",
+          url: API + `/upload_formation/${res.data.data}`,
+          data: formData,
+          headers: { "Content-Type": "multipart/form-data" },
+        });
         this.setState({ success: true })
         this.setState({ loading: false })
-        axios({
-          method: 'post',
-          url: API + '/upload_formation',
-          data: formData,
-          headers: {
-            'Content-type': 'multipart/form-data;',
-          },
-        })
       });
     });
   }
