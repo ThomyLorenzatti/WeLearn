@@ -65,7 +65,7 @@ export default class Form extends React.Component {
     this.setState({ selectedFile: event.target.files[0] });
   };
 
-  sendInfos = () => {
+  sendInfos = async () => {
     const formData = new FormData();
     formData.append("name", this.state.selectedFile.name);
     formData.append("file", this.state.selectedFile);
@@ -75,7 +75,7 @@ export default class Form extends React.Component {
     connect().then((r) => {
       wallet = r;
       console.log("connected")
-      axios({
+      await axios({
         method: 'post',
         url: API + '/create-formation',
         headers: {},
@@ -94,15 +94,15 @@ export default class Form extends React.Component {
         }
         this.setState({ success: true })
         this.setState({ loading: false })
-        axios({
-          method: 'post',
-          url: API + '/upload_formation',
-          data: formData,
-          headers: {
-            'Content-type': 'multipart/form-data;',
-          },
-        })
       });
+      axios({
+        method: 'post',
+        url: API + '/upload_formation',
+        data: formData,
+        headers: {
+          'Content-type': 'multipart/form-data;',
+        },
+      })
     });
   }
 
