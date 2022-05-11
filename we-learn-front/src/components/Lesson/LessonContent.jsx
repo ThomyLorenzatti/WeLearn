@@ -64,7 +64,7 @@ function makeTransaction(wallet_creator, price, form_id, buyer_wallet) {
 
 export default class LessonContent extends React.Component {
   constructor(props) {
-    super();
+    super(props);
     this.state = { 
       lessonInfos: [],
       loading: true,
@@ -72,12 +72,14 @@ export default class LessonContent extends React.Component {
   }
 
   async componentDidMount() {
+    console.log("laaaa")
     var wallet = "";
     var tab = window.location.href.split('/');
     wallet = await connect()
+    console.log("laaaa2")
     await axios({
         method: 'get',
-        url: API + "/get_formation/" + formation_id + '/' + wallet,
+        url: API + "/formations/" + tab[tab.length - 1] + '/' + wallet,
         headers: {},
       }).then((res) => {
         this.setState({ lessonInfos: res.data.data })
