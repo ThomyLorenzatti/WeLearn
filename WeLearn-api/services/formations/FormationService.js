@@ -141,9 +141,12 @@ const BuyFormation = async (formationId, wallet) => {
 
     await starton.post(`/smart-contract/binance-testnet/${formation.nft_contract}/call`, {
         functionName: "safeMint",
-        signerWallet: process.env.learn_adress,
+        signerWallet: "0x22D901E22203673903263E363062e6759E0632C8",
         speed: "low",
-        params: [wallet, formation.cid_nft],
+        params: [
+            wallet,
+            formation.cid_nft
+        ],
     });
 
     if (!res)
