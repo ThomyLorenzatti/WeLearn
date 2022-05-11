@@ -77,7 +77,7 @@ export default class LessonContent extends React.Component {
     wallet = await connect()
     await axios({
         method: 'get',
-        url: API + "/get_formation/" + formation_id + '/' + wallet,
+        url: API + "/formations/" + formation_id + '/' + wallet,
         headers: {},
       }).then((res) => {
         this.setState({ lessonInfos: res.data.data })

@@ -2,7 +2,8 @@ const formationModel = require('../../models/formations/FormationModel.js');
 const serviceTools = require('../../services/utils/ServiceTools');
 const DTService = require('../../services/utils/DTService');
 
-const CreateFormation = async () => {
+const CreateFormation = async (req) => {
+    console.log(req.body)
     const wallet = req.body.wallet;
     const formation_name = req.body.formation_name;
     const price = req.body.price;
@@ -17,6 +18,7 @@ const CreateFormation = async () => {
     if (!formation_name || !wallet || !content || !question1 || !question2 || !answer1 || !answer2) {
         return serviceTools.makeResponse(false, 'Missing parameters', {});
     }
+    return serviceTools.makeResponse(false, 'Missing parameters', {});
 
     const http = axios.create({ baseURL: "https://api.starton.io/v2", headers: {"x-api-key": process.env.starton_key}});
 

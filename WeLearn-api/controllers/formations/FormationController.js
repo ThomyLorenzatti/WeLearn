@@ -3,8 +3,7 @@ const serviceTools = require("../../services/utils/ServiceTools");
 
 const CreateFormation = async (req, res) => {
     try {
-        const formation = req.body;
-        let infos = await formationService.CreateFormation(formation);
+        let infos = await formationService.CreateFormation(req);
         return res.status(infos.success ? 200 : 400).send(infos);
     } catch (error) {
         return res.status(500).send(error);
