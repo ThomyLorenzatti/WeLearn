@@ -3,6 +3,8 @@ import './LessonContent.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { ethers } from "ethers";
+import Loading from '../Loading/Loading.jsx';
+
 const API = import.meta.env.VITE_REACT_URL
 
 async function connect() {
@@ -65,6 +67,7 @@ export default class LessonContent extends React.Component {
     super();
     this.state = { 
       lessonInfos: [],
+      loading: true,
     };
   }
 
@@ -84,10 +87,16 @@ export default class LessonContent extends React.Component {
         this.setState({ lessonInfos: res.data })
       });
       console.log(this.state.lessonInfos);
+      this.setState({ loading: false })
   }
 
 
   render() {
+    if (this.state.loading) {
+      return(
+        <Loading/>
+      )
+    }
     if (this.state.lessonInfos.bought == false) {
       return (
         <div class="article">

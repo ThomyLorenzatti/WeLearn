@@ -2,6 +2,8 @@ import React from 'react';
 import './Form.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import Loading from '../Loading/Loading.jsx';
+import Success from '../Success/Success.jsx';
 
 const API = import.meta.env.VITE_REACT_URL
 
@@ -24,7 +26,11 @@ export default class Form extends React.Component {
       question1: "",
       response1: "",
       question2: "",
-      response2: ""
+      response2: "",
+
+      loading: false,
+      success: false,
+      successTitle: "",
     };
   }
 
@@ -55,9 +61,11 @@ export default class Form extends React.Component {
   };
 
   sendInfos = () => {
+    this.setState({ loading: true });
     var wallet = "";
     connect().then((r) => {
       wallet = r;
+      console.log("connected")
       axios({
         method: 'post',
         url: API + '/create-formation',
@@ -72,11 +80,27 @@ export default class Form extends React.Component {
           question2: this.state.question2,
           answer2: this.state.response2,
         }
+      }).then((res) => {
+        if (res.status == 200) {
+          this.setState({ successTitle: res.data })
+        }
+        this.setState({ success: true })
+        this.setState({ loading: false })
       });
     });
   }
 
   render() {
+    if (this.state.success) {
+      return(
+        <Success title={this.state.successTitle}/>
+      )
+    }
+    if (this.state.loading) {
+      return(
+        <Loading/>
+      )
+    }
     if (this.state.quiz == 0) {
       return (
         <div class="login-box">
@@ -94,6 +118,7 @@ export default class Form extends React.Component {
             <input type="text" name="" required="" value={this.state.content} onChange={this.handleChangeContent}/>
             <label>Content of your formation</label>
           </div>
+          <div className='centerBtn'>
             <div class="btn" onClick={this.changePage}>
               <span></span>
               <span></span>
@@ -101,6 +126,7 @@ export default class Form extends React.Component {
               <span></span>
                 Next
             </div>
+          </div>
         </form>
         </div>
       );
@@ -125,12 +151,14 @@ export default class Form extends React.Component {
             <input type="text" name="" required="" value={this.state.response2} onChange={this.handleChangeResponse2}/>
             <label>Response 2</label>
           </div>
-            <div class="btn" onClick={this.sendInfos}>
+          <div className='centerBtn'>
+          <div className="btn" onClick={this.sendInfos}>
               <span></span>
               <span></span>
               <span></span>
               <span></span>
                 Submit
+            </div>
             </div>
         </form>
         </div>

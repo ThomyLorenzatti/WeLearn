@@ -89,6 +89,8 @@ export default class FormQuiz extends React.Component {
           <input type="text" name="" required="" value={this.state.response2} onChange={this.handleChangeResponse2}/>
           <label>{this.state.lessonInfos.question2}</label>
         </div>
+          <div className='centerBtn'>
+
           <button className="btn" onClick={this.sendAnwser} disabled={this.state.disable}>
             <span></span>
             <span></span>
@@ -96,6 +98,7 @@ export default class FormQuiz extends React.Component {
             <span></span>
               Submit
           </button>
+          </div>
       </form>
       </div>
     );

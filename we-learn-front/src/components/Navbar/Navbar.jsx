@@ -36,14 +36,6 @@ async function checkIfWalletIsConnected(onConnected) {
   }
 }
 
-function Connect({ setUserAddress }) {
-  return (
-    <button class="button-metamask" onClick={() => connect(setUserAddress)}>
-      Connect to MetaMask
-    </button>
-  );
-}
-
 function Navbar() {
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);

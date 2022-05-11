@@ -25,9 +25,10 @@ class Address extends React.Component {
         <>
         <span className="nav-tokens">
           {this.state.nb_lrn}
-        </span>
-        <span className="nav-tokens-unit">
-          LRN
+          <img className="nav-tokens-img"
+            src="/src/images/LRNlogo.png"
+            alt="LRN"      
+            />
         </span>
         <span className="nav-tokens">
           {this.state.nb_bnb}
