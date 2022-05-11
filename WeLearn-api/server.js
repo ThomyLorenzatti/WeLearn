@@ -49,16 +49,6 @@ app.use('/api', routes);
     
 //     let metadataCid = "QmSYv1FJLzL6utFTMCVUvz95ycCuGdQBYFJyHhbLbaGhV8"
 //     let receiverAddress = buyer_wallet;
-//     const SMART_CONTRACT_NETWORK = "binance-testnet";
-//     const SMART_CONTRACT_ADDRESS = response.nft_contract;
-//     const WALLET_IMPORTED_ON_STARTON = "0x22D901E22203673903263E363062e6759E0632C8";
-
-//     const nft = await starton.post(`/smart-contract/${SMART_CONTRACT_NETWORK}/${SMART_CONTRACT_ADDRESS}/call`, {
-//         functionName: "safeMint",
-//         signerWallet: WALLET_IMPORTED_ON_STARTON,
-//         speed: "low",
-//         params: [receiverAddress, metadataCid],
-//     });
 //     res.send("Formation bought !")
 // });
 

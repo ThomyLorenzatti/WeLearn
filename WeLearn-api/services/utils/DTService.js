@@ -1,6 +1,6 @@
 const makeFormationDTI = (obj) => {
     return {
-        name: obj.name ? obj.name : '',
+        name: obj.formation_name ? obj.formation_name : '',
         wallet_creator: obj.wallet ? obj.wallet : null,
         nft_contract: obj.nft_contract ? obj.nft_contract : null,
         ntt_contract: obj.ntt_contract ? obj.ntt_contract : null,

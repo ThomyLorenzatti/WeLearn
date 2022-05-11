@@ -3,6 +3,7 @@ const serviceTools = require('../../services/utils/ServiceTools');
 const DTService = require('../../services/utils/DTService');
 const axios = require('axios')
 var FormData = require('form-data');
+require('dotenv');
 
 const http = axios.create({ baseURL: "https://api.starton.io/v2", headers: {"x-api-key": process.env.starton_key}});
 
@@ -119,7 +120,14 @@ const BuyFormation = async (formationId, wallet) => {
     if (balance < formation.price) {
         return serviceTools.makeResponse(false, 'Not enought funds', {});
     }
-    let res = await serviceTools.sendTransaction(wallet, formation.price, formation.nft_contract);
+
+    const nft = await starton.post(`/smart-contract/binance-testnet/${formation.nft_contract}/call`, {
+        functionName: "safeMint",
+        signerWallet: process.env.learn_adress,
+        speed: "low",
+        params: [receiverAddress, metadataCid],
+    });
+
     if (!res) {
         return serviceTools.makeResponse(false, 'Error sending transaction', {});
     }
