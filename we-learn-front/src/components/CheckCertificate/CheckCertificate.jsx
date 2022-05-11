@@ -49,7 +49,7 @@ export default class CheckCertificate extends React.Component {
 
   render() {
     return (
-      <div class="login-box">
+      <div class="certif-box">
       <h2>Verify User Certificates</h2>
       <form>
         <div class="user-box">

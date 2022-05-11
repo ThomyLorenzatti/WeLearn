@@ -8,7 +8,7 @@ font-family: sans-serif;
 background: linear-gradient(#141e30, #243b55);
 }
 
-.login-box {
+.certif-box {
 position: absolute;
 top: 50%;
 left: 50%;
@@ -21,18 +21,18 @@ box-shadow: 0 15px 25px rgba(0,0,0,.6);
 border-radius: 10px;
 }
 
-.login-box h2 {
+.certif-box h2 {
 margin: 0 0 30px;
 padding: 0;
 color: #fff;
 text-align: center;
 }
 
-.login-box .user-box {
+.certif-box .user-box {
 position: relative;
 }
 
-.login-box .user-box input {
+.certif-box .user-box input {
 width: 100%;
 padding: 10px 0;
 font-size: 16px;
@@ -43,7 +43,7 @@ border-bottom: 1px solid #fff;
 outline: none;
 background: transparent;
 }
-.login-box .user-box label {
+.certif-box .user-box label {
 position: absolute;
 top:0;
 left: 0;
@@ -54,15 +54,15 @@ pointer-events: none;
 transition: .5s;
 }
 
-.login-box .user-box input:focus ~ label,
-.login-box .user-box input:valid ~ label {
+.certif-box .user-box input:focus ~ label,
+.certif-box .user-box input:valid ~ label {
 top: -20px;
 left: 0;
 color: #03e9f4;
 font-size: 12px;
 }
 
-.login-box form .btn {
+.certif-box form .btn {
 position: relative;
 display: inline-block;
 padding: 10px 20px;
@@ -76,7 +76,7 @@ margin-top: 40px;
 letter-spacing: 4px
 }
 
-.login-box .btn:hover {
+.certif-box .btn:hover {
 background: #03e9f4;
 color: #fff;
 border-radius: 5px;
@@ -86,12 +86,12 @@ box-shadow: 0 0 5px #03e9f4,
             0 0 100px #03e9f4;
 }
 
-.login-box .btn span {
+.certif-box .btn span {
 position: absolute;
 display: block;
 }
 
-.login-box .btn span:nth-child(1) {
+.certif-box .btn span:nth-child(1) {
 top: 0;
 left: -100%;
 width: 100%;
@@ -109,7 +109,7 @@ animation: btn-anim1 1s linear infinite;
 }
 }
 
-.login-box .btn span:nth-child(2) {
+.certif-box .btn span:nth-child(2) {
 top: -100%;
 right: 0;
 width: 2px;
@@ -128,7 +128,7 @@ animation-delay: .25s
 }
 }
 
-.login-box .btn span:nth-child(3) {
+.certif-box .btn span:nth-child(3) {
 bottom: 0;
 right: -100%;
 width: 100%;
@@ -147,7 +147,7 @@ animation-delay: .5s
 }
 }
 
-.login-box .btn span:nth-child(4) {
+.certif-box .btn span:nth-child(4) {
 bottom: -100%;
 left: 0;
 width: 2px;
