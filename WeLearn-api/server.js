@@ -10,46 +10,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/api', routes);
 
-// async function hasNFTFormation(wallet, contract_formation) {
-//     const nft = await starton.post(`/smart-contract/binance-testnet/${contract_formation}/read`, {
-//         functionName: "balanceOf",
-//         params: [wallet]
-//     }).catch(err => {
-//     });
-
-//     try {
-//         if (nft.data.response.raw != 0)
-//             return true;
-//     } catch {
-//         return false;
-//     }
-//     return false;
-
-// };
-
 // app.post("/submit_quizz", async (req, res) => {
 //     formation_id = req.body.formation_id
 //     buyer_wallet = req.body.buyer_wallet
 
 //     res.send("quizz submitted")
-// });
-
-// app.post("/buy_formation", async (req, res) => {
-
-//     formation_id = req.body.formation_id
-//     buyer_wallet = req.body.buyer_wallet
-
-//     let response = await knex('formation').select('price', 'nft_contract', 'wallet_creator').where('id', formation_id).first().catch(err => {
-//         res.send(err)
-//     });
-//     if (!response) {
-//         res.send("No formation found with this id.")
-//         return
-//     }
-    
-//     let metadataCid = "QmSYv1FJLzL6utFTMCVUvz95ycCuGdQBYFJyHhbLbaGhV8"
-//     let receiverAddress = buyer_wallet;
-//     res.send("Formation bought !")
 // });
 
 // app.post("/finish_formation", async (req, res) => {

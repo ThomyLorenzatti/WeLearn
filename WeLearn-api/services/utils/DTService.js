@@ -9,6 +9,8 @@ const makeFormationDTI = (obj) => {
         question2: obj.question2 ? obj.question2 : '',
         answer1: obj.answer1 ? obj.answer1 : '',
         answer2: obj.answer2 ? obj.answer2 : '',
+        cid_nft: obj.cid_nft ? obj.cid_nft : null,
+        cid_ntt: obj.cid_ntt ? obj.cid_ntt : null
     }
 }
 

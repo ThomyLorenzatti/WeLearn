@@ -5,7 +5,7 @@ const serviceTools = require('../../services/utils/ServiceTools');
 const query = serviceTools.getDbQuery();
 
 const CreateFormation = async (formationDTI) => {
-    const sql = "insert into formation (name, wallet_creator, nft_contract, ntt_contract, price, question1, question2, answer1, answer2) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    const sql = "insert into formation (name, wallet_creator, nft_contract, ntt_contract, price, question1, question2, answer1, answer2, cid_nft, cid_ntt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     const values = [
         formationDTI.name,
         formationDTI.wallet_creator,
@@ -15,7 +15,9 @@ const CreateFormation = async (formationDTI) => {
         formationDTI.question1,
         formationDTI.question2,
         formationDTI.answer1,
-        formationDTI.answer2
+        formationDTI.answer2,
+        formationDTI.cid_nft,
+        formationDTI.cid_ntt,
     ];
     let res = await query(sql, values);
     return (res.insertId);
