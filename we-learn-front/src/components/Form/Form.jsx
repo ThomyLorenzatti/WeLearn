@@ -45,7 +45,7 @@ export default class Form extends React.Component {
   };
   changePage = () => {
     console.log(this.uploaded)
-    if (this.name != "" && this.state.selectedFile != null)
+    if (this.state.name != "" && this.state.selectedFile != null)
       this.setState({ quiz: 1 });
   }
   handleChangeQuestion1 = (e) => {
