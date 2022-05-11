@@ -58,7 +58,7 @@ const CreateFormation = async (req) => {
     formationDTI.nft_contract = keyScRes.data.smartContract.address;
     formationDTI.ntt_contract = certifScRes.data.smartContract.address;
 
-    console.log(keyScRes.data.smartContract)
+    console.log(keyScRes.data.smartContract);
 
     let data = await formationModel.CreateFormation(formationDTI);
 
@@ -115,16 +115,16 @@ const hasNFTFormation = async (wallet, contract_formation) => {
 
 const GetFormationById = async (formationId, wallet) => {
     if (!formationId || !wallet)
-        return serviceTools.makeResponse(false, 'Missing parameters', {bought: false});
-
-    if (!hasNFTFormation(wallet, formationId))
-        return serviceTools.makeResponse(true, 'You don\'t have this formation', {bought: false});
+        return serviceTools.makeResponse(false, 'Missing parameters', {});
         
     let formation = await formationModel.GetFormationById(formationId);
     if (!formation)
-        return serviceTools.makeResponse(false, 'Formation not found', {bought: false});
+        return serviceTools.makeResponse(false, 'Formation not found', {});
 
-    formation.append({bought: true});
+    if (!hasNFTFormation(wallet, formationId))
+        formation.append({bought: false});
+    else
+        formation.append({bought: true});
     return serviceTools.makeResponse(true, '', formation);
 }
 
