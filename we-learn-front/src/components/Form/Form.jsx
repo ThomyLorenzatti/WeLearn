@@ -30,7 +30,8 @@ export default class Form extends React.Component {
       loading: false,
       success: false,
       successTitle: "",
-      selectedFile: null
+      selectedFile: null,
+      placeholderName: "Your formation's title"
     };
   }
 
@@ -45,7 +46,7 @@ export default class Form extends React.Component {
   };
   changePage = () => {
     console.log(this.uploaded)
-    if (this.state.name != "" && this.state.selectedFile != null)
+    if (this.state.selectedFile != null)
       this.setState({ quiz: 1 });
   }
   handleChangeQuestion1 = (e) => {
@@ -72,6 +73,8 @@ export default class Form extends React.Component {
     var wallet = "";
     connect().then((r) => {
       wallet = r;
+      if (this.state.name == "")
+        this.setState({ name: this.state.placeholderName });
       axios({
         method: 'post',
         url: API + '/create-formation',
@@ -118,7 +121,7 @@ export default class Form extends React.Component {
           <h2>Create Formation</h2>
           <form>
             <div class="user-box">
-              <input type="text" name="" required="" value={this.state.name} onChange={this.handleChangeName} />
+              <input type="text" placeholder={this.state.placeholderName} required="" value={this.state.name} onChange={this.handleChangeName} />
               <label>Name</label>
             </div>
             <div class="user-box">
