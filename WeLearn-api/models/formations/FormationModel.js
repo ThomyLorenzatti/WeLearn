@@ -44,7 +44,7 @@ const GetFormationById = async (formationId) => {
     if (!infos) {
         return ({});
     }
-    return (infos);
+    return (infos[0]);
 }
 
 module.exports = {
