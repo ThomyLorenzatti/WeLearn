@@ -74,7 +74,6 @@ export default class Form extends React.Component {
     var wallet = "";
     connect().then((r) => {
       wallet = r;
-      console.log("connected")
       axios({
         method: 'post',
         url: API + '/create-formation',
@@ -89,12 +88,10 @@ export default class Form extends React.Component {
           answer2: this.state.response2,
         }
       }).then((res) => {
-        console.log("1");
         if (res.status == 200) {
           this.setState({ successTitle: res.data.data })
         }
-        console.log("WOOOOW");
-        console.log("WOOOOW2");
+        console.log(formData);
         axios({
           method: 'post',
           url: API + '/upload_formation',
@@ -103,7 +100,6 @@ export default class Form extends React.Component {
             'Content-type': 'multipart/form-data',
           },
         }).then((res) => {
-          console.log('TEST')
           console.log(res)
         }
         )
