@@ -5,6 +5,7 @@ import FormPage from './FormPage'
 import ContactUS from './ContactUS'
 import Lesson from './Lesson'
 import Formation from './Formation'
+import CheckCertificates from './CheckCertificates'
 import SecretPage from './Secret'
 import QuizEnd from './QuizEnd'
 import Navbar from './components/Navbar/Navbar.jsx';
@@ -27,6 +28,7 @@ render(
         <Route path="/secret" element={<SecretPage />} />
         <Route path="/contact" element={<ContactUS />} />
         <Route path="/final-quiz/:id" element={<QuizEnd />} />
+        <Route path="/check-certificates" element={<CheckCertificates />} />
       </Routes>
     </BrowserRouter>,
     rootElement

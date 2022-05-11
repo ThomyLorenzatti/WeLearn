@@ -94,7 +94,7 @@ function Navbar() {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to='/contact' className='nav-links'>
+                <Link to='/check-certificates' className='nav-links'>
                   Check Certificates
                 </Link>
               </li>
