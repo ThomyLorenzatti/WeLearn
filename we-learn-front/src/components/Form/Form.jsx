@@ -94,8 +94,6 @@ export default class Form extends React.Component {
           this.setState({ successTitle: res.data.data })
         }
         console.log("WOOOOW");
-        this.setState({ success: true })
-        this.setState({ loading: false })
         console.log("WOOOOW2");
         axios({
           method: 'post',
@@ -110,6 +108,8 @@ export default class Form extends React.Component {
         }
         )
         console.log("WOOOOW3");
+        this.setState({ success: true })
+        this.setState({ loading: false })
       });
     });
   }
