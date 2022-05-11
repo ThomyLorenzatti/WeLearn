@@ -14,7 +14,7 @@ const CreateFormation = async (req, res) => {
 const GetFormations = async (req, res) => {
     try {
         let infos = await formationService.GetFormations();
-        console.log(infos)
+        console.log("infos: ", infos)
         return res.status(infos.success ? 200 : 400).send(infos);
     } catch (error) {
         return res.status(500).send(error);

@@ -14,39 +14,27 @@ const starton = axios.create({
     },
 });
 
-require('dotenv').config()
-
-const knex = require('knex')({
-    client: 'mysql',
-    connection: {
-        host     : process.env.db_host,
-        user     : process.env.db_user,
-        password : process.env.db_password,
-        database : process.env.db_name
-    }
-});
-
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/api', routes);
 
-async function hasNFTFormation(wallet, contract_formation) {
-    const nft = await starton.post(`/smart-contract/binance-testnet/${contract_formation}/read`, {
-        functionName: "balanceOf",
-        params: [wallet]
-    }).catch(err => {
-    });
+// async function hasNFTFormation(wallet, contract_formation) {
+//     const nft = await starton.post(`/smart-contract/binance-testnet/${contract_formation}/read`, {
+//         functionName: "balanceOf",
+//         params: [wallet]
+//     }).catch(err => {
+//     });
 
-    try {
-        if (nft.data.response.raw != 0)
-            return true;
-    } catch {
-        return false;
-    }
-    return false;
+//     try {
+//         if (nft.data.response.raw != 0)
+//             return true;
+//     } catch {
+//         return false;
+//     }
+//     return false;
 
-};
+// };
 
 // app.post("/create-formation", async (req, res) => {
 //     wallet = req.body.wallet

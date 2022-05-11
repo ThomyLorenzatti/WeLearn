@@ -1,4 +1,4 @@
-const formationModel = require('../../models/formations/FormationModel')
+const formationModel = require('../../models/formations/FormationModel.js')
 const serviceTools = require('../../services/utils/ServiceTools')
 
 const CreateFormation = async () => {
@@ -10,12 +10,11 @@ const CreateFormation = async () => {
 }
 
 const GetFormations = async () => {
-    console.log("???")
     let data = await formationModel.GetFormations();
     if (!data) {
         return serviceTools.makeResponse(false, 'Error getting formations', {})
     }
-    console.log('ouhouh: ', data)
+    return serviceTools.makeResponse(true, '', data);
 }
 
 const GetFormation = async (formationId) => {

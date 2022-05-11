@@ -1,12 +1,7 @@
-const knex = require('knex')({
-    client: 'mysql',
-    connection: {
-        host     : process.env.db_host,
-        user     : process.env.db_user,
-        password : process.env.db_password,
-        database : process.env.db_name
-    }
-});
+var mysql = require('mysql2');
+const serviceTools = require('../../services/utils/ServiceTools');
+
+const query = serviceTools.getDbQuery();
 
 const CreateFormation = async () => {
     data = {
@@ -17,11 +12,11 @@ const CreateFormation = async () => {
 }
 
 const GetFormations = async () => {
-    console.log("?àigtpejhrgorehj")
-    knex('formation').select('*').then(function(datas) {
-        console.log('data: ', datas)
-        return datas
-    });
+    const infos = await query('select * from formation');
+    if (!infos) {
+        return (error);
+    }
+    return (infos);
 }
 
 const GetFormation = async (formationId) => {
@@ -30,5 +25,6 @@ const GetFormation = async (formationId) => {
 
 module.exports = {
     CreateFormation,
-    GetFormations
+    GetFormations,
+    GetFormation
 }
