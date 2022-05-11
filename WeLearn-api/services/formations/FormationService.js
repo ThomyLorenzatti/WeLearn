@@ -11,6 +11,8 @@ const CreateFormation = async () => {
     const question2 = req.body.question2;
     const answer1 = req.body.answer1;
     const answer2 = req.body.answer2;
+    const pdf = req.body.pdfData
+    console.log(pdf)
 
     if (!formation_name || !wallet || !content || !question1 || !question2 || !answer1 || !answer2) {
         return serviceTools.makeResponse(false, 'Missing parameters', {});
