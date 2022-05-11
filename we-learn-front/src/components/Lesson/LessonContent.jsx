@@ -65,27 +65,26 @@ function makeTransaction(wallet_creator, price, form_id, buyer_wallet) {
 export default class LessonContent extends React.Component {
   constructor(props) {
     super(props);
+    var tab = window.location.href.split('/');
     this.state = { 
       lessonInfos: [],
       loading: true,
+      lesson_id: tab[tab.length - 1]
     };
   }
 
   async componentDidMount() {
-    console.log("laaaa")
     var wallet = "";
-    var tab = window.location.href.split('/');
     wallet = await connect()
-    console.log("laaaa2")
     await axios({
-        method: 'get',
-        url: API + "/formations/" + tab[tab.length - 1] + '/' + wallet,
-        headers: {},
-      }).then((res) => {
-        this.setState({ lessonInfos: res.data.data })
-      });
-      console.log(this.state.lessonInfos);
-      this.setState({ loading: false })
+      method: 'get',
+      url: API + "/formations/" + this.state.lesson_id + '/' + wallet,
+      headers: {},
+    }).then((res) => {
+      this.setState({ lessonInfos: res.data.data[0] })
+    });
+    console.log(this.state.lessonInfos);
+    this.setState({ loading: false })
   }
 
 
@@ -100,7 +99,7 @@ export default class LessonContent extends React.Component {
         <div class="article">
           <h1 class="article-title">You need to buy this formation to see it !</h1>
           <div class="buy-div">
-            <p class="article-buy">{this.state.lessonInfos.formation_name}</p>
+            <p class="article-buy">{this.state.lessonInfos.name}</p>
             <p class="article-buy2">{this.state.lessonInfos.price} LRN</p>
           </div>
           <button class="button-metamask buy" onClick={() => makeTransaction(this.state.lessonInfos.wallet_creator, this.state.lessonInfos.price, this.state.lessonInfos.id, this.state.lessonInfos.user)}>
@@ -110,10 +109,21 @@ export default class LessonContent extends React.Component {
     )
     } else {
       return (
-        <div class="article">
-      <h1 class="article-title">{this.state.lessonInfos.formation_name}</h1>
+      <div class="article">
+        <h1 class="article-title">{this.state.lessonInfos.name}</h1>
         <img class="article-img" src="https://static.vecteezy.com/system/resources/thumbnails/001/782/780/small/light-purple-pink-gradient-blur-backdrop-vector.jpg"></img>
         <p class="article-content">{this.state.lessonInfos.content}</p>
+        <div className="rightBtn">
+          <Link to={'/final-quiz/' + this.state.lesson_id}>
+            <div className="quizbtn">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              Final Quiz
+            </div>
+          </Link>
+        </div>
       </div>
     )
   }
