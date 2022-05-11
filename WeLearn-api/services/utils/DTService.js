@@ -1,15 +1,14 @@
-const makeFormationDTI = (name, wallet, nft_contract, ntt_contract, price, question1, question2, answer1, answer2, content) => {
+const makeFormationDTI = (obj) => {
     return {
-        name: name,
-        wallet_creator: wallet,
-        nft_contract: nft_contract,
-        ntt_contract: ntt_contract,
-        price: price,
-        question1: question1,
-        question2: question2,
-        answer1: answer1,
-        answer2: answer2,
-        content: content
+        name: obj.name ? obj.name : '',
+        wallet_creator: obj.wallet ? obj.wallet : null,
+        nft_contract: obj.nft_contract ? obj.nft_contract : null,
+        ntt_contract: obj.ntt_contract ? obj.ntt_contract : null,
+        price: obj.price ? obj.price : 0,
+        question1: obj.question1 ? obj.question1 : '',
+        question2: obj.question2 ? obj.question2 : '',
+        answer1: obj.answer1 ? obj.answer1 : '',
+        answer2: obj.answer2 ? obj.answer2 : '',
     }
 }
 

@@ -6,6 +6,7 @@ const CreateFormation = async (req, res) => {
         let infos = await formationService.CreateFormation(req);
         return res.status(infos.success ? 200 : 400).send(infos);
     } catch (error) {
+        console.log(error);
         return res.status(500).send(error);
     }
 }
