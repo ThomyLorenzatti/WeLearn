@@ -62,6 +62,11 @@ html {
   font-size: 12px;
 }
 
+.centerBtn {
+  display: flex;
+  justify-content: center;
+}
+
 .login-box form .btn {
   position: relative;
   display: inline-block;
