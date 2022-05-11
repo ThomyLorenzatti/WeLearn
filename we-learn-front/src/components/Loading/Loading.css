@@ -75,8 +75,8 @@ body {
 
 #loading-content:before {
   border: 3px solid transparent;
-  border-top-color: #D4CC6A;
-  border-bottom-color: #D4CC6A;
+  border-top-color: #03E9F4;
+  border-bottom-color: #03E9F4;
   border-radius: 50%;
   -webkit-animation: loader 12s linear infinite;
     -moz-animation: loader 8s linear infinite;
