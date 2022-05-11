@@ -1,7 +1,7 @@
 .content {
   background-color: aliceblue;
   width: 100vw;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .content-container {
