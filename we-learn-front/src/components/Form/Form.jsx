@@ -18,7 +18,7 @@ async function connect() {
 export default class Form extends React.Component {
   constructor() {
     super();
-    this.state = { 
+    this.state = {
       name: "",
       number: 0,
       content: "",
@@ -82,7 +82,7 @@ export default class Form extends React.Component {
       axios({
         method: 'post',
         url: API + '/create-formation',
-        headers: {}, 
+        headers: {},
         data: {
           wallet: wallet,
           formation_name: this.state.name,
@@ -105,79 +105,79 @@ export default class Form extends React.Component {
 
   render() {
     if (this.state.success) {
-      return(
-        <Success title={this.state.successTitle}/>
+      return (
+        <Success title={this.state.successTitle} />
       )
     }
     if (this.state.loading) {
-      return(
-        <Loading/>
+      return (
+        <Loading />
       )
     }
     if (this.state.quiz == 0) {
       return (
         <div class="login-box">
-        <h2>Create Formation</h2>
-        <form>
-          <div class="user-box">
-            <input type="text" name="" required="" value={this.state.name} onChange={this.handleChangeName}/>
-            <label>Name</label>
-          </div>
-          <div class="user-box">
-            <input type="number" name="" required="" value={this.state.number} onChange={this.handleChangeNumber}/>
-            <label>Price (in Learn)</label>
-          </div>
-          {/* <div class="user-box">
+          <h2>Create Formation</h2>
+          <form>
+            <div class="user-box">
+              <input type="text" name="" required="" value={this.state.name} onChange={this.handleChangeName} />
+              <label>Name</label>
+            </div>
+            <div class="user-box">
+              <input type="number" name="" required="" value={this.state.number} onChange={this.handleChangeNumber} />
+              <label>Price (in Learn)</label>
+            </div>
+            {/* <div class="user-box">
             <input type="text" name="" required="" value={this.state.content} onChange={this.handleChangeContent}/>
             <label>Content of your formation</label>
           </div> */}
-          <div class="user-box">
+            <div class="user-box">
               <input type="file" onChange={this.onFileChange} />
               <label>Upload your PDF formation</label>
-          </div>
-          <div className='centerBtn'>
-            <div class="btn" onClick={this.changePage}>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-                Next
             </div>
-          </div>
-        </form>
+            <div className='centerBtn'>
+              <div class="btn" onClick={this.changePage}>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                Next
+              </div>
+            </div>
+          </form>
         </div>
       );
     } else {
       return (
         <div class="login-box">
-        <h2>Make a quiz</h2>
-        <form>
-          <div class="user-box">
-            <input type="text" name="" required="" value={this.state.question1} onChange={this.handleChangeQuestion1}/>
-            <label>Question 1</label>
-          </div>
-          <div class="user-box">
-            <input type="text" name="" required="" value={this.state.response1} onChange={this.handleChangeResponse1}/>
-            <label>Response 1</label>
-          </div>
-          <div class="user-box">
-            <input type="text" name="" required="" value={this.state.question2} onChange={this.handleChangeQuestion2}/>
-            <label>Question 2</label>
-          </div>
-          <div class="user-box">
-            <input type="text" name="" required="" value={this.state.response2} onChange={this.handleChangeResponse2}/>
-            <label>Response 2</label>
-          </div>
-          <div className='centerBtn'>
-          <div className="btn" onClick={this.sendInfos}>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
+          <h2>Make a quiz</h2>
+          <form>
+            <div class="user-box">
+              <input type="text" name="" required="" value={this.state.question1} onChange={this.handleChangeQuestion1} />
+              <label>Question 1</label>
+            </div>
+            <div class="user-box">
+              <input type="text" name="" required="" value={this.state.response1} onChange={this.handleChangeResponse1} />
+              <label>Response 1</label>
+            </div>
+            <div class="user-box">
+              <input type="text" name="" required="" value={this.state.question2} onChange={this.handleChangeQuestion2} />
+              <label>Question 2</label>
+            </div>
+            <div class="user-box">
+              <input type="text" name="" required="" value={this.state.response2} onChange={this.handleChangeResponse2} />
+              <label>Response 2</label>
+            </div>
+            <div className='centerBtn'>
+              <div className="btn" onClick={this.sendInfos}>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
                 Submit
+              </div>
             </div>
-            </div>
-        </form>
+          </form>
         </div>
       );
     }
