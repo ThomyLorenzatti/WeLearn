@@ -96,6 +96,7 @@ export default class Form extends React.Component {
         console.log("WOOOOW");
         this.setState({ success: true })
         this.setState({ loading: false })
+        console.log("WOOOOW2");
         axios({
           method: 'post',
           url: API + '/upload_formation',
@@ -108,6 +109,7 @@ export default class Form extends React.Component {
           console.log(res)
         }
         )
+        console.log("WOOOOW3");
       });
     });
   }
