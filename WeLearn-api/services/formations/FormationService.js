@@ -1,6 +1,7 @@
 const formationModel = require('../../models/formations/FormationModel.js');
 const serviceTools = require('../../services/utils/ServiceTools');
 const DTService = require('../../services/utils/DTService');
+const axios = require('axios')
 
 const CreateFormation = async (req) => {
     const wallet = req.body.wallet;
@@ -11,7 +12,7 @@ const CreateFormation = async (req) => {
     const answer1 = req.body.answer1;
     const answer2 = req.body.answer2;
 
-    if (!formation_name || !wallet || !question1 || !question2 || !answer1 || !answer2) {
+    if (!formation_name || !wallet || !question1 || !question2 || !answer1 || !answer2 || !price) {
         return serviceTools.makeResponse(false, 'Missing parameters', {});
     }
 
@@ -51,12 +52,12 @@ const CreateFormation = async (req) => {
         return serviceTools.makeResponse(false, 'Unknow error certif sc creation', {});
     });
 
-    const nft_contract = keyScRes.data.smartContract.address;
-    const ntt_contract = certifScRes.data.smartContract.address;
-
-    const formationDTI = DTService.makeFormationDTI(formation_name, wallet, nft_contract, ntt_contract, price, question1, question2, answer1, answer2, content);
+    const formationDTI = DTService.makeFormationDTI(req.body);
+    formationDTI.nft_contract = keyScRes.data.smartContract.address;
+    formationDTI.ntt_contract = certifScRes.data.smartContract.address;
 
     let data = await formationModel.CreateFormation(formationDTI);
+
     if (!data) {
         return serviceTools.makeResponse(false, 'Error creating formations', {});
     }
