@@ -42,7 +42,7 @@ export default class Formations extends React.Component {
                         <span class="rate"><i>★</i><i>★</i><i>★</i><i>★</i><i>★</i></span>
                         <div class="author">
                             <span class="card-price">{item.price}</span>
-                            <img src="/src/images/LRNlogo.png" alt="..." class="avatar img-raised"></img>
+                            <img src="https://media.discordapp.net/attachments/972406713561001984/974278983648686080/favicon.png" alt="..." class="avatar img-raised"></img>
                         </div>
                     </div>
                     </div>

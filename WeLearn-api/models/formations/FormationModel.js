@@ -23,7 +23,7 @@ const CreateFormation = async (formationDTI) => {
 }
 
 const UpdateFormationPdfLink = async (id, link) => {
-    const infos = await query("update formation set pdf_link = ? where id = ?", [formationId]);
+    const infos = await query("update formation set pdf_link = ? where id = ?", [link, id]);
     if (!infos) {
         return ({});
     }
@@ -47,11 +47,15 @@ const GetFormationById = async (formationId) => {
 }
 
 const GetFormationsCertificates = async () => {
-    const infos = await query('select nft_contract ntt_contract from formation');
+    const infos = await query('select * from formation');
     if (!infos) {
         return ({});
     }
-    return (infos);
+    const addr = [];
+    for (let i = 0; i < infos.length; i++) {
+        addr.push({nft_contract: infos[i].nft_contract, ntt_contract: infos[i].ntt_contract});
+    }
+    return (addr);
 }
 
 module.exports = {

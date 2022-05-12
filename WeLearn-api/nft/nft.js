@@ -1,27 +1,25 @@
+var FormData = require('form-data');
 const sharp = require('sharp')
 const axios = require("axios");
 const fs = require('fs')
-var FormData = require('form-data');
-const starton = axios.create({
-  baseURL: "https://api.starton.io/v2",
-  headers: {
-      "x-api-key": "BCyavFNFISpxz6F2QYvFFkjOHAsg2w0X",
-  },
-});
+
+
+const starton = axios.create({baseURL: "https://api.starton.io/v2", headers: {"x-api-key": "BCyavFNFISpxz6F2QYvFFkjOHAsg2w0X",},});
 
 // const SMART_CONTRACT_NETWORK = "binance-testnet";
 // const SMART_CONTRACT_ADDRESS = "0x7FA2dCA6bCE579eAA35217Ad5b2C883e029BD41E";
 // const WALLET_IMPORTED_ON_STARTON = "0x22D901E22203673903263E363062e6759E0632C8";
 
 const keyImage = async () => {
-  await sharp ('./black.png')
-  .composite([{input: './key.png', left: 350, top: 350}])
-  .toFile(__dirname + '/result.jpg')
+  await sharp (__dirname + '/black.png')
+  .composite([{input: __dirname + '/key.png', left: 350, top: 350}])
+  .toFile( __dirname +  '/result.jpg')
+  console.log("after sharp")
 }
 
 const checkImage = async () => {
-  await sharp ('./black.png')
-  .composite([{input: './check.png', left: 350, top: 350}])
+  await sharp (__dirname + '/black.png')
+  .composite([{input: __dirname + '/check.png', left: 350, top: 350}])
   .toFile(__dirname + '/result.jpg')
 }
 
@@ -81,8 +79,7 @@ const addText = async (text) => {
   svgText +=  `</text> </svg>`
 
   const svgBuffer = Buffer.from(svgText);
-
-  await sharp ('./result.jpg')
+  await sharp (__dirname + '/result.jpg')
   .composite([{input: svgBuffer, left: 0, top: 100}])
   .toFile(__dirname + '/result2.jpg')
 }
@@ -101,14 +98,14 @@ const addTextKey = async (text) => {
   </svg>`
 
   const svgBuffer = Buffer.from(svgText);
-  await sharp ('./result2.jpg')
+  await sharp (__dirname + '/result2.jpg')
   .composite([{input: svgBuffer, left: 0, top: 600}])
   .toFile(__dirname + '/result3.jpg')
 }
 
 const addLogo = async () => {
-  await sharp ('./result3.jpg')
-  .composite([{input: './logo.png', left: 300, top: 700}])
+  await sharp (__dirname + '/result3.jpg')
+  .composite([{input: __dirname + '/logo.png', left: 300, top: 700}])
   .toFile(__dirname + '/result4.jpg')
 }
 
@@ -142,18 +139,7 @@ async function uploadMetadataOnIpfs(imgCid) {
   return ipfsMetadata.data;
 }
 
-// async function mintNft(receiverAddress, metadataCid) {
-//   const nft = await starton.post(`/smart-contract/${SMART_CONTRACT_NETWORK}/${SMART_CONTRACT_ADDRESS}/call`,
-//   {
-//     functionName: "safeMint",
-//     signerWallet: WALLET_IMPORTED_ON_STARTON,
-//     speed: "low",
-//     params: [receiverAddress, metadataCid],
-//   });
-//   return nft.data;
-// }
-
-async function createImageNFT(formationName, isKey) {
+const createImageNFT = async (formationName, isKey) => {
   let endName = " - key"
 
   if (isKey) {
@@ -162,6 +148,7 @@ async function createImageNFT(formationName, isKey) {
     endName = " - certificate"
     await checkImage()
   }
+
   await addText(formationName)
   if (isKey) {
     await addTextKey("FORMATION ACCESS")
@@ -173,14 +160,17 @@ async function createImageNFT(formationName, isKey) {
   let path = __dirname + '/result4.jpg'
   const promise = fs.promises.readFile(path);
   let cid = ""
-  Promise.resolve(promise).then(async function(buffer) {
-    const RECEIVER_ADDRESS = "0x27D1ce56D9C8fdF5804d102b17531371BC5c81CC"
+
+  const res = await Promise.resolve(promise).then(async function(buffer) {
     const ipfsImg = await uploadImageOnIpfs(buffer, formationName + endName)
     const ipfsMetadata = await uploadMetadataOnIpfs(ipfsImg.pinStatus.pin.cid)
     cid = ipfsImg.pinStatus.pin.cid
-    // const nft = await mintNft(RECEIVER_ADDRESS, ipfsMetadata.pinStatus.pin.cid)
   }).catch((err) => {
     console.log(err)
   });
   return cid;
+}
+
+module.exports = {
+  createImageNFT
 }

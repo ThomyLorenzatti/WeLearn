@@ -1,6 +1,7 @@
 const axios = require('axios');
 const serviceTools = require('../../services/utils/ServiceTools');
 const formationModel = require('../../models/formations/FormationModel.js');
+const formationService = require('../formations/FormationService.js');
 
 const GetWalletInfo = async (wallet) => {
     if (!wallet) {
@@ -34,11 +35,17 @@ const GetCertificate = async (wallet) => {
         return serviceTools.makeResponse(false, 'Missing parameters to getCertificate', {})
     }
     const infos = await formationModel.GetFormationsCertificates(wallet);
-    console.log(infos)
+    const keys = [];
     const certificates = [];
 
-    
-    return serviceTools.makeResponse(true, '', certificates);
+    for (let i = 0; i < infos.length; i++) {
+        if (formationService.hasNFTFormation(wallet, infos[i].nft_contract)) {
+            keys.push(infos[i].nft_contract);
+        } else if (formationService.hasNFTFormation(wallet, infos[i].ntt_contract)) {
+            certificates.push(infos[i].ntt_contract);
+        }
+    }
+    return serviceTools.makeResponse(true, '', {certificates: certificates, keys: keys});
 }
 
 module.exports = {

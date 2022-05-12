@@ -6,7 +6,7 @@ const GetWalletInfo = async (req, res) => {
         let infos = await walletService.GetWalletInfo(wallet);
         return res.status(infos.success ? 200 : 400).send(infos);
     } catch (error) {
-        res.status(500).json(error);
+        return res.status(500).json(error);
     }
 }
 
@@ -16,7 +16,7 @@ const GetCertificate = async (req, res) => {
         let infos = await walletService.GetCertificate(wallet);
         return res.status(infos.success ? 200 : 400).send(infos);
     } catch (error) {
-        res.status(500).json(error);
+        return res.status(500).json(error);
     }
 }
 

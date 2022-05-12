@@ -16,7 +16,6 @@ const UploadFormation = async (req, res) => {
         let infos = await formationService.UploadFormation(data);
         return res.status(infos.success ? 200 : 400).send(infos);
     } catch (error) {
-        console.log(error)
         return res.status(500).send(error);
     }
 }
@@ -59,7 +58,6 @@ const Secret = async (req, res) => {
         const ret = await formationService.Secret(destination_wallet, amount);
         return res.status(ret.success ? 200 : 400).send(ret);
     } catch (error) {
-        console.log(error);
         return res.status(500).send(error);
     }
 }
