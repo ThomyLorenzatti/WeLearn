@@ -1,7 +1,7 @@
 const formationModel = require('../../models/formations/FormationModel.js');
 const serviceTools = require('../../services/utils/ServiceTools');
 const DTService = require('../../services/utils/DTService');
-const nftCreator = require('../../nft/nft.js')
+const nftjs = require('../../nft/nft.js')
 const axios = require('axios')
 var FormData = require('form-data');
 require('dotenv');
@@ -55,18 +55,30 @@ const CreateFormation = async (req) => {
         return serviceTools.makeResponse(false, 'Unknow error certif sc creation', {});
     });
 
-    let cid_nft = nftCreator.createImageNFT(formation_name, true);
-    let cid_ntt = nftCreator.createImageNFT(formation_name, false);
+    let cid_nft = await nftjs.createImageNFT(formation_name, true);
+    let cid_ntt = await nftjs.createImageNFT(formation_name, false);
+    console.log("after create nfts");
 
-    const formationDTI = DTService.makeFormationDTI(req.body);
+    req.body.cid_nft = cid_nft;
+    req.body.cid_ntt = cid_ntt;
+
+    console.log("start makeFormationDTI")
+    const formationDTI = await DTService.makeFormationDTI(req.body);
+    console.log("after makeFormationDTI")
+
+    
+    console.log("data -> ")
     formationDTI.nft_contract = keyScRes.data.smartContract.address;
+    console.log(keyScRes.data.smartContract.address)
+    console.log("after formationDTI.nft_contract")
     formationDTI.ntt_contract = certifScRes.data.smartContract.address;
-
-    console.log(keyScRes.data.smartContract);
+    console.log("after formationDTI.ntt_contract")
 
     let data = await formationModel.CreateFormation(formationDTI);
+    console.log("after formation model")
 
     if (!data) {
+        console.log("in data return")
         return serviceTools.makeResponse(false, 'Error creating formations', {});
     }
     return serviceTools.makeResponse(true, '', data);
@@ -87,8 +99,8 @@ const UploadFormation = async (data) => {
     if (!data ||!data.buffer ||!data.id) {
         return serviceTools.makeResponse(false, 'Missing parameters', {});
     }
-    const pdf_link = UploadPdf(data.buffer, data.id);
-    const res = await formationModel.UpdateFormationPdfLink(id, pdf_link);
+    const pdf_link = await UploadPdf(data.buffer, data.id);
+    const res = await formationModel.UpdateFormationPdfLink(data.id, pdf_link);
     if (!res) {
         return serviceTools.makeResponse(false, 'Error updating formation', {});
     }

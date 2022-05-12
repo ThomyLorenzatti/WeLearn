@@ -24,7 +24,7 @@ const CreateFormation = async (formationDTI) => {
 }
 
 const UpdateFormationPdfLink = async (id, link) => {
-    const infos = await query("update formation set pdf_link = ? where id = ?", [formationId]);
+    const infos = await query("update formation set pdf_link = ? where id = ?", [link, id]);
     if (!infos) {
         return ({});
     }
@@ -47,9 +47,18 @@ const GetFormationById = async (formationId) => {
     return (infos[0]);
 }
 
+const GetAllNTTContracts = async () => {
+    const infos = await query('select * from formation where ntt_contract != ""');
+    if (!infos) {
+        return ({});
+    }
+    return (infos);
+}
+
 module.exports = {
     CreateFormation,
     GetFormations,
     GetFormationById,
-    UpdateFormationPdfLink
+    UpdateFormationPdfLink,
+    GetAllNTTContracts
 }

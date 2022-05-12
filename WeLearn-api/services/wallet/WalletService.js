@@ -1,5 +1,6 @@
-const axios = require('axios')
-const serviceTools = require('../../services/utils/ServiceTools')
+const axios = require('axios');
+const serviceTools = require('../../services/utils/ServiceTools');
+const formationModel = require('../../models/formations/FormationModel');
 
 const GetWalletInfo = async (wallet) => {
     if (!wallet) {
@@ -32,7 +33,8 @@ const GetCertificate = async (wallet) => {
     if (!wallet) {
         return serviceTools.makeResponse(false, 'Missing parameters to getCertificate', {})
     }
-    
+    const walletFormations = await formationModel.GGetFormationsByWallet(wallet);
+    console.log(walletFormations)
 }
 
 module.exports = {
