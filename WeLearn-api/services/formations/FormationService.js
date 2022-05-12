@@ -6,12 +6,11 @@ const axios = require('axios')
 var FormData = require('form-data');
 require('dotenv');
 
-const http = axios.create({ baseURL: "https://api.starton.io/v2", headers: {"x-api-key": process.env.starton_key}});
+const starton = axios.create({ baseURL: "https://api.starton.io/v2", headers: {"x-api-key": process.env.starton_key}});
 
 const CreateFormation = async (req) => {
     const wallet = req.body.wallet;
     const formation_name = req.body.formation_name;
-    const price = req.body.price;
     const question1 = req.body.question1;
     const question2 = req.body.question2;
     const answer1 = req.body.answer1;
@@ -21,49 +20,44 @@ const CreateFormation = async (req) => {
         return serviceTools.makeResponse(false, 'Missing parameters', {});
     }
 
-    let keyScRes = await http.post('/smart-contract/from-template', {
+    let keyScRes = await starton.post('/smart-contract/from-template', {
         "network": 'binance-testnet',
-        "name": formation_name + " - key",
         "templateId": 'sct_e851adefe4494fc991207b2c37ed8a83',
-        "signerWallet": "0x22D901E22203673903263E363062e6759E0632C8",
+        "name": formation_name + " - key",
+        "signerWallet": process.env.signer_wallet,
+        "speed": "low",
         "params": [
             formation_name + " - key",
             'LRNNFT',
             'ipfs://ipfs/',
-            'QmXV8vyGmrQGMxZvMeafr28We8JT2gGTiatHKiMVd8uTT8',
-            '0x22D901E22203673903263E363062e6759E0632C8'
+            'QmeUVQn7NTiQXkGvvVEFkhgEBhDVvyhcXWsgaiBzKhAfC7',
+            process.env.signer_wallet
         ],
-        "speed": "low",
     }).catch(err => {
         return serviceTools.makeResponse(false, 'Unknow error key sc creation', {});
     });
 
-    let certifScRes = await http.post('/smart-contract/from-template', {
+    let certifScRes = await starton.post('/smart-contract/from-template', {
         "network": 'binance-testnet',
         "name": formation_name + " - certificate",
         "templateId": 'sct_e851adefe4494fc991207b2c37ed8a83',
-        "signerWallet": "0x22D901E22203673903263E363062e6759E0632C8",
+        "signerWallet": process.env.signer_wallet,
+        "speed": "low",
         "params": [
             formation_name + " - certificate",
             'LRNNFT',
             'ipfs://ipfs/',
-            'QmXV8vyGmrQGMxZvMeafr28We8JT2gGTiatHKiMVd8uTT8',
-            '0x22D901E22203673903263E363062e6759E0632C8'
+            'QmeUVQn7NTiQXkGvvVEFkhgEBhDVvyhcXWsgaiBzKhAfC7',
+            process.env.signer_wallet
         ],
-        "speed": "low",
     }).catch(err => {
         return serviceTools.makeResponse(false, 'Unknow error certif sc creation', {});
     });
 
-    console.log("création image NFT")
-    let cid_nft = await nftjs.createImageNFT(formation_name, true);
-    console.log(cid_nft)
-    console.log("création image NTT")
-    let cid_ntt = await nftjs.createImageNFT(formation_name, false);
-    console.log(cid_ntt)
-
-    req.body.cid_nft = cid_nft;
-    req.body.cid_ntt = cid_ntt;
+    // let cid_nft = await nftjs.createImageNFT(formation_name, true);
+    // let cid_ntt = await nftjs.createImageNFT(formation_name, false);
+    req.body.cid_nft = "";
+    req.body.cid_ntt = "";
 
     const formationDTI = await DTService.makeFormationDTI(req.body);
     
@@ -82,7 +76,8 @@ async function UploadPdf(buffer, name) {
     let data = new FormData();
     data.append("file", buffer, name);
     data.append("isSync", "true");
-    const ipfsImg = await http.post("/pinning/content/file", data, {
+
+    const ipfsImg = await starton.post("/pinning/content/file", data, {
         maxBodyLength: "Infinity",
         headers: { "Content-Type": `multipart/form-data; boundary=${data._boundary}` },
     });
@@ -90,9 +85,11 @@ async function UploadPdf(buffer, name) {
   }
 
 const UploadFormation = async (data) => {
+
     if (!data ||!data.buffer ||!data.id) {
         return serviceTools.makeResponse(false, 'Missing parameters', {});
     }
+
     const pdf_link = await UploadPdf(data.buffer, data.id);
     const res = await formationModel.UpdateFormationPdfLink(data.id, pdf_link);
     if (!res) {
@@ -111,14 +108,13 @@ const GetFormations = async () => {
 
 const hasNFTFormation = async (wallet, contract_formation) => {
     try {
-        const nft = await http.post(`/smart-contract/binance-testnet/${contract_formation}/read`, {
+        const nft = await starton.post(`/smart-contract/binance-testnet/${contract_formation}/read`, {
             functionName: "balanceOf",
             params: [wallet]
         });
         if (nft.data.response.raw != 0)
             return true;
     } catch (err) {
-        console.log(err);
         return false;
     }
     return false;
@@ -142,23 +138,26 @@ const GetFormationById = async (formationId, wallet) => {
 }
 
 const BuyFormation = async (formationId, wallet) => {
+
     if (!formationId || !wallet)
         return serviceTools.makeResponse(false, 'Missing parameters', {});
   
     let formation = await formationModel.GetFormationById(formationId);
     if (!formation)
         return serviceTools.makeResponse(false, 'Formation not found', {});
-    const mint = await http.post(`/smart-contract/binance-testnet/${formation.nft_contract}/call`, {
+
+    const mint = await starton.post(`/smart-contract/binance-testnet/${formation.nft_contract}/call`, {
         functionName: "safeMint",
-        signerWallet: "0x22D901E22203673903263E363062e6759E0632C8",
+        signerWallet: process.env.signer_wallet,
         speed: "low",
         params: [
             wallet,
-            "METADATAURI" //formation.cid_nft // need to update this
+            "METADATAURI"
         ],
     }).catch(err => {
         console.log(err);
     });
+
     if (!mint)
         return serviceTools.makeResponse(false, 'Error sending transaction', {});
     return serviceTools.makeResponse(true, '', {});
@@ -167,9 +166,10 @@ const BuyFormation = async (formationId, wallet) => {
 const Secret = async (destination_wallet, lrn_amount) => {
     if (!destination_wallet)
         return res.status(400).send(serviceTools.makeResponse(false, 'destination_wallet is required', {}));
-    const res = await http.post(`/smart-contract/binance-testnet/${process.env.learn_adress}/call`, {
+
+    const res = await starton.post(`/smart-contract/binance-testnet/${process.env.learn_adress}/call`, {
         "functionName": 'transfer',
-        "signerWallet": "0x22D901E22203673903263E363062e6759E0632C8",
+        "signerWallet": process.env.signer_wallet,
         "speed": "low",
         "params": [
             destination_wallet,

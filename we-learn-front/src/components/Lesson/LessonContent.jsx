@@ -18,7 +18,7 @@ async function connect() {
 function makeTransaction(wallet_creator, price, form_id, buyer_wallet) {
   if (wallet_creator === undefined)
     return;
-  var contractAddress = "0xf292c0b21F4a583fAD962EDeF15DBE76F3606c1A";
+  var contractAddress = "0x4Ac7dC42eD6A3e4D9b453FA9e303b010B4bb154c";
   var targetAddress = wallet_creator;
   var contractAbiFragment = [
     {
