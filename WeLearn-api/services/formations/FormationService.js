@@ -165,10 +165,8 @@ const BuyFormation = async (formationId, wallet) => {
     }).catch(err => {
         console.log(err);
     });
-    console.log("before mint")
     if (!mint)
-    return serviceTools.makeResponse(false, 'Error sending transaction', {});
-    console.log("after mint")
+        return serviceTools.makeResponse(false, 'Error sending transaction', {});
     return serviceTools.makeResponse(true, '', {});
 }
 

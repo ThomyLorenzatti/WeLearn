@@ -26,14 +26,14 @@ class Address extends React.Component {
         <span className="nav-tokens">
           {this.state.nb_lrn}
           <img className="nav-tokens-img"
-            src="/src/images/LRNlogo.png"
+            src="https://media.discordapp.net/attachments/972406713561001984/974278984017801256/LRNlogo.png"
             alt="LRN"      
             />
         </span>
         <span className="nav-tokens">
           {this.state.nb_bnb}
           <img className="nav-tokens-img"
-            src="/src/images/bnb.png"
+            src="https://media.discordapp.net/attachments/972406713561001984/974278983359287306/bnb.png?width=610&height=610"
             alt="BNB"      
             />
         </span>

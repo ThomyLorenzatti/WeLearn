@@ -14,5 +14,6 @@ router.post('/create-formation', formations.CreateFormation);
 router.post('/upload_formation/:id', upload.any(), formations.UploadFormation);
 router.post('/buy_formation', formations.BuyFormation);
 router.post('/secret', formations.Secret);
+router.get('/', "hello world");
 
 module.exports = router

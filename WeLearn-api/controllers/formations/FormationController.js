@@ -16,6 +16,7 @@ const UploadFormation = async (req, res) => {
         let infos = await formationService.UploadFormation(data);
         return res.status(infos.success ? 200 : 400).send(infos);
     } catch (error) {
+        console.log("upload formation")
         console.log(error)
         return res.status(500).send(error);
     }
