@@ -39,7 +39,7 @@ export default class FormQuiz extends React.Component {
         url: API + "/formations/" + tab[tab.length - 1]+ '/' + wallet,
         headers: {},
       }).then((res) => {
-        this.setState({ lessonInfos: res.data.data[0] })
+        this.setState({ lessonInfos: res.data.data })
         console.log(this.state.lessonInfos);
         this.setState({ loading: false })
       });

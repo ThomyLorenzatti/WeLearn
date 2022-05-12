@@ -79,11 +79,6 @@ function Navbar() {
                 }}>Whitepaper</button>
             <ul className={click ? 'nav-menu active' : 'nav-menu'}>
               <li className="nav-item">
-                <Link to='/contact' className='nav-links'>
-                  Contact Us
-                </Link>
-              </li>
-              <li className="nav-item">
                 <Link to='/create-formation' className='nav-links'>
                   Create formation
                 </Link>
@@ -96,6 +91,11 @@ function Navbar() {
               <li className="nav-item">
                 <Link to='/check-certificates' className='nav-links'>
                   Check Certificates
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to='/my-certificates' className='nav-links'>
+                  My Certificate
                 </Link>
               </li>
                 <Address userAddress={userAddress}/>
@@ -128,15 +128,15 @@ function Navbar() {
             </button>
             
             <ul className={click ? 'nav-menu active' : 'nav-menu'}>
-              <li className="">
-                <Link to='/contact' className='nav-links'>
-                  Contact Us
-                </Link>
-              </li>
 
               <li className="nav-item">
                 <Link to='/check-certificates' className='nav-links'>
                   Check Certificates
+                </Link>
+              </li>
+              <li className="">
+                <Link to='/my-certificates' className='nav-links'>
+                  My Certificate
                 </Link>
               </li>
               <li className="nav-links">

@@ -1,6 +1,7 @@
 const axios = require('axios');
 const serviceTools = require('../../services/utils/ServiceTools');
-const formationModel = require('../../models/formations/FormationModel');
+const formationModel = require('../../models/formations/FormationModel.js');
+const formationService = require('../formations/FormationService.js');
 
 const GetWalletInfo = async (wallet) => {
     if (!wallet) {
@@ -33,10 +34,41 @@ const GetCertificate = async (wallet) => {
     if (!wallet) {
         return serviceTools.makeResponse(false, 'Missing parameters to getCertificate', {})
     }
-    const walletFormations = await formationModel.GGetFormationsByWallet(wallet);
+    const infos = await formationModel.GetFormationsCertificates(wallet);
+    const certificates = [];
+
+    for (let i = 0; i < infos.length; i++) {
+        if (formationService.hasNFTFormation(wallet, infos[i].ntt_contract)) {
+            certificates.push({ntt_contract: infos[i].ntt_contract, id: infos[i].id});
+        }
+    }
+    return serviceTools.makeResponse(true, '', certificates);
+}
+
+const GetMyCertificate = async (wallet) => {
+    if (!wallet) {
+        return serviceTools.makeResponse(false, 'Missing parameters to getCertificate', {})
+    }
+    const infos = await formationModel.GetFormationsCertificates(wallet);
+    const keys = [];
+    const certificates = [];
+
+    if (!infos || infos.length == 0) {
+        return serviceTools.makeResponse(false, 'No certificates found', {})
+    }
+
+    for (let i = 0; i < infos.length; i++) {
+        if (formationService.hasNFTFormation(wallet, infos[i].nft_contract)) {
+            keys.push({nft_contract: infos[i].nft_contract, id: infos[i].id});
+        } else if (formationService.hasNFTFormation(wallet, infos[i].ntt_contract)) {
+            certificates.push({ntt_contract: infos[i].ntt_contract, id: infos[i].id});
+        }
+    }
+    return serviceTools.makeResponse(true, '', {certificates: certificates, keys: keys});
 }
 
 module.exports = {
     GetWalletInfo,
-    GetCertificate
+    GetCertificate,
+    GetMyCertificate
 }
