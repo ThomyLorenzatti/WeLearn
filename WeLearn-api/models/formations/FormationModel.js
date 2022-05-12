@@ -53,7 +53,7 @@ const GetFormationsCertificates = async () => {
     }
     const addr = [];
     for (let i = 0; i < infos.length; i++) {
-        addr.push({nft_contract: infos[i].nft_contract, ntt_contract: infos[i].ntt_contract});
+        addr.push({nft_contract: infos[i].nft_contract, ntt_contract: infos[i].ntt_contract, id: infos[i].id});
     }
     return (addr);
 }

@@ -39,7 +39,7 @@ const GetCertificate = async (wallet) => {
 
     for (let i = 0; i < infos.length; i++) {
         if (formationService.hasNFTFormation(wallet, infos[i].ntt_contract)) {
-            certificates.push(infos[i].ntt_contract);
+            certificates.push({ntt_contract: infos[i].ntt_contract, id: infos[i].id});
         }
     }
     return serviceTools.makeResponse(true, '', certificates);
@@ -55,9 +55,9 @@ const GetMyCertificate = async (wallet) => {
 
     for (let i = 0; i < infos.length; i++) {
         if (formationService.hasNFTFormation(wallet, infos[i].nft_contract)) {
-            keys.push(infos[i].nft_contract);
+            keys.push({nft_contract: infos[i].nft_contract, id: infos[i].id});
         } else if (formationService.hasNFTFormation(wallet, infos[i].ntt_contract)) {
-            certificates.push(infos[i].ntt_contract);
+            certificates.push({ntt_contract: infos[i].ntt_contract, id: infos[i].id});
         }
     }
     return serviceTools.makeResponse(true, '', {certificates: certificates, keys: keys});
