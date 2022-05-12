@@ -152,7 +152,7 @@ const BuyFormation = async (formationId, wallet) => {
         speed: "low",
         params: [
             wallet,
-            "METADATAURI"
+            "QmeUVQn7NTiQXkGvvVEFkhgEBhDVvyhcXWsgaiBzKhAfC7"
         ],
     }).catch(err => {
         console.log(err);
