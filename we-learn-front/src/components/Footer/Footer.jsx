@@ -32,7 +32,12 @@ export default class Footer extends React.Component {
             </div>
             <div class="col-lg-4 center-div">
               <h3>Our Networks</h3>
-              <img class="img-thumbnail" src="https://seeklogo.com/images/D/discord-logo-134E148657-seeklogo.com.png" alt="" />
+              <a href="https://discord.gg/2bp8r6YDac">
+                <img class="img-thumbnail" src="https://seeklogo.com/images/D/discord-logo-134E148657-seeklogo.com.png" alt=""/>
+              </a>
+              <a href="https://twitter.com/welearn_me">
+              <img class="img-thumbnail" src="https://cdn.discordapp.com/attachments/972406713561001984/974445883242446939/Twitter_Bird.svg.png" alt=""/>
+              </a>
             </div>
             
           </div>
