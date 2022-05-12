@@ -2,7 +2,9 @@ footer {
   background: #090d14;
   color: #aaa;
   padding-top: 10px;
-  right: 0px
+  bottom: 0;
+  width: 100%;
+  position: relative;
 }
 
 footer a {
