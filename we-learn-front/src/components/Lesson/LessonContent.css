@@ -73,6 +73,8 @@
   overflow: hidden;
   transition: .5s;
   margin-top: 40px;
+  margin-right: 50px;
+  margin-bottom: 10px;
   letter-spacing: 4px
 }
 
@@ -165,3 +167,13 @@
     bottom: 100%;
   }
 } 
+
+.PdfCenter {
+  display: flex;
+  justify-content: center;
+}
+
+.pager {
+  display: flex;
+  justify-content: center;
+}
