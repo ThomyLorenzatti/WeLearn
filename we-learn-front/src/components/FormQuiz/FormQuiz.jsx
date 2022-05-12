@@ -3,6 +3,7 @@ import './FormQuiz.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useParams } from "react-router-dom";
+import Loading from '../Loading/Loading.jsx';
 
 const API = import.meta.env.VITE_REACT_URL
 
@@ -21,7 +22,9 @@ export default class FormQuiz extends React.Component {
       lessonInfos: [],
       response1: "",
       response2: "",
-      disable: true
+      disable: true,
+
+      loading: true,
     };
   }
   
@@ -29,20 +32,18 @@ export default class FormQuiz extends React.Component {
     var tab = window.location.href.split('/');
     var wallet = "";
 
-      connect().then((r) => {
-        wallet = r;
-        axios({
-          method: 'post',
-          url: API + '/get_formation',
-          headers: {}, 
-          data: {
-            wallet: wallet,
-            formation_id: tab[tab.length - 1],
-          }
-        }).then((res) => {
-          this.setState({ lessonInfos: res.data })
-        });
+    connect().then((r) => {
+      wallet = r;
+      axios({
+        method: 'get',
+        url: API + "/formations/" + tab[tab.length - 1]+ '/' + wallet,
+        headers: {},
+      }).then((res) => {
+        this.setState({ lessonInfos: res.data.data })
+        console.log(this.state.lessonInfos);
+        this.setState({ loading: false })
       });
+    });
   }
 
   handleChangeResponse1 = (e) => {
@@ -62,11 +63,14 @@ export default class FormQuiz extends React.Component {
     var wallet = "";
     var tab = window.location.href.split('/');
 
+    if (this.state.response1 != this.state.lessonInfos.answer1 &&
+    this.state.response2 != this.state.lessonInfos.answer2)
+        return;
     connect().then((r) => {
       wallet = r;
       axios({
         method: 'post',
-        url: API + '/finish_formation',
+        url: API + '/submit_quiz',
         headers: {}, 
         data: {
           buyer_wallet: wallet,
@@ -77,6 +81,11 @@ export default class FormQuiz extends React.Component {
   }
 
   render() {
+    if (this.state.loading) {
+      return(
+        <Loading/>
+      )
+    }
     return (
       <div class="login-box">
       <h2>Final Quiz</h2>
@@ -89,13 +98,15 @@ export default class FormQuiz extends React.Component {
           <input type="text" name="" required="" value={this.state.response2} onChange={this.handleChangeResponse2}/>
           <label>{this.state.lessonInfos.question2}</label>
         </div>
-          <button className="btn" onClick={this.sendAnwser} disabled={this.state.disable}>
+          <div className='centerBtn'>
+          <div className="btn" onClick={this.sendAnwser}>
             <span></span>
             <span></span>
             <span></span>
             <span></span>
               Submit
-          </button>
+          </div>
+          </div>
       </form>
       </div>
     );

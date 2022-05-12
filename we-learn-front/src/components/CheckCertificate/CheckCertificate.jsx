@@ -2,6 +2,7 @@ import React from 'react';
 import './CheckCertificate.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
 const API = import.meta.env.VITE_REACT_URL
 
@@ -17,54 +18,90 @@ export default class CheckCertificate extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      addressToVerify: "",
       allCertificates: [],
+      address: "",
     };
-  }
-  
-  async componentDidMount() {
   }
 
   handleChangeAddress = (e) => {
-    this.setState({ addressToVerify: e.target.value });
+    this.setState({ address: e.target.value });
   };
 
-  sendAddress = () => {
-    var wallet = "";
-
-    connect().then((r) => {
-      wallet = r;
-      axios({
-        method: 'post',
-        url: API + '/check-certificates',
-        headers: {}, 
-        data: {
-          addressToVerify: this.state.addressToVerify,
-        }
-      }).then((res) => {
-        this.setState({ allCertificates: res.data })
-      });
+  sendAnwser = () => {
+    axios({
+      method: 'get',
+      url: API + '/get_certificate/' + this.state.address,
+      headers: {},
+    }).then((res) => {
+      this.setState({ allCertificates: res.data.data })
+      console.log(this.state.allCertificates)
     });
   }
 
-  render() {
-    return (
-      <div class="login-box">
-      <h2>Verify User Certificates</h2>
-      <form>
-        <div class="user-box">
-          <input type="text" name="" required="" value={this.state.addressToVerify} onChange={this.handleChangeAddress}/>
-          <label>User Address</label>
+  drawMap(map) {
+    if (map.length == 0)
+      return (
+        <div>
+          <span className='not_found'>No Items Found</span>
         </div>
-          <button className="btn" onClick={this.sendAddress} disabled="true">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-              Verify
-          </button>
-      </form>
-      </div>
-    );
+      )
+    else {
+      return (
+        <div>
+          {this.state.allCertificates.map(item => {
+            return (
+              <div className="col-sm-8 cards-div">
+                <div className="blog-card blog-card-blog">
+                  <div className="blog-card-image">
+                    <a href="#" className="img-a"> <img className="img" src="https://static.vecteezy.com/system/resources/thumbnails/001/782/780/small/light-purple-pink-gradient-blur-backdrop-vector.jpg"></img> </a>
+                    <div className="ripple-cont"></div>
+                  </div>
+                  <div className="blog-table">
+                    {/* <h6 className="blog-category blog-text-success"><i className="fas fa-blog"></i>{item.price}</h6> */}
+                    <h4 className="blog-card-caption">
+                      <Link to={'/lesson/' + item.id} className="title-formation">
+                        {item.name}
+                      </Link>
+                    </h4>
+                    <p className="blog-card-description"></p>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )
+    }
   }
+
+  render() {
+    if (this.state.allCertificates.length == 0) {
+      return (
+        <div class="login-box">
+          <h2>Check Certificate</h2>
+          <form>
+            <div class="user-box">
+              <input type="text" value={this.state.address} onChange={this.handleChangeAddress} />
+              <label>Address</label>
+            </div>
+            <div className='centerBtn'>
+              <div class="btn" onClick={this.sendAnwser}>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                Submit
+              </div>
+            </div>
+          </form>
+        </div>
+      );
+    } else {
+      return (
+        <div class="col-sm-8 cards-div">
+          {this.drawMap(this.state.allCertificates)}
+        </div>
+      )
+    }
   }
+}

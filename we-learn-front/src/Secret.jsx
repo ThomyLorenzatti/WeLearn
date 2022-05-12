@@ -4,7 +4,7 @@ import Secret from './components/Secret/Secret.jsx';
 
 function SecretPage() {
   return (
-    <div>
+    <div class="form-div">
       <Secret />
     </div>
   );

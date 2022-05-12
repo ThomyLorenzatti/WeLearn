@@ -5,14 +5,14 @@ html {
   margin:0;
   padding:0;
   font-family: sans-serif;
-  background: linear-gradient(#141e30, #243b55);
+  /* background: linear-gradient(#141e30, #243b55); */
 }
 
 .login-box {
-  position: absolute;
+  position: relative;
   top: 50%;
   left: 50%;
-  width: 400px;
+  width: 90vw;
   padding: 40px;
   transform: translate(-50%, -50%);
   background: rgba(0,0,0,.5);
@@ -60,6 +60,11 @@ html {
   left: 0;
   color: #03e9f4;
   font-size: 12px;
+}
+
+.centerBtn {
+  display: flex;
+  justify-content: center;
 }
 
 .login-box form .btn {

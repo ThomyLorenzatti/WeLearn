@@ -4,7 +4,7 @@ import FormQuiz from './components/FormQuiz/FormQuiz.jsx';
 
 function QuizEnd() {
   return (
-    <div>
+    <div class="form-div">
       <FormQuiz />
     </div>
   );

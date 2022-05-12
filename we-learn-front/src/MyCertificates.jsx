@@ -2,14 +2,14 @@ import './App.css';
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar.jsx';
-import CheckCertificate from './components/CheckCertificate/CheckCertificate.jsx';
+import MyCertificate from './components/MyCertificate/MyCertificate.jsx';
 
-function FormPage() {
+function MyCertificatePage() {
   return (
     <div class="form-div">
-      <CheckCertificate />
+      <MyCertificate />
     </div>
   );
 }
 
-export default FormPage;
+export default MyCertificatePage;

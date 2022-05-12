@@ -16,7 +16,7 @@ export default class Formations extends React.Component {
   async componentDidMount() {
     await axios.get(API + '/formations').then(res => {
        console.log(res);
-       this.setState({ all: res.data })
+       this.setState({ all: res.data.data })
     })
 }
   render() {
@@ -33,18 +33,18 @@ export default class Formations extends React.Component {
                 <div class="blog-table">
                     {/* <h6 class="blog-category blog-text-success"><i class="fas fa-blog"></i>{item.price}</h6> */}
                     <h4 class="blog-card-caption">
-                    <Link to={'/lesson/' + item.id} className="navbar-logo">
+                    <Link to={'/lesson/' + item.id} className="title-formation">
                         {item.name}
                     </Link>
                     </h4>
                     <p class="blog-card-description"></p>
                     <div class="ftr">
+                        <span class="rate"><i>★</i><i>★</i><i>★</i><i>★</i><i>★</i></span>
                         <div class="author">
-                            <img src="https://www.clevelanddentalhc.com/wp-content/uploads/2018/03/sample-avatar.jpg" alt="..." class="avatar img-raised"></img>
-                            <span>Lorem</span>
-                            <span class="card-price">{item.price} LRN</span>
+                            <span class="card-price">{item.price}</span>
+                            <img src="https://cdn.discordapp.com/attachments/972406713561001984/974278984017801256/LRNlogo.png" alt="..." class="avatar img-raised"></img>
                         </div>
-                        </div>
+                    </div>
                     </div>
                 </div>
             </div>);

@@ -36,14 +36,6 @@ async function checkIfWalletIsConnected(onConnected) {
   }
 }
 
-function Connect({ setUserAddress }) {
-  return (
-    <button class="button-metamask" onClick={() => connect(setUserAddress)}>
-      Connect to MetaMask
-    </button>
-  );
-}
-
 function Navbar() {
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
@@ -101,6 +93,11 @@ function Navbar() {
                   Check Certificates
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link to='/my-certificates' className='nav-links'>
+                  My Certificate
+                </Link>
+              </li>
                 <Address userAddress={userAddress}/>
             </ul>
           </div>
@@ -111,10 +108,12 @@ function Navbar() {
     <IconContext.Provider value={{ color: '#fff'}}>
         <div className="navbar">
           <div className="navbar-container container">
+
             <Link to='/' className="navbar-logo" onClick={closeMobileMenu}>
                 <span className="navbar-logotext1">We</span>
                 <span className="navbar-logotext2">Learn</span>
             </Link>
+
             <div className="menu-icon" onClick={handleClick}>
               {click ? <FaTimes /> : <FaBars />}
             </div>
@@ -125,11 +124,19 @@ function Navbar() {
               onClick={(e) => {
                 e.preventDefault();
                 window.location.href='https://welearn-1.gitbook.io/welearnouhouh/';
-                }}>Whitepaper</button>
+                }}>Whitepaper
+            </button>
+            
             <ul className={click ? 'nav-menu active' : 'nav-menu'}>
+
               <li className="nav-item">
                 <Link to='/check-certificates' className='nav-links'>
                   Check Certificates
+                </Link>
+              </li>
+              <li className="">
+                <Link to='/my-certificates' className='nav-links'>
+                  My Certificate
                 </Link>
               </li>
               <li className="nav-links">
