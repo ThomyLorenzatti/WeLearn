@@ -1,4 +1,3 @@
-const knex = require('knex');
 var mysql = require('mysql2');
 const serviceTools = require('../../services/utils/ServiceTools');
 
@@ -47,9 +46,18 @@ const GetFormationById = async (formationId) => {
     return (infos[0]);
 }
 
+const GetFormationsCertificates = async () => {
+    const infos = await query('select nft_contract ntt_contract from formation');
+    if (!infos) {
+        return ({});
+    }
+    return (infos);
+}
+
 module.exports = {
     CreateFormation,
     GetFormations,
     GetFormationById,
-    UpdateFormationPdfLink
+    UpdateFormationPdfLink,
+    GetFormationsCertificates
 }
