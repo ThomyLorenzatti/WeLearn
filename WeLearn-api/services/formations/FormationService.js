@@ -55,30 +55,24 @@ const CreateFormation = async (req) => {
         return serviceTools.makeResponse(false, 'Unknow error certif sc creation', {});
     });
 
+    console.log("création image NFT")
     let cid_nft = await nftjs.createImageNFT(formation_name, true);
+    console.log(cid_nft)
+    console.log("création image NTT")
     let cid_ntt = await nftjs.createImageNFT(formation_name, false);
-    console.log("after create nfts");
+    console.log(cid_ntt)
 
     req.body.cid_nft = cid_nft;
     req.body.cid_ntt = cid_ntt;
 
-    console.log("start makeFormationDTI")
     const formationDTI = await DTService.makeFormationDTI(req.body);
-    console.log("after makeFormationDTI")
-
     
-    console.log("data -> ")
     formationDTI.nft_contract = keyScRes.data.smartContract.address;
-    console.log(keyScRes.data.smartContract.address)
-    console.log("after formationDTI.nft_contract")
     formationDTI.ntt_contract = certifScRes.data.smartContract.address;
-    console.log("after formationDTI.ntt_contract")
 
     let data = await formationModel.CreateFormation(formationDTI);
-    console.log("after formation model")
 
     if (!data) {
-        console.log("in data return")
         return serviceTools.makeResponse(false, 'Error creating formations', {});
     }
     return serviceTools.makeResponse(true, '', data);
@@ -92,7 +86,7 @@ async function UploadPdf(buffer, name) {
         maxBodyLength: "Infinity",
         headers: { "Content-Type": `multipart/form-data; boundary=${data._boundary}` },
     });
-    return "https://ipfs.io/ipfs/" + ipfsImg.data;
+    return "https://ipfs.io/ipfs/" + ipfsImg.data.pinStatus.pin.cid;
   }
 
 const UploadFormation = async (data) => {

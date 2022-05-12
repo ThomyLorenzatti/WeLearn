@@ -2,19 +2,12 @@ var FormData = require('form-data');
 const sharp = require('sharp')
 const axios = require("axios");
 const fs = require('fs')
-
-
 const starton = axios.create({baseURL: "https://api.starton.io/v2", headers: {"x-api-key": "BCyavFNFISpxz6F2QYvFFkjOHAsg2w0X",},});
-
-// const SMART_CONTRACT_NETWORK = "binance-testnet";
-// const SMART_CONTRACT_ADDRESS = "0x7FA2dCA6bCE579eAA35217Ad5b2C883e029BD41E";
-// const WALLET_IMPORTED_ON_STARTON = "0x22D901E22203673903263E363062e6759E0632C8";
 
 const keyImage = async () => {
   await sharp (__dirname + '/black.png')
   .composite([{input: __dirname + '/key.png', left: 350, top: 350}])
   .toFile( __dirname +  '/result.jpg')
-  console.log("after sharp")
 }
 
 const checkImage = async () => {
@@ -140,8 +133,17 @@ async function uploadMetadataOnIpfs(imgCid) {
 }
 
 const createImageNFT = async (formationName, isKey) => {
-  let endName = " - key"
+  try {
+    console.log("Creating image " + isKey)
+    fs.unlinkSync(__dirname + '/result.jpg')
+    fs.unlinkSync(__dirname + '/result2.jpg')
+    fs.unlinkSync(__dirname + '/result3.jpg')
+    fs.unlinkSync(__dirname + '/result4.jpg')
+  } catch(err) {
+    console.log(err)
+  };
 
+  let endName = " - key"
   if (isKey) {
     await keyImage()
   } else {
@@ -163,7 +165,11 @@ const createImageNFT = async (formationName, isKey) => {
 
   const res = await Promise.resolve(promise).then(async function(buffer) {
     const ipfsImg = await uploadImageOnIpfs(buffer, formationName + endName)
+    console.log("ipfsimg upload res -> ")
+    console.log(ipfsImg)
     const ipfsMetadata = await uploadMetadataOnIpfs(ipfsImg.pinStatus.pin.cid)
+    console.log("ipfsMetadata upload res -> ")
+    console.log(ipfsMetadata)
     cid = ipfsImg.pinStatus.pin.cid
   }).catch((err) => {
     console.log(err)
