@@ -35,6 +35,21 @@ const GetCertificate = async (wallet) => {
         return serviceTools.makeResponse(false, 'Missing parameters to getCertificate', {})
     }
     const infos = await formationModel.GetFormationsCertificates(wallet);
+    const certificates = [];
+
+    for (let i = 0; i < infos.length; i++) {
+        if (formationService.hasNFTFormation(wallet, infos[i].ntt_contract)) {
+            certificates.push(infos[i].ntt_contract);
+        }
+    }
+    return serviceTools.makeResponse(true, '', certificates);
+}
+
+const GetMyCertificate = async (wallet) => {
+    if (!wallet) {
+        return serviceTools.makeResponse(false, 'Missing parameters to getCertificate', {})
+    }
+    const infos = await formationModel.GetFormationsCertificates(wallet);
     const keys = [];
     const certificates = [];
 
@@ -50,5 +65,6 @@ const GetCertificate = async (wallet) => {
 
 module.exports = {
     GetWalletInfo,
-    GetCertificate
+    GetCertificate,
+    GetMyCertificate
 }

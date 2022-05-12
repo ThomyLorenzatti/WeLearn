@@ -20,7 +20,18 @@ const GetCertificate = async (req, res) => {
     }
 }
 
+const GetMyCertificate = async (req, res) => {
+    try {
+        const wallet = req.params.wallet;
+        let infos = await walletService.GetMyCertificate(wallet);
+        return res.status(infos.success ? 200 : 400).send(infos);
+    } catch (error) {
+        return res.status(500).json(error);
+    }
+}
+
 module.exports = {
     GetWalletInfo,
-    GetCertificate
+    GetCertificate,
+    GetMyCertificate
 }

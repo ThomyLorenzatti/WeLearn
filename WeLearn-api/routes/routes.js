@@ -9,6 +9,7 @@ router.get('/formations', formations.GetFormations);
 router.get('/formations/:id/:wallet', formations.GetFormationById);
 router.get('/wallet_info', wallets.GetWalletInfo);
 router.get('/get_certificate/:wallet', wallets.GetCertificate);
+router.get('/get_my_certificate/:wallet', wallets.GetMyCertificate);
 
 router.post('/create-formation', formations.CreateFormation);
 router.post('/upload_formation/:id', upload.any(), formations.UploadFormation);
