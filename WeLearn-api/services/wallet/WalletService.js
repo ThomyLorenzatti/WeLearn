@@ -53,6 +53,10 @@ const GetMyCertificate = async (wallet) => {
     const keys = [];
     const certificates = [];
 
+    if (!infos || infos.length == 0) {
+        return serviceTools.makeResponse(false, 'No certificates found', {})
+    }
+
     for (let i = 0; i < infos.length; i++) {
         if (formationService.hasNFTFormation(wallet, infos[i].nft_contract)) {
             keys.push({nft_contract: infos[i].nft_contract, id: infos[i].id});

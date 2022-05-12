@@ -6,6 +6,7 @@ import ContactUS from './ContactUS'
 import Lesson from './Lesson'
 import Formation from './Formation'
 import CheckCertificates from './CheckCertificates'
+import MyCertificates from './MyCertificates'
 import SecretPage from './Secret'
 import QuizEnd from './QuizEnd'
 import Navbar from './components/Navbar/Navbar.jsx';
@@ -30,6 +31,7 @@ render(
         <Route path="/contact" element={<ContactUS />} />
         <Route path="/final-quiz/:id" element={<QuizEnd />} />
         <Route path="/check-certificates" element={<CheckCertificates />} />
+        <Route path="/my-certificates" element={<MyCertificates />} />
       </Routes>
       <Footer />
     </BrowserRouter>,
