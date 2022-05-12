@@ -34,7 +34,6 @@ const GetCertificate = async (wallet) => {
         return serviceTools.makeResponse(false, 'Missing parameters to getCertificate', {})
     }
     const walletFormations = await formationModel.GGetFormationsByWallet(wallet);
-    console.log(walletFormations)
 }
 
 module.exports = {
