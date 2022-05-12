@@ -6,7 +6,7 @@ import CheckCertificate from './components/CheckCertificate/CheckCertificate.jsx
 
 function FormPage() {
   return (
-    <div>
+    <div class="form-div">
       <CheckCertificate />
     </div>
   );

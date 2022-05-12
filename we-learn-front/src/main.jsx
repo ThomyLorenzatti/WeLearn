@@ -9,6 +9,7 @@ import CheckCertificates from './CheckCertificates'
 import SecretPage from './Secret'
 import QuizEnd from './QuizEnd'
 import Navbar from './components/Navbar/Navbar.jsx';
+import Footer from './components/Footer/Footer.jsx';
 import { render } from "react-dom";
 import {
   BrowserRouter,
@@ -30,6 +31,7 @@ render(
         <Route path="/final-quiz/:id" element={<QuizEnd />} />
         <Route path="/check-certificates" element={<CheckCertificates />} />
       </Routes>
+      <Footer />
     </BrowserRouter>,
     rootElement
 );

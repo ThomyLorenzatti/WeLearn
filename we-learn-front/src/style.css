@@ -19,7 +19,10 @@ html {
 
 body {
   font-family: "Roboto", Helvetica, Arial, sans-serif;
-  background: #000;
+  background: linear-gradient(to left, #090d14, #192738);
+  animation: body 1s ease infinite;
+  /* background: linear-gradient(#141e30, #243b55); */
+
   /* overflow: hidden; */
 }
 
@@ -340,4 +343,8 @@ body {
 .icon-link--twitter {
   left: auto;
   right: 5px;
+}
+
+.form-div {
+  height: 100vh;
 }

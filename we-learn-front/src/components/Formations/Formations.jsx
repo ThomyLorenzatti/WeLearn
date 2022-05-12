@@ -39,11 +39,12 @@ export default class Formations extends React.Component {
                     </h4>
                     <p class="blog-card-description"></p>
                     <div class="ftr">
+                        <span class="rate"><i>★</i><i>★</i><i>★</i><i>★</i><i>★</i></span>
                         <div class="author">
                             <span class="card-price">{item.price}</span>
                             <img src="/src/images/LRNlogo.png" alt="..." class="avatar img-raised"></img>
                         </div>
-                        </div>
+                    </div>
                     </div>
                 </div>
             </div>);

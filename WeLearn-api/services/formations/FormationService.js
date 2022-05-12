@@ -128,9 +128,9 @@ const GetFormationById = async (formationId, wallet) => {
 
     let res = await hasNFTFormation(wallet, formation.nft_contract);
     if (res == false) {
-        formation.bought = false
+        formation.bought = false;
     } else {
-        formation.bought = true
+        formation.bought = true;
     }
     return serviceTools.makeResponse(true, '', formation);
 }
@@ -138,23 +138,25 @@ const GetFormationById = async (formationId, wallet) => {
 const BuyFormation = async (formationId, wallet) => {
     if (!formationId || !wallet)
         return serviceTools.makeResponse(false, 'Missing parameters', {});
-
+  
     let formation = await formationModel.GetFormationById(formationId);
     if (!formation)
         return serviceTools.makeResponse(false, 'Formation not found', {});
-
-    await starton.post(`/smart-contract/binance-testnet/${formation.nft_contract}/call`, {
+    const mint = await http.post(`/smart-contract/binance-testnet/${formation.nft_contract}/call`, {
         functionName: "safeMint",
         signerWallet: "0x22D901E22203673903263E363062e6759E0632C8",
         speed: "low",
         params: [
             wallet,
-            formation.cid_nft
+            "METADATAURI" //formation.cid_nft // need to update this
         ],
+    }).catch(err => {
+        console.log(err);
     });
-
-    if (!res)
-        return serviceTools.makeResponse(false, 'Error sending transaction', {});
+    console.log("before mint")
+    if (!mint)
+    return serviceTools.makeResponse(false, 'Error sending transaction', {});
+    console.log("after mint")
     return serviceTools.makeResponse(true, '', {});
 }
 

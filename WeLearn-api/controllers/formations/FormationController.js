@@ -45,8 +45,8 @@ const BuyFormation = async (req, res) => {
     try {
         const formationId = req.body.formation_id;
         const wallet = req.body.buyer_wallet;
-        let res = await formationService.BuyFormation(formationId, wallet);
-        return res.status(res.success ? 200 : 400).send(res);
+        let ret = await formationService.BuyFormation(formationId, wallet);
+        return res.status(ret.success ? 200 : 400).send(ret);
     } catch (error) {
         return res.status(500).send(error);
     }
