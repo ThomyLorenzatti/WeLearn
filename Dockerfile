@@ -2,14 +2,14 @@ FROM node:alpine
 
 WORKDIR /we-learn-front/
 
-COPY we-learn-front/package.json ./
+# COPY we-learn-front/package.json ./
 COPY we-learn-front/ ./
 
 RUN npm i
 
 WORKDIR /WeLearn-api/
 
-COPY WeLearn-api/package.json ./
+# COPY WeLearn-api/package.json ./
 COPY WeLearn-api/ ./
 
 RUN npm i

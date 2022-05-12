@@ -1,6 +1,7 @@
 const formationModel = require('../../models/formations/FormationModel.js');
 const serviceTools = require('../../services/utils/ServiceTools');
 const DTService = require('../../services/utils/DTService');
+const nftCreator = require('../../nft/nft.js')
 const axios = require('axios')
 var FormData = require('form-data');
 require('dotenv');
@@ -53,6 +54,9 @@ const CreateFormation = async (req) => {
     }).catch(err => {
         return serviceTools.makeResponse(false, 'Unknow error certif sc creation', {});
     });
+
+    let cid_nft = nftCreator.createImageNFT(formation_name, true);
+    let cid_ntt = nftCreator.createImageNFT(formation_name, false);
 
     const formationDTI = DTService.makeFormationDTI(req.body);
     formationDTI.nft_contract = keyScRes.data.smartContract.address;
