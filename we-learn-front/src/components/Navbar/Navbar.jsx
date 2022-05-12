@@ -134,11 +134,6 @@ function Navbar() {
                   Check Certificates
                 </Link>
               </li>
-              <li className="">
-                <Link to='/my-certificates' className='nav-links'>
-                  My Certificate
-                </Link>
-              </li>
               <li className="nav-links">
                 <button class="button-metamask" onClick={() => connect(setUserAddress)}>
                   Connect to MetaMask
