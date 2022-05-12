@@ -262,12 +262,6 @@ async function hasNFTFormation(wallet, contract_formation) {
 //     res.send("Founds sent !")
 // });
 
-// app.get('/formations', async (req, res) => {
-//     knex('formation').select('*').then(function(datas) {
-//         res.send(datas)
-//     });
-// });
-
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
 });

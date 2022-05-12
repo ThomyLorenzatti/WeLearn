@@ -17,10 +17,8 @@ const CreateFormation = async () => {
 }
 
 const GetFormations = async () => {
-    console.log("?àigtpejhrgorehj")
     knex('formation').select('*').then(function(datas) {
-        console.log('data: ', datas)
-        return datas
+        console.log(datas)
     });
 }
 
