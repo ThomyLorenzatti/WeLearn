@@ -122,3 +122,18 @@ p {
 .title-formation {
   font-size: 1.2rem;
 }
+
+.categorie {
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  font-size: 50px;
+  width: 100vw;
+  color: aliceblue;
+}
+
+.not_found {
+  font-size: 30px;
+  width: 100vw;
+  color: azure;
+}
