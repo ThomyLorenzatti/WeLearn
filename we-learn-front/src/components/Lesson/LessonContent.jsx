@@ -146,6 +146,7 @@ export default class LessonContent extends React.Component {
     if (this.state.lessonInfos.bought == false) {
       console.log(this.state.lessonInfos)
       return (
+      <div class="col-sm-8 buying-page">
         <div class="article">
           <h1 class="article-title">You need to buy this formation to see it !</h1>
           <div class="buy-div">
@@ -156,6 +157,7 @@ export default class LessonContent extends React.Component {
             Buy Formation
           </button>
         </div>
+      </div>
       )
     } else {
       let pagination = null;

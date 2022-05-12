@@ -1,5 +1,6 @@
 .article {
   display: grid;
+  margin-top: 30px;
 }
 
 .article-img {
@@ -176,4 +177,8 @@
 .pager {
   display: flex;
   justify-content: center;
+}
+
+.buying-page {
+  min-height: 100vh;
 }
