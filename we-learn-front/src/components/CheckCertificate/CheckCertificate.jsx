@@ -20,6 +20,7 @@ export default class CheckCertificate extends React.Component {
     this.state = {
       allCertificates: [],
       address: "",
+      submitted: false
     };
   }
 
@@ -34,6 +35,7 @@ export default class CheckCertificate extends React.Component {
       headers: {},
     }).then((res) => {
       this.setState({ allCertificates: res.data.data })
+      this.setState({ submitted: true })
       console.log(this.state.allCertificates)
     });
   }
@@ -50,7 +52,7 @@ export default class CheckCertificate extends React.Component {
         <div>
           {this.state.allCertificates.map(item => {
             return (
-              <div className="col-sm-8 cards-div">
+              <div className="col-md-4 card-div">
                 <div className="blog-card blog-card-blog">
                   <div className="blog-card-image">
                     <a href="#" className="img-a"> <img className="img" src="https://static.vecteezy.com/system/resources/thumbnails/001/782/780/small/light-purple-pink-gradient-blur-backdrop-vector.jpg"></img> </a>
@@ -75,7 +77,7 @@ export default class CheckCertificate extends React.Component {
   }
 
   render() {
-    if (this.state.allCertificates.length == 0) {
+    if (this.state.submitted == false) {
       return (
         <div class="login-box">
           <h2>Check Certificate</h2>

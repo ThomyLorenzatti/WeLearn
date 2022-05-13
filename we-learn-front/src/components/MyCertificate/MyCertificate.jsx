@@ -2,6 +2,7 @@ import React from 'react';
 import './MyCertificate.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import Loading from '../Loading/Loading.jsx';
 
 const API = import.meta.env.VITE_REACT_URL
 
@@ -18,7 +19,8 @@ export default class MyCertificate extends React.Component {
     super();
     this.state = {
         certificates: [],
-        keys: []
+        keys: [],
+        loading: true
     };
   }
 
@@ -28,6 +30,7 @@ export default class MyCertificate extends React.Component {
        console.log(res);
        this.setState({ keys: res.data.data.keys })
        this.setState({ certificates: res.data.data.certificates })
+       this.setState({ loading: false })
     })
   }
 
@@ -43,7 +46,8 @@ export default class MyCertificate extends React.Component {
         <div>
           {this.state.keys.map(item => {
             return (
-              <div className="col-sm-8 cards-div">
+              
+              <div className="col-md-4 card-div">
                   <div className="blog-card blog-card-blog">
                   <div className="blog-card-image">
                       <a href="#" className="img-a"> <img className="img" src="https://static.vecteezy.com/system/resources/thumbnails/001/782/780/small/light-purple-pink-gradient-blur-backdrop-vector.jpg"></img> </a>
@@ -68,6 +72,11 @@ export default class MyCertificate extends React.Component {
   }
 
   render() {
+    if (this.state.loading) {
+      return(
+        <Loading/>
+      )
+    }
     return (
     <div class="col-sm-8 cards-div">
         <span className='categorie'>Keys</span>
