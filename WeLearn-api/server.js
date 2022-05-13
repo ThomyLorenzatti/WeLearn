@@ -10,13 +10,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/api', routes);
 
-
-
-https
-  .createServer({
-  key: fs.readFileSync('./sslcert/server.key'),
-  cert: fs.readFileSync('./sslcert/server.cert')
-  }, app)
-  .listen(4000, ()=>{
-    console.log('server is runing at port 4000')
-});
+app.listen(4000, () => {
+  console.log(`Example app listening on port`)
+})
