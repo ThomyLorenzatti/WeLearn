@@ -1,4 +1,4 @@
-# WeLearn
+# WeLearn Hackathon Starton
 
 ## Problème
 *Quel problème votre projet résout-il ? Comment s'inscrit-il dans le thème "Construire un avenir décentralisé" ?*
